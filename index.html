@@ -1,191 +1,1986 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>#shield { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#050505; z-index:999999; color:#0f4; flex-direction:column; align-items:center; justify-content:center; font-family:monospace; }</style>
-<script src="https://npmcdn.com/parse/dist/parse.min.js"></script><script>Parse.initialize("8JILnnGgTqZUmR4xHPXNKuEJ71IZ82Ln62dR8uWe", "uXLhE8z0synSV4pCFMSVlOMdj99shoizwNZWxulu"); Parse.serverURL = 'https://parseapi.back4app.com';</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Architect | math12393</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <style>
-        :root { --bg: #0d0e12; --card: #161b22; --accent: #238636; --text: #c9d1d9; --border: #30363d; --code: #000; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: 20px auto; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 40px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
-        h1 { color: #fff; font-size: 2rem; margin-bottom: 5px; }
-        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; background: #21262d; font-size: 12px; color: var(--accent); border: 1px solid var(--accent); margin-bottom: 25px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .full { grid-column: span 2; }
-        label { display: block; margin: 15px 0 5px; font-weight: 600; font-size: 14px; }
-        input, textarea, select { width: 100%; background: #0d1117; border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: #fff; font-size: 15px; box-sizing: border-box; font-family: inherit; }
-        input:focus, textarea:focus, select:focus { border-color: #58a6ff; outline: none; }
-        select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9d1d9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
-        .options-row { display: flex; align-items: center; gap: 15px; margin: 25px 0; background: #21262d; padding: 15px; border-radius: 8px; flex-wrap: wrap; }
-        #execBtn { background: var(--accent); color: #fff; border: none; padding: 18px; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; transition: 0.2s; }
-        #execBtn:hover { background: #2ea043; }
-        #execBtn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .terminal { background: var(--code); color: #00ff41; padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; margin-top: 25px; border: 1px solid #333; display: none; height: 150px; overflow-y: auto; }
-        .results-area { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; display: none; }
-        .file-box { background: #0d1117; padding: 15px; border-radius: 8px; border: 1px solid var(--border); position: relative; overflow-x: auto; }
-        .file-box.full { grid-column: span 2; }
-        pre { font-size: 13px; line-height: 1.5; color: #d1d5da; white-space: pre-wrap; margin: 10px 0 0; font-family: 'Courier New', Courier, monospace; }
-        .copy-btn { position: absolute; top: 10px; right: 10px; background: #30363d; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.2s; z-index: 5; }
-        .copy-btn:hover { background: #4b535d; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0e12">
+<meta name="description" content="Nexus Architect — agentic repository builder powered by Tom The AI Lite. Generate README, LICENSE, CI, docs and more.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Nexus Architect | math12393</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+:root{
+  --bg:#0d0e12; --card:#161b22; --card2:#0d1117; --input:#0d1117;
+  --accent:#238636; --accent2:#2ea043; --accent3:#3fb950;
+  --text:#c9d1d9; --muted:#8b949e; --border:#30363d;
+  --code:#000; --link:#58a6ff; --danger:#f85149; --warn:#d29922;
+  --shadow:0 8px 24px rgba(0,0,0,.5);
+  --radius:10px;
+}
+body.light{
+  --bg:#eef1f5; --card:#ffffff; --card2:#f6f8fa; --input:#ffffff;
+  --accent:#1f883d; --accent2:#1a7f37; --accent3:#1a7f37;
+  --text:#1f2328; --muted:#59636e; --border:#d1d9e0;
+  --code:#0d1117; --link:#0969da; --danger:#cf222e; --warn:#9a6700;
+  --shadow:0 8px 24px rgba(31,35,40,.12);
+}
+*{ -webkit-box-sizing:border-box; box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--text); font-size:15px; line-height:1.55;
+  padding:12px 12px 120px; -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .25s ease,color .25s ease;
+  overflow-x:hidden;
+}
+img{ max-width:100%; height:auto; }
+a{ color:var(--link); }
+button,input,select,textarea{ font-family:inherit; }
+
+.topbar{
+  max-width:1120px; margin:0 auto 12px; padding:0 2px;
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-flex-wrap:wrap; flex-wrap:wrap;
+  -webkit-align-items:center; align-items:center;
+  -webkit-justify-content:space-between; justify-content:space-between;
+}
+.brand{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-align-items:center; align-items:center; margin:4px 0;
+}
+.logo{
+  width:42px; height:42px; border-radius:11px; margin-right:11px;
+  background:-webkit-linear-gradient(135deg,#238636,#58a6ff);
+  background:linear-gradient(135deg,#238636,#58a6ff);
+  color:#fff; font-weight:800; font-size:19px; -webkit-flex:0 0 auto; flex:0 0 auto;
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-align-items:center; align-items:center;
+  -webkit-justify-content:center; justify-content:center;
+}
+.brand h1{ font-size:18px; margin:0; letter-spacing:-.4px; }
+.brand .sub{ font-size:10.5px; color:var(--muted); letter-spacing:.9px; text-transform:uppercase; }
+.topbar-actions{ display:-webkit-box; display:-webkit-flex; display:flex; -webkit-flex-wrap:wrap; flex-wrap:wrap; }
+.ghost-btn{
+  background:var(--card); color:var(--text); border:1px solid var(--border);
+  border-radius:8px; padding:9px 13px; font-size:13px; font-weight:600;
+  margin:4px 0 4px 8px; cursor:pointer; -webkit-appearance:none; appearance:none;
+  transition:border-color .18s,color .18s,background .18s;
+}
+.ghost-btn:hover{ border-color:var(--accent); color:var(--accent); }
+.ghost-btn:active{ -webkit-transform:scale(.97); transform:scale(.97); }
+
+.container{
+  max-width:1120px; margin:0 auto; background:var(--card);
+  border:1px solid var(--border); border-radius:var(--radius);
+  padding:22px; box-shadow:var(--shadow);
+}
+.status-badge{
+  display:inline-block; padding:5px 13px; border-radius:20px;
+  background:var(--card2); font-size:11.5px; color:var(--accent3);
+  border:1px solid var(--accent); margin:0 0 18px; line-height:1.6;
+  font-weight:600;
+}
+.url-preview{
+  background:var(--card2); border:1px dashed var(--border); border-radius:8px;
+  padding:10px 13px; font-size:12.5px; color:var(--muted); margin:0 0 16px;
+  word-break:break-all; line-height:1.7;
+}
+.url-preview b{ color:var(--text); font-weight:600; }
+.url-preview code{ color:var(--link); font-family:'Courier New',monospace; font-size:12px; }
+
+.form-grid{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-flex-wrap:wrap; flex-wrap:wrap; margin:0 -8px;
+}
+.field{ width:50%; padding:0 8px; }
+.field.full{ width:100%; }
+label{ display:block; margin:14px 0 6px; font-weight:600; font-size:13.5px; }
+label .hint{ font-weight:400; opacity:.55; font-size:11.5px; }
+input[type=text], textarea, select{
+  width:100%; background:var(--input); border:1px solid var(--border);
+  border-radius:7px; padding:12px; color:var(--text); font-size:15px;
+  -webkit-appearance:none; appearance:none; border-radius:7px;
+}
+textarea{ resize:vertical; min-height:74px; line-height:1.5; }
+input:focus, textarea:focus, select:focus{ border-color:var(--link); outline:none; }
+select{
+  cursor:pointer; padding-right:34px;
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat:no-repeat; background-position:right 10px center; background-size:15px;
+}
+.counter{ text-align:right; font-size:11.5px; color:var(--muted); margin-top:4px; }
+
+.chips{ margin-top:10px; }
+.chip{
+  display:inline-block; background:var(--card2); border:1px solid var(--border);
+  color:var(--muted); border-radius:16px; padding:5px 12px; font-size:12px;
+  margin:0 6px 6px 0; cursor:pointer; font-weight:600;
+  -webkit-appearance:none; appearance:none; transition:.15s;
+}
+.chip:hover{ border-color:var(--accent); color:var(--accent); }
+.chip.on{ border-color:var(--accent); color:#fff; background:var(--accent); }
+
+.section-title{
+  margin:26px 0 4px; font-size:12px; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--muted); font-weight:700;
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-align-items:center; align-items:center;
+}
+.section-title:after{
+  content:''; -webkit-flex:1; flex:1; height:1px; background:var(--border); margin-left:12px;
+}
+.section-title .mini{
+  margin-left:10px; font-size:11px; letter-spacing:0; text-transform:none;
+  background:var(--card2); border:1px solid var(--border); color:var(--muted);
+  border-radius:12px; padding:2px 9px; cursor:pointer; font-weight:600;
+}
+.section-title .mini:hover{ color:var(--accent); border-color:var(--accent); }
+
+.artifact-grid{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-flex-wrap:wrap; flex-wrap:wrap; margin:6px -6px 0;
+}
+.artifact{
+  width:33.3333%; padding:0 6px; margin:6px 0;
+}
+.artifact label{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-align-items:flex-start; align-items:flex-start;
+  background:var(--card2); border:1px solid var(--border); border-radius:8px;
+  padding:9px 11px; margin:0; cursor:pointer; font-size:12.5px; font-weight:500;
+  transition:.15s; min-height:46px;
+}
+.artifact label:hover{ border-color:var(--accent); }
+.artifact input[type=checkbox]{
+  width:16px; height:16px; margin:2px 9px 0 0; -webkit-flex:0 0 auto; flex:0 0 auto;
+  -webkit-appearance:checkbox; appearance:checkbox;
+}
+.artifact .fname{ word-break:break-all; line-height:1.4; }
+.artifact .flock{ color:var(--muted); font-size:10px; display:block; }
+.artifact input:checked + .fname{ color:var(--accent3); font-weight:600; }
+
+.options-row{
+  background:var(--card2); border:1px solid var(--border); border-radius:9px;
+  padding:12px 14px; margin:20px 0 16px;
+}
+.opt{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-align-items:center; align-items:center; margin:8px 0; font-size:13.5px;
+  cursor:pointer;
+}
+.opt input[type=checkbox]{
+  width:18px; height:18px; margin:0 10px 0 0; -webkit-flex:0 0 auto; flex:0 0 auto;
+  -webkit-appearance:checkbox; appearance:checkbox;
+}
+.opt .txt{ line-height:1.35; }
+.opt .txt small{ display:block; color:var(--muted); font-size:11.5px; font-weight:400; }
+
+#execBtn{
+  background:var(--accent); color:#fff; border:none; padding:17px;
+  border-radius:8px; cursor:pointer; font-size:16px; font-weight:700;
+  width:100%; -webkit-appearance:none; appearance:none; transition:.2s;
+  letter-spacing:.3px;
+}
+#execBtn:hover{ background:var(--accent2); }
+#execBtn:active{ -webkit-transform:scale(.99); transform:scale(.99); }
+#execBtn:disabled{ opacity:.5; cursor:not-allowed; }
+.btn-row{ display:-webkit-box; display:-webkit-flex; display:flex; -webkit-flex-wrap:wrap; flex-wrap:wrap; margin:10px -5px 0; }
+.btn-row .ghost-btn{ -webkit-flex:1; flex:1; min-width:140px; margin:5px; text-align:center; }
+
+.progress-wrap{ display:none; margin-top:16px; }
+.progress-wrap.on{ display:block; }
+.progress-bar{
+  height:7px; background:var(--card2); border-radius:6px; overflow:hidden;
+  border:1px solid var(--border);
+}
+.progress-fill{
+  height:100%; width:0%; border-radius:6px;
+  background:-webkit-linear-gradient(90deg,#238636,#58a6ff);
+  background:linear-gradient(90deg,#238636,#58a6ff);
+  transition:width .35s ease;
+}
+.progress-label{ font-size:12px; color:var(--muted); margin-top:7px; display:block; }
+
+.terminal{
+  background:var(--code); color:#00ff41; padding:14px; border-radius:8px;
+  font-family:'Courier New',Courier,monospace; margin-top:20px;
+  border:1px solid #333; display:none; height:170px; overflow-y:auto;
+  -webkit-overflow-scrolling:touch; font-size:12.5px; line-height:1.65;
+  word-break:break-word;
+}
+.terminal .ts{ color:#8b949e; }
+.terminal .ok{ color:#3fb950; }
+.terminal .err{ color:#f85149; }
+.terminal .warn{ color:#d29922; }
+.terminal .info{ color:#58a6ff; }
+
+.results-area{ margin-top:26px; display:none; }
+.results-area.on{ display:block; }
+.results-head{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-flex-wrap:wrap; flex-wrap:wrap;
+  -webkit-align-items:center; align-items:center;
+  -webkit-justify-content:space-between; justify-content:space-between;
+  margin-bottom:14px;
+}
+.results-head strong{ font-size:15px; }
+.results-head .meta{ font-size:12px; color:var(--muted); }
+.file-box{
+  background:var(--card2); padding:0; border-radius:9px;
+  border:1px solid var(--border); position:relative; margin-bottom:14px;
+  overflow:hidden;
+}
+.file-head{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-flex-wrap:wrap; flex-wrap:wrap;
+  -webkit-align-items:center; align-items:center;
+  -webkit-justify-content:space-between; justify-content:space-between;
+  padding:9px 11px; background:rgba(110,118,129,.08);
+  border-bottom:1px solid var(--border);
+}
+.file-name{
+  font-family:'Courier New',Courier,monospace; font-size:12.5px;
+  font-weight:700; color:var(--accent3); word-break:break-all; padding-right:10px;
+}
+.file-meta{ font-size:11px; color:var(--muted); }
+.file-actions{ display:-webkit-box; display:-webkit-flex; display:flex; }
+.mini-btn{
+  background:var(--border); color:var(--text); border:none; padding:5px 11px;
+  border-radius:5px; cursor:pointer; font-size:11px; font-weight:700;
+  margin-left:6px; -webkit-appearance:none; appearance:none; transition:.18s;
+}
+.mini-btn:hover{ background:#4b535d; color:#fff; }
+.mini-btn.done{ background:var(--accent); color:#fff; }
+pre{
+  font-size:12.5px; line-height:1.6; color:var(--text); white-space:pre-wrap;
+  word-wrap:break-word; margin:0; padding:13px; font-family:'Courier New',Courier,monospace;
+  max-height:420px; overflow:auto; -webkit-overflow-scrolling:touch;
+}
+body.light pre{ color:#1f2328; }
+
+.chat-fab{
+  position:fixed; right:16px; bottom:16px; z-index:9000;
+  width:58px; height:58px; border-radius:50%; border:none; cursor:pointer;
+  background:-webkit-linear-gradient(135deg,#238636,#58a6ff);
+  background:linear-gradient(135deg,#238636,#58a6ff);
+  color:#fff; font-size:24px; box-shadow:0 8px 26px rgba(0,0,0,.45);
+  -webkit-appearance:none; appearance:none; transition:-webkit-transform .2s;
+  transition:transform .2s;
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-align-items:center; align-items:center;
+  -webkit-justify-content:center; justify-content:center;
+  padding-bottom:2px;
+}
+.chat-fab:active{ -webkit-transform:scale(.92); transform:scale(.92); }
+.chat-fab .pulse{
+  position:absolute; top:6px; right:6px; width:12px; height:12px;
+  border-radius:50%; background:var(--accent3); border:2px solid var(--bg);
+}
+.chat-panel{
+  position:fixed; right:16px; bottom:86px; z-index:9001;
+  width:380px; max-width:calc(100vw - 32px); height:540px; max-height:calc(100vh - 120px);
+  background:var(--card); border:1px solid var(--border); border-radius:14px;
+  box-shadow:0 18px 50px rgba(0,0,0,.6);
+  display:none; -webkit-flex-direction:column; flex-direction:column; overflow:hidden;
+}
+.chat-panel.on{ display:-webkit-box; display:-webkit-flex; display:flex; }
+.chat-head{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-align-items:center; align-items:center;
+  -webkit-justify-content:space-between; justify-content:space-between;
+  padding:11px 13px; border-bottom:1px solid var(--border); background:var(--card2);
+  -webkit-flex:0 0 auto; flex:0 0 auto;
+}
+.chat-title{ font-size:13.5px; font-weight:700; display:-webkit-box; display:-webkit-flex; display:flex; -webkit-align-items:center; align-items:center; }
+.chat-dot{
+  width:9px; height:9px; border-radius:50%; background:var(--accent3);
+  margin-right:8px; display:inline-block;
+}
+.chat-icon-btn{
+  background:transparent; border:1px solid var(--border); color:var(--muted);
+  border-radius:6px; width:30px; height:30px; cursor:pointer; margin-left:6px;
+  font-size:14px; line-height:1; -webkit-appearance:none; appearance:none;
+}
+.chat-icon-btn:hover{ color:var(--accent); border-color:var(--accent); }
+.chat-log{
+  -webkit-flex:1; flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch;
+  padding:13px; display:block;
+}
+.msg{ margin-bottom:12px; display:-webkit-box; display:-webkit-flex; display:flex; }
+.msg.me{ -webkit-justify-content:flex-end; justify-content:flex-end; }
+.bubble{
+  max-width:82%; padding:9px 12px; border-radius:12px; font-size:13.5px;
+  line-height:1.55; white-space:pre-wrap; word-wrap:break-word;
+}
+.msg.bot .bubble{ background:var(--card2); border:1px solid var(--border); border-bottom-left-radius:4px; }
+.msg.me .bubble{ background:var(--accent); color:#fff; border-bottom-right-radius:4px; }
+.msg.sys .bubble{ background:transparent; border:1px dashed var(--border); color:var(--muted); font-size:12px; max-width:100%; }
+.typing span{
+  display:inline-block; width:6px; height:6px; border-radius:50%;
+  background:var(--muted); margin-right:3px;
+  -webkit-animation:blink 1.2s infinite; animation:blink 1.2s infinite;
+}
+.typing span:nth-child(2){ -webkit-animation-delay:.2s; animation-delay:.2s; }
+.typing span:nth-child(3){ -webkit-animation-delay:.4s; animation-delay:.4s; }
+@-webkit-keyframes blink{ 0%,80%,100%{opacity:.25;} 40%{opacity:1;} }
+@keyframes blink{ 0%,80%,100%{opacity:.25;} 40%{opacity:1;} }
+.chat-quick{
+  padding:0 11px 8px; display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-flex-wrap:wrap; flex-wrap:wrap; -webkit-flex:0 0 auto; flex:0 0 auto;
+}
+.chat-quick .chip{ font-size:11px; padding:4px 10px; margin:0 5px 5px 0; }
+.chat-form{
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  border-top:1px solid var(--border); padding:9px; background:var(--card2);
+  -webkit-flex:0 0 auto; flex:0 0 auto;
+}
+.chat-form textarea{
+  -webkit-flex:1; flex:1; min-height:42px; max-height:110px; resize:none;
+  padding:10px 11px; font-size:14px; border-radius:8px; margin:0;
+}
+.chat-form button{
+  background:var(--accent); color:#fff; border:none; border-radius:8px;
+  padding:0 16px; margin-left:8px; font-weight:700; font-size:13.5px;
+  cursor:pointer; -webkit-appearance:none; appearance:none; -webkit-flex:0 0 auto; flex:0 0 auto;
+}
+.chat-form button:disabled{ opacity:.5; }
+
+.toast-wrap{
+  position:fixed; left:50%; bottom:24px; z-index:9999;
+  -webkit-transform:translateX(-50%); transform:translateX(-50%);
+  display:-webkit-box; display:-webkit-flex; display:flex;
+  -webkit-flex-direction:column; flex-direction:column;
+  -webkit-align-items:center; align-items:center; pointer-events:none;
+  width:calc(100% - 32px); max-width:420px;
+}
+.toast{
+  background:var(--card); border:1px solid var(--border); color:var(--text);
+  border-radius:9px; padding:11px 16px; font-size:13px; margin-top:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5); opacity:0;
+  -webkit-transition:opacity .25s,transform .25s; transition:opacity .25s,transform .25s;
+  -webkit-transform:translateY(10px); transform:translateY(10px);
+  max-width:100%; text-align:center;
+}
+.toast.on{ opacity:1; -webkit-transform:translateY(0); transform:translateY(0); }
+.toast.ok{ border-color:var(--accent); }
+.toast.err{ border-color:var(--danger); }
+
+@media (max-width:860px){
+  .artifact{ width:50%; }
+}
+@media (max-width:720px){
+  body{ padding:10px 10px 120px; font-size:14.5px; }
+  .container{ padding:16px; border-radius:9px; }
+  .field{ width:100%; }
+  .artifact{ width:100%; }
+  .brand h1{ font-size:16px; }
+  .logo{ width:36px; height:36px; font-size:16px; border-radius:9px; }
+  .chat-panel{
+    left:8px; right:8px; bottom:78px; width:auto; max-width:none;
+    height:calc(100vh - 110px); max-height:calc(100vh - 110px);
+    border-radius:12px;
+  }
+  .chat-fab{ width:54px; height:54px; font-size:22px; right:12px; bottom:12px; }
+  pre{ max-height:320px; font-size:12px; }
+  .terminal{ height:150px; }
+  .btn-row .ghost-btn{ min-width:100%; }
+}
+@media (max-width:380px){
+  .brand .sub{ display:none; }
+  .status-badge{ font-size:10.5px; }
+}
+</style>
 </head>
 <body>
-<div id="shield"><h1>[ SESSION_LOCKED ]</h1><p>Nexus Security: Environment unstable.</p></div><script>(function(){const s = document.getElementById('shield'); const show = () => s.style.display = 'flex'; const hide = () => s.style.display = 'none'; window.addEventListener('blur', () => { setTimeout(() => { if (document.activeElement && document.activeElement.tagName !== 'IFRAME') show(); }, 50); }); window.addEventListener('focus', hide); setInterval(()=>{Function('debugger')();}, 500); })();</script>
 
-<div class="container">
-    <h1>Nexus Architect <span style="font-weight:200; opacity:0.6;">// Agentic OS</span></h1>
-    <div class="status-badge">AI Logic: GPT 120B | Smart Platform Routing | Core Year: 2026</div>
-
-    <div class="form-grid">
-        <div>
-            <label>Target Platform <span style="font-weight:normal; opacity:0.5;">(e.g., GitHub, HuggingFace, Codeberg, Gitlab)</span></label>
-            <input type="text" id="platform" placeholder="Codeberg" value="Codeberg">
-        </div>
-        <div>
-            <label>Open Source License <span style="font-weight:normal; opacity:0.5;">(Strict Selection)</span></label>
-            <select id="license">
-                <option value="MIT">MIT License</option>
-                <option value="Apache-2.0">Apache License 2.0</option>
-                <option value="GPL-3.0">GNU General Public License v3.0</option>
-                <option value="GPL-2.0">GNU General Public License v2.0</option>
-                <option value="AGPL-3.0">GNU Affero General Public License v3.0</option>
-                <option value="LGPL-3.0">GNU Lesser General Public License v3.0</option>
-                <option value="LGPL-2.1">GNU Lesser General Public License v2.1</option>
-                <option value="BSD-3-Clause">BSD 3-Clause "New" or "Revised" License</option>
-                <option value="BSD-2-Clause">BSD 2-Clause "Simplified" License</option>
-                <option value="0BSD">BSD Zero Clause License</option>
-                <option value="MPL-2.0">Mozilla Public License 2.0</option>
-                <option value="MPL-1.1">Mozilla Public License 1.1</option>
-                <option value="The Unlicense">The Unlicense (Public Domain)</option>
-                <option value="CC0-1.0">Creative Commons Zero v1.0 Universal</option>
-                <option value="WTFPL">Do What The F*ck You Want To Public License</option>
-                <option value="ISC">ISC License</option>
-                <option value="zlib">zlib License</option>
-                <option value="BSL-1.0">Boost Software License 1.0</option>
-                <option value="EPL-2.0">Eclipse Public License 2.0</option>
-                <option value="EPL-1.0">Eclipse Public License 1.0</option>
-                <option value="CDDL-1.1">Common Development and Distribution License 1.1</option>
-                <option value="CDDL-1.0">Common Development and Distribution License 1.0</option>
-                <option value="Artistic-2.0">Artistic License 2.0</option>
-                <option value="Artistic-1.0">Artistic License 1.0</option>
-                <option value="PHP-3.01">PHP License 3.01</option>
-                <option value="Python-2.0">Python Software Foundation License 2.0</option>
-                <option value="Vim">Vim License</option>
-                <option value="Sleepycat">Sleepycat License</option>
-                <option value="QPL-1.0">Q Public License 1.0</option>
-                <option value="ZPL-2.1">Zope Public License 2.1</option>
-                <option value="JSON">JSON License</option>
-                <option value="MS-PL">Microsoft Public License</option>
-                <option value="MS-RL">Microsoft Reciprocal License</option>
-                <option value="CNRI-Python">CNRI Python License</option>
-                <option value="Watcom-1.0">Sybase Open Watcom Public License 1.0</option>
-                <option value="BlueOak-1.0.0">Blue Oak Model License 1.0.0</option>
-                <option value="NCSA">University of Illinois/NCSA Open Source License</option>
-                <option value="W3C">W3C Software Notice and Document License</option>
-                <option value="Fair">Fair License</option>
-                <option value="HPND">Historical Permission Notice and Disclaimer</option>
-                <option value="MulanPSL-2.0">Mulan Permissive Software License v2</option>
-                <option value="EUPL-1.2">European Union Public Licence 1.2</option>
-                <option value="OSL-3.0">Open Software License 3.0</option>
-                <option value="CC-BY-4.0">Creative Commons Attribution 4.0 International</option>
-                <option value="CC-BY-SA-4.0">Creative Commons Attribution-ShareAlike 4.0 International</option>
-                <option value="CC-BY-NC-4.0">Creative Commons Attribution-NonCommercial 4.0 International</option>
-                <option value="Beerware">The Beer-Ware License (Revision 42)</option>
-                <option value="PostgreSQL">PostgreSQL License</option>
-                <option value="UPL-1.0">Universal Permissive License v1.0</option>
-                <option value="CPL-1.0">Common Public License 1.0</option>
-                <option value="IBM-1.0">IBM Public License v1.0</option>
-                <option value="AFL-3.0">Academic Free License v3.0</option>
-                <option value="MirOS">The MirOS Licence</option>
-                <option value="Multics">Multics License</option>
-                <option value="Naumen">Naumen Public License</option>
-                <option value="Nokia-1.0">Nokia Open Source License</option>
-                <option value="Real-1.0">RealNetworks Public Source License v1.0</option>
-                <option value="Ricoh-1.0">Ricoh Source Code Public License</option>
-                <option value="SimPL-2.0">Simple Public License 2.0</option>
-                <option value="SISSL">Sun Industry Standards Source License</option>
-                <option value="SPL-1.0">Sun Public License v1.0</option>
-                <option value="Xnet">X.Net License</option>
-            </select>
-        </div>
-        <div>
-            <label>Platform User/Org <span style="font-weight:normal; opacity:0.5;">(Optional)</span></label>
-            <input type="text" id="user" placeholder="math12393">
-        </div>
-        <div>
-            <label>Repository / Model Name <span style="font-weight:normal; opacity:0.5;">(Optional)</span></label>
-            <input type="text" id="repo" placeholder="my-project">
-        </div>
-        <div class="full">
-            <label>Project Files <span style="font-weight:normal; opacity:0.5;">(What files are in your repo?)</span></label>
-            <input type="text" id="files" placeholder="e.g. index.html, config.json, model.safetensors, main.py">
-        </div>
-        <div class="full">
-            <label>Project Intent / Prompt <span style="font-weight:normal; opacity:0.5;">(Tell Tom what to build)</span></label>
-            <textarea id="prompt" rows="3" placeholder="Describe your repository, model, or dataset..."></textarea>
-        </div>
+<div class="topbar">
+  <div class="brand">
+    <div class="logo">N</div>
+    <div>
+      <h1>Nexus Architect</h1>
+      <div class="sub">Agentic OS &middot; Tom AI Lite &middot; 2026</div>
     </div>
-
-    <div class="options-row">
-        <label style="margin:0; display:flex; align-items:center; gap:8px; cursor:pointer;">
-            <input type="checkbox" id="deepSearch" style="width:18px; height:18px; margin:0;">
-            <span>Enable Deep Search (For 24/7 search when building)</span>
-        </label>
-    </div>
-
-    <button id="execBtn">Initiate Master Build</button>
-
-    <div id="terminal" class="terminal"></div>
-
-    <div id="results" class="results-area">
-        <div class="file-box full">
-            <label>README.md</label>
-            <button class="copy-btn" data-target="outReadme">Copy</button>
-            <pre id="outReadme"></pre>
-        </div>
-        <div class="file-box">
-            <label>LICENSE</label>
-            <button class="copy-btn" data-target="outLicense">Copy</button>
-            <pre id="outLicense"></pre>
-        </div>
-        <div class="file-box">
-            <label>.gitignore</label>
-            <button class="copy-btn" data-target="outGit">Copy</button>
-            <pre id="outGit"></pre>
-        </div>
-    </div>
+  </div>
+  <div class="topbar-actions">
+    <button class="ghost-btn" id="themeBtn" type="button">Light Mode</button>
+    <button class="ghost-btn" id="gitBtn" type="button">Git Commands</button>
+    <button class="ghost-btn" id="topChatBtn" type="button">Chat with Tom</button>
+  </div>
 </div>
 
-<script>
-(async()=>{
-    try {
-        const response = await Parse.Cloud.run("customDeobfuscate", { encrypted: "WCPXSQCBPBNQCCPVNQCWLXNQCBKWNQCCVCSQCBWZNQCWZPNQCWLXNQWCPXJQWCLPAQWWMBHQXKKVKAQWLLXEQWWMBTQWWMBJQWWMBNQWWMBAQWCVWRQCCPVEQCCXZAQCBMPAQWWMBAQCCXZRQCCVCHQCCKMUQCBWZTQCBKWGQCCVCOQWCVWRQCXWWIQWLLXEQWLLXGQWWMBOQWWMBUQWWMBSQWWMBIQCCLLEQCZWVTQCCKMGQWWMBGQCCVCFQCBMPUQCCKMRQCWMWNQWWMBNQCVXPGQWWMBAQCBVXRQCWZPGQCBKWYQCCPVUQCWMWGQCBMPHQCWLXJQCCVCAQCKXCIQCBZKGQCBMPAQCCVCNQCMXWTQCWVLGQCBMPFQCWMWNQCBMPUQCWLXUQCCVCSQCVBCNQCCCPGQCMBKUQCBVXFQWCPXUQWCVWSQCCVCHQCBMPAQCCKMIQCWMWAQCBWZJQCWLXYQCZWVSQCWVLNQWCVWNQWCLPIQCXWWIQWLLXNQWWMBAQWWMBGQWWMBYQWWMBJQCCLLSQCZWVOQCCKMIQWWMBYQCBMPUQCCWXSQCBMPEQCBKWEQCVBCGQCCVCRQCWLXAQWWMBHQCVXPNQWWMBEQCBVXOQCWZPHQCBKWGQCCPVIQCWMWHQCBMPUQCWLXHQCCVCHQCKXCAQCBZKEQCBMPHQCCVCTQCMXWAQCWVLIQCBMPNQCWMWAQCBMPSQCWLXRQCCVCIQCVBCOQCCCPAQCMBKHQCBVXYQWCPXUQWCVWJQCBMPIQCCWXRQCBMPSQCBKWNQCVBCFQCCVCTQCWLXSQWCVWHQWCLPRQCXWWJQWLLXIQWWMBRQWWMBRQWWMBEQWWMBFQCCLLFQCZWVYQCCKMYQWWMBAQCCKMGQCBMPJQCCXZRQCCPVOQCWVLIQCCVCYQCCXZAQCVZZSQCCKMEQCBMPAQCZWVOQWWMBJQCVXPSQWWMBSQCBVXOQCWZPUQCBKWNQCCPVJQCWMWNQCBMPEQCWLXHQCCVCFQCKXCEQCBZKNQCBMPRQCCVCNQCMXWNQCWVLJQCBMPUQCWMWJQCBMPEQCWLXHQCCVCRQCVBCIQCCCPRQCMBKYQCBVXIQWCPXTQWCVWEQCCKMOQCBMPNQCCXZGQCCPVHQCWVLIQCCVCRQCCXZFQWCVWSQWCLPTQCXWWJQWLLXFQWWMBSQWWMBTQWWMBOQWWMBRQCCLLTQCZWVTQCCKMJQWWMBEQCWZPRQCCPVSQCCVCUQCPWBJQCBMPJQCZWVTQCBVXAQCWMWTQCBMPJQWWMBGQCVXPNQWWMBYQCBVXIQCWZPOQCBKWEQCCPVHQCWMWIQCBMPTQCWLXRQCCVCGQCKXCUQCBZKSQCBMPHQCCVCGQCMXWTQCWVLUQCBMPFQCWMWYQCBMPUQCWLXYQCCVCSQCVBCNQCCCPRQCMBKIQCBVXYQWCPXHQWCVWHQCWZPGQCCPVHQCCVCUQCPWBJQCBMPGQCZWVYQCBVXJQCWMWJQCBMPYQWCVWRQWCLPNQCXWWNQWLLXRQWWMBHQWWMBFQWWMBEQWWMBHQCCLLFQCZWVTQCCKMUQWWMBRQCWZPEQCCPVYQCCVCOQCPKCYQCBWZSQCBKWUQCBMPGQCWLXFQCCXZEQCBMPNQWWMBEQCVXPJQWWMBTQCBVXFQCWZPSQCBKWGQCCPVJQCWMWNQCBMPOQCWLXRQCCVCFQCKXCUQCBZKJQCBMPGQCCVCTQCMXWJQCWVLUQCBMPSQCWMWAQCBMPTQCWLXGQCCVCGQCVBCEQCCCPYQCMBKFQCBVXEQWCPXRQWCVWSQCWZPRQCCPVHQCCVCYQCPKCEQCBWZRQCBKWNQCBMPNQCWLXYQCCXZAQCBMPRQWCVWUQWCLPNQCXWWSQWLLXUQWWMBOQWWMBRQWWMBFQWWMBHQCCLLTQCZWVRQCCKMRQWWMBIQCWZPAQCCPVRQCCVCIQCMPPHQCBWZIQCCVCJQWWMBRQCVXPUQWWMBFQCBVXJQCWZPOQCBKWEQCCPVSQCWMWOQCBMPUQCWLXOQCCVCGQCKXCTQCBZKAQCBMPAQCCVCSQCMXWJQCWVLEQCBMPOQCWMWIQCBMPEQCWLXFQCCVCSQCVBCUQCCCPTQCMBKIQCBVXTQWCPXUQWCVWRQCWZPGQCCPVRQCCVCYQCMPPJQCBWZUQCCVCNQWCVWYQWCLPYQCXWWIQWLLXOQWLLXIQWWMBFQWWMBTQWWMBAQWWMBOQCCLLAQCZWVYQCCKMTQWWMBJQCBKWUQCWZPSQCWBBEQCCCPIQCVBCUQCCPVFQCCVCGQCCVCNQCWZPRQCWLXTQCCXZOQWWMBRQCVXPYQWWMBEQCBVXYQCWZPUQCBKWYQCCPVIQCWMWSQCBMPNQCWLXIQCCVCGQCKXCNQCWCKEQCCPVOQCBMPIQCCKMSQCCCPIQCLKKRQCBMPNQCWVLTQCBMPAQCBKWJQCCVCHQCWZPJQCCKMUQCVZZHQCWVLJQCWVLSQWCPXUQWCVWRQCKXCAQCBKWJQCWZPNQCWBBNQCCCPEQCKKZSQCZCLOQCCVCHQCWLXEQWCVWUQWCLPGQCXWWSQWLLXUQWLLXFQWWMBTQWWMBRQWWMBNQWWMBGQCKMVHQCKMVYQWWMBRQCVZZGQCCVCRQCCVCHQCZWVJQCBKWSQCBBMRQWWMBAQCBKWOQCWZPUQCWBBFQCCCPUQWWMBAQCZCLUQCCPVOQCCVCFQCCVCRQCWZPOQCWLXIQWWMBHQCWVLGQCBWZAQCCXZUQCCVCYQCBMPSQCWLXJQCBMPSQCCKMJQCCXZAQWWMBNQWCPXSQCWLXJQCWZPGQWWMBUQCBWZTQCWLXSQCWVLFQCBWZOQCWLXFQCBMPUQWWMBTQCWZPYQCWLXHQCBKWTQCWVLTQCBWZAQCBKWNQCWXVJQWCLPNQWLLXJQWWMBUQWWMBSQWWMBHQWWMBTQCBKWEQCWZPJQCWBBSQCCCPFQCVBCOQCCPVEQCCVCEQCCVCIQCWZPOQCWLXEQCCXZSQCKXCYQCBPBIQCWZPGQCCKMHQCMXWFQCZWVOQCBKWIQCBBMFQWCPXOQCBPBYQCCPVAQCWLXSQCBKWFQCCVCNQCBWZNQCWZPRQCWLXFQWCPXRQCZCLIQCCVCEQCWLXSQWCLPFQWWMBFQXKKVKHQWLLXGQWWMBFQWWMBYQWWMBFQWWMBOQWWMBOQWWMBNQWWMBIQWWMBRQCZCLTQCCVCYQCWLXSQCKXCNQCZWVRQCBVXEQCBVXIQCMXWIQCCLLJQCBMPAQCWLXFQCCVCTQCPKCEQCBWZNQCCXZEQCCVCJQCBMPHQCWLXAQCBMPRQCCKMNQWCPXEQWCVWHQCBKWOQCWVLHQCBWZYQCBKWRQCWXVGQWCVWOQWCCMEQWWMBYQCBPBYQCCPVGQCWLXAQCBKWAQCCVCGQCBWZEQCWZPJQCWLXYQWCPXJQWCLPHQWWMBJQXKKVKHQWLLXRQWWMBNQWWMBOQWWMBOQWWMBEQWWMBRQWWMBUQWWMBEQWWMBRQWWMBIQWWMBOQWWMBHQWWMBFQCCLLSQCZWVIQCCKMRQWWMBHQCCVCAQCZWVJQCCKMEQCBZKEQCBMPGQCCVCFQCMBKJQCBVXSQWWMBOQCVXPHQWWMBEQCCVCUQCBBMSQCBWZAQCCXZFQCKXCAQCBZKIQCBMPEQCCVCGQCVZZJQCCVCNQCCVCAQCCKMUQCBWZFQCZCLJQCCPVFQCCVCOQCBMPFQWCPXTQWCVWAQCBVXEQCZWVJQCCVCFQCZWVRQCKKZRQCCVCJQCZWVEQCCKMIQCBZKEQCBMPHQCCVCUQWCVWFQWCLPAQCXWWHQWLLXIQWWMBRQWWMBRQWWMBGQWWMBEQWWMBHQWWMBIQWWMBIQWWMBJQWWMBIQWWMBGQWWMBEQWWMBYQCCLLTQCZWVEQCCKMIQWWMBOQCCVCUQCZWVRQCCKMNQCBZKYQCBMPJQCCVCIQCMXWOQCWVLFQWWMBSQCVXPTQWWMBTQCBVXGQCWZPGQCBKWOQCCPVJQCWMWTQCBMPUQCWLXNQCCVCTQCKXCGQCBZKJQCBMPNQCCVCHQCMXWUQCWVLRQCBMPJQCWMWAQCBMPNQCWLXNQCCVCSQCVBCUQCCCPAQCMBKIQCBVXEQWCPXJQCCVCHQCZWVHQCCKMAQCBZKAQCBMPUQCCVCOQCMBKFQCBVXGQWCLPFQCXWWOQWLLXSQWWMBGQWWMBOQWWMBNQWWMBSQWWMBFQWWMBHQWWMBSQWWMBFQWWMBHQWWMBIQWWMBYQWWMBGQCBWZYQCBPBOQWWMBOQWCPXEQWWLKAQCCVCNQCZWVNQCCKMYQCBZKFQCBMPHQCCVCUQCMXWRQCWVLUQWCLPOQWWMBRQCCKMHQCBMPYQCCVCOQCCPVHQCCKMNQCWLXRQCXWWNQWLLXJQWLLXSQWWMBAQWWMBGQWWMBHQWWMBGQWWMBNQWWMBNQWWMBAQWWMBRQWWMBJQWWMBTQWWMBUQWWMBOQCWLXRQCZWVNQCCLLHQCBWZAQCBZKEQCZWVRQCCVCEQCWZPHQCCKMOQCKXCHQCBKWJQCWVLYQCBWZHQCWBBNQCZCLOQCWZPIQCZWVFQCCKMUQCBVXTQCKXCIQCCZWEQCCKMEQCBWZAQCCVCIQCBMPTQCLXMUQCBMPHQCCWXEQCCVCJQWCPXOQCCVCYQCZWVYQCCKMJQCBZKTQCBMPAQCCVCOQCMXWOQCWVLHQCKXCIQCCVCYQCBMPNQCCWXUQCCVCYQCVCVGQCWZPYQCWLXOQCCVCSQCBMPYQCWLXUQCCVCGQWCLPTQCKXCHQCCVCIQCBBMNQCBMPYQCWLXIQWCPXAQCBPBYQCCPVSQCWLXHQCBKWYQCCVCUQCBWZHQCWZPJQCWLXYQWCPXRQWCLPGQWWMBIQXKKVKRQWLLXAQWWMBSQWWMBIQWWMBEQWWMBAQWWMBSQWWMBGQWWMBTQWWMBNQWWMBRQWWMBHQWWMBAQWWMBEQWWMBYQWWMBGQWWMBOQWWMBTQCCLLSQCZWVYQCCKMYQWWMBYQCWZPOQCCKMSQCBWZIQCBZKAQCBWZGQCWLXFQCZWVSQCWVLTQCLXMJQCBMPHQCCWXTQCCVCEQWWMBRQCVXPRQWWMBRQCZCLGQCCVCGQCWLXYQCKXCTQCCVCIQCBMPSQCCWXEQCCVCTQCVCVGQCWZPUQCWLXTQCCVCYQCBMPJQCWLXGQCCVCOQCXWWSQWLLXNQWWMBSQWWMBEQWWMBOQWWMBEQWWMBRQWWMBGQWWMBEQWWMBSQWWMBEQWWMBIQWWMBEQWWMBUQWWMBUQWWMBGQWWMBRQWWMBHQCZCLSQCCVCNQCWLXEQCKXCOQCCVCFQCBMPOQCCWXUQCCVCJQCVCVFQCWZPRQCWLXTQCCVCRQCBMPSQCWLXRQCCVCAQWWMBIQCVXPIQWWMBSQWWZMEQCVCVIQCWZPUQCWBBUQCBWZNQCBMPHQCBVXYQWWLKEQWWZMUQCXWWEQWLLXNQWWMBHQWWMBNQWWMBTQWWMBRQWWMBAQWWMBJQWWMBGQWWMBTQWWMBSQWWMBOQWWMBRQWWMBOQWWMBNQWWMBUQWWMBJQWWMBOQCZCLJQCCVCFQCWLXSQCKXCFQCCXZSQCCVCUQCCCPYQCWVLRQCBMPRQCKXCTQCZCLGQCZWVIQCBKWIQCWXVFQCBZKRQCCKMFQCWZPYQCCPVYQCWLXHQCBVXSQWWMBGQCVXPTQWWMBRQWWZMRQWWBZYQCKBXNQCKWPHQCXPCGQCXVMAQCKWPHQCXVMSQWWZMSQCXWWTQWLLXGQWWMBEQWWMBSQWWMBRQWWMBHQWWMBNQWWMBAQWWMBRQWWMBSQWWMBHQWWMBTQWWMBFQWWMBSQWWMBEQWWMBIQWWMBIQWWMBNQCCXZAQCBMPNQCCVCGQCLXMJQCBWZAQCWMWTQCBMPFQCWZPNQCCPVSQCCVCIQWCPXYQCBPBHQCCPVSQCWLXIQCBKWIQCCVCFQCBWZGQCWZPIQCWLXEQWCPXEQWCLPFQWWMBOQXKKVKSQWLLXAQWWMBFQWWMBOQWWMBHQWWMBRQWWMBYQWWMBFQWWMBHQWWMBFQWWMBYQWWMBHQWWMBAQWWMBHQWWMBNQWWMBFQWWMBYQWWMBHQWWMBGQWWMBAQWWMBJQWWMBAQCZCLEQCCVCFQCWLXNQCKXCGQCCVCHQCBMPAQCCWXAQCCVCYQCVCVRQCWZPNQCWLXSQCCVCOQCBMPFQCWLXSQCCVCSQWWMBRQCVXPTQWWMBEQCWZPSQCCKMSQCBWZUQCBZKAQCBWZGQCWLXSQCZWVNQCWVLHQCLXMSQCBMPFQCCWXHQCCVCRQCXWWTQWLLXFQWWMBUQWWMBJQWWMBUQWWMBNQWWMBJQWWMBOQWWMBIQWWMBEQWWMBRQWWMBSQWWMBJQWWMBTQWWMBYQWWMBEQWWMBFQWWMBJQWWMBNQWWMBOQWWMBJQWWMBSQCZCLTQCCVCFQCWLXHQCKXCOQCCXZNQCCVCEQCCCPHQCWVLHQCBMPSQCKXCEQCZCLIQCZWVTQCBKWIQCWXVUQCBZKJQCCKMHQCWZPAQCCPVRQCWLXIQCBVXAQWWMBOQCVXPHQWWMBIQWWZMIQWWBZOQCKWPRQCKPLUQCKWPEQCXVMRQCKWPSQCBVXUQWWZMEQCXWWOQWLLXJQWWMBHQWWMBYQWWMBTQWWMBFQWWMBUQWWMBGQWWMBIQWWMBNQWWMBAQWWMBSQWWMBAQWWMBIQWWMBGQWWMBSQWWMBYQWWMBSQXKKPZJQWCCMJQWWMBSQCKBXHQCKPLNQCKPLRQCKPLHQWCLPGQCXWWHQWLLXNQWWMBTQWWMBTQWWMBYQWWMBRQWWMBEQWWMBNQWWMBJQWWMBYQWWMBNQWWMBJQWWMBTQWWMBOQXKKPZOQWCLPNQCKXCRQCBKWNQCZWVYQCCVCOQCBKWOQCBBMFQWCPXJQCBPBYQCCPVRQCWLXGQCBKWAQCCVCTQCBWZOQCWZPUQCWLXHQWCPXAQCBMPUQCCKMNQCCKMOQWCLPAQWWMBUQXKKVKHQWLLXYQWWMBOQWWMBUQWWMBYQWWMBHQWWMBIQWWMBUQWWMBIQWWMBNQWWMBYQWWMBUQWWMBGQWWMBHQWWMBIQWWMBUQWWMBNQWWMBEQCBKWUQCWZPAQCWLXEQCCXZEQCWZPNQCWVLYQCBMPHQCKXCEQCCZWJQCZWVUQCCKMRQCWLXRQWCPXJQWWZMIQCVCVNQCWZPAQCWBBJQCCCPSQWWMBHQCBPBHQCZWVJQCBWZYQCWVLHQCBMPNQCBVXEQCXBLRQWWZMTQWCCMYQWWMBAQCBMPRQCCKMYQCCKMFQWCLPTQCXWWJQWLLXAQWWMBIQWWMBUQWWMBSQWWMBFQWWMBEQWWMBEQWWMBSQWWMBGQWWMBUQWWMBIQWWMBNQWWMBHQXKKPZSQWCLPAQCXWWUQWLLXUQWWMBRQWWMBGQWWMBYQWWMBGQWWMBTQWWMBOQWWMBUQWWMBUQXKKPZTQWCLPUQCXWWTQWLLXJQWWMBJQWWMBRQWWMBRQWWMBAQXKKPZUQWCLPTQCXWWYQWLLXFQWLLXJQWWMBYQWWMBGQWWMBYQWWMBUQCBPBHQCCPVYQCWLXAQCBKWSQCCVCRQCBWZSQCWZPAQCWLXGQWWMBEQCWVLNQCWZPGQCBZKJQWCPXFQCWMWEQCCXZJQCBZKTQWCLPRQWWMBSQXKKVKOQWLLXGQWWMBNQWWMBJQWWMBHQWWMBNQWWMBGQWWMBGQWWMBHQWWMBOQCCVCEQCBMPAQCCKMEQCWMWYQCKXCEQCCXZAQCCVCTQCCCPTQCWVLIQCBMPNQCKXCRQCBVXRQCBWZUQCCXZRQCWBBIQCWVLHQCZWVIQCCCPNQWWMBHQCVXPUQWWMBNQWCVWEQCZCLRQCWVLOQCWZPYQCBKWIQCWXVJQWCVWOQCXWWAQWLLXTQWWMBAQWWMBFQWWMBRQWWMBFQWWMBUQWWMBEQWWMBYQWWMBTQCCVCEQCBMPFQCCKMUQCWMWJQCKXCJQCBWZNQCWLXEQCWLXYQCBMPFQCCKMAQCMLBOQCLXMHQCPVVAQCPKCSQWWMBOQWCWKFQCVXPUQWWMBHQWCVWHQCVVBAQWWMBAQCVKXEQCCXZRQCWBBTQCZWVOQCWLXHQWWMBYQCCXZRQCCVCEQCCCPUQCWVLUQCBMPNQCVXPGQWWZMFQCBKWGQCWZPJQCWVLGQCWZPEQCCKMIQCXBLIQWWBZEQCXPCUQCZCLUQCXZVTQCKCBYQCXZVSQCBMPJQWWZMAQCVVBAQCZKPHQWCVWAQWWMBJQWCWKOQWWMBSQCWLXEQCBMPJQCCZWHQWWMBNQCMKLJQCZWVHQCCVCYQCBMPOQWCPXUQWCLPYQCKXCUQCCVCJQCWZPOQCPKCJQCWZPNQCBKWRQCZWVNQCWVLFQCBMPEQCLXMHQCBWZSQCWMWFQCBMPTQCLKKRQCCVCSQCCKMTQCBWZYQCWLXGQCBZKGQWCPXYQWCLPHQWWMBFQWCWKYQWWMBNQWCVWGQCZMKOQCVKXYQCKMVYQCCXZYQCWBBJQCZWVAQCWLXJQCVVBEQWWMBAQWCVWRQWWMBUQWCWKEQWWMBAQCWMWSQCCXZAQCBZKSQWWMBTQWCWKNQWWMBEQWCVWNQCVKXOQCZCLOQCCKMAQCVVBRQWCVWFQCXWWJQWLLXTQWWMBOQWWMBEQWWMBGQWWMBUQWWMBYQWWMBGQWWMBEQWWMBIQCCVCJQCBMPHQCCKMFQCWMWSQCKXCJQCCXZIQCBKWGQCCKMSQCWZPOQCWVLUQCWVLTQCLXMAQCWZPEQCWBBOQWWMBNQCVXPHQWWMBOQCCVCGQCBMPUQCCKMIQCWMWNQCKXCFQCCXZYQCBKWTQCCKMTQCWZPTQCWVLTQCWVLHQCMLBIQCBMPJQCBWZOQCBZKOQCBBMHQCCVCAQCXWWTQWLLXGQWWMBYQWWMBUQWWMBTQWWMBJQXKKPZFQWLLXAQWLLXOQWWMBEQWWMBHQWWMBHQWWMBGQCKMVEQCKMVIQWWMBSQCVZZAQCCVCHQCCVCHQCZWVYQCBKWGQCBBMYQWWMBNQCZCLIQCCPVAQCBWZTQCWVLSQCBVXUQWWMBYQCZCLIQCCPVFQCCVCNQCCVCRQCWZPIQCWLXOQWWMBUQCWVLOQCBWZGQCCXZYQCCVCEQCBMPTQCWLXUQCBMPAQCCKMYQWWMBIQWCPXNQCWLXGQCWZPIQWWMBOQCBWZIQCWLXRQCWVLJQCBWZHQCWLXEQCBMPAQWWMBIQCWZPJQCWLXYQCBKWSQCWVLGQCBWZRQCBKWOQCWXVUQWCLPNQWLLXIQWWMBUQWWMBRQWWMBIQWWMBNQCBMPHQCCWXSQCBMPJQCBKWEQCVBCOQCCVCHQCWLXHQCKXCJQCZWVGQCBVXRQCBVXHQCMXWRQCCLLFQCBMPTQCWLXRQCCVCTQCPKCNQCBWZJQCCXZNQCCVCOQCBMPOQCWLXRQCBMPSQCCKMSQWCPXGQWCVWNQCBKWIQCWVLGQCBWZUQCBKWNQCWXVAQWCVWIQWCCMEQWWMBAQCBWZOQCWLXJQCBWZTQCCVCHQCBWZHQCZWVJQCCVCIQCBMPHQCVBCRQCCPVTQCBWZSQCWVLTQCBVXGQWCLPRQCXWWAQWLLXYQWLLXNQWWMBRQWWMBEQWWMBOQWWMBSQCZWVOQCCXZHQCCCPYQCWLXJQCBKWHQWWMBGQCBPBOQCCPVGQCWLXGQCBKWJQCCVCHQCBWZHQCWZPJQCWLXIQWWMBOQCBWZYQCWLXEQCBWZEQCCVCHQCBWZYQCZWVHQCCVCRQCBMPAQCVBCOQCCPVRQCBWZIQCWVLUQCBVXFQWCPXAQWCLPYQWWMBNQXKKVKAQWLLXYQWWMBIQWWMBSQWWMBEQWWMBSQWWMBHQWWMBRQWWMBFQWWMBUQCWVLIQCWZPAQCBZKGQWCPXHQWWZMNQCVBCSQCWZPSQCWZPIQCCVCAQCBWZNQCWLXHQCBZKOQWWMBUQCVZZUQCCKMGQCBKWTQCBBMIQCBWZGQCCVCAQCBMPTQCBKWOQCCVCRQWWMBSQCMXWTQCWLXNQCBZKTQCBWZOQCWLXHQCBMPSQCKXCAQCKXCYQCKXCEQWWZMYQWCLPAQCXWWGQWLLXFQWWMBIQWWMBNQWWMBEQWWMBJQWWMBSQWWMBNQWWMBNQWWMBAQCBMPOQCCWXRQCBMPIQCBKWSQCVBCJQCCVCHQCWLXHQCKXCIQCBVXUQCBWZFQCCXZSQCZWVJQCZCLUQCWVLAQCBMPNQCBVXSQWWMBIQCVXPEQWWMBOQCCVCAQCCKMTQCCPVSQCBMPUQCXWWIQWLLXGQWLLXRQWWMBRQWWMBYQWWMBAQWWMBRQWWMBEQWWMBOQWWMBOQWWMBNQCCVCNQCCKMFQCCCPIQWWMBNQXKKVKJQWLLXOQWWMBAQWWMBEQWWMBAQWWMBRQWWMBIQWWMBIQWWMBFQWWMBJQWWMBYQWWMBAQWWMBTQWWMBRQCCLLRQCZWVJQCCKMSQWWMBOQCCLLAQCPWBNQCBMPGQCCXZJQWWMBRQCVXPUQWWMBRQCZWVRQCCZWNQCZWVNQCBWZHQCCVCNQWWMBGQCBPBFQCBMPHQCCVCAQCBKWUQCBBMTQWCPXGQWCVWFQCBBMYQCCVCJQCCVCTQCWBBUQCCXZIQCXBLAQCKMVOQCKMVYQCCVCRQCBWZUQCWLXRQCCCPNQCKKZFQCBPBEQCBWZHQCCKMIQCBMPIQCBPBRQCWVLEQCCCPYQCKKZGQCXVMSQCXXKEQCXPCHQCBVXIQCKXCYQCCZWRQCBMPHQCWLXRQCKCBOQCXMZGQCKLWJQCXZVIQCKCBFQCKBXRQCKXCAQCCZWHQCWZPOQCCKMFQCWXVEQCBMPFQCCKMEQCCXZIQCKXCGQCBVXFQCBMPSQCCLLSQCKMVYQWCVWFQWCCMJQWWMBAQXKKVKOQWLLXAQWWMBEQWWMBNQWWMBUQWWMBAQWWMBRQWWMBSQWWMBTQWWMBSQWWMBHQWWMBAQWWMBJQWWMBIQWWMBHQWWMBUQWWMBTQWWMBIQCWMWEQCBMPRQCCVCJQCBBMFQCWZPSQCBVXHQCXBLJQWWMBYQWCVWFQCPZXEQCPPWSQCLKKYQCLXMNQWCVWTQWCCMRQWLLXSQWWMBHQWWMBHQWWMBIQWWMBRQWWMBYQWWMBYQWWMBNQWWMBEQWWMBOQWWMBRQWWMBGQWWMBTQWWMBUQWWMBJQWWMBGQWWMBNQCBBMSQCBMPOQCZWVHQCBVXTQCBMPYQCCKMAQCCXZFQCXBLIQWWMBGQXKKVKGQWLLXFQWWMBJQWWMBNQWWMBHQWWMBSQWWMBGQWWMBNQWWMBUQWWMBAQWWMBSQWWMBNQWWMBGQWWMBRQWWMBGQWWMBTQWWMBTQWWMBEQWWMBHQWWMBFQWWMBTQWWMBSQWCVWJQCVCVJQCWZPIQCWLXOQCCVCIQCBMPJQCWLXFQCCVCGQCKKZIQCLXMFQCCCPGQCWBBEQCBMPJQWCVWTQCXBLAQWWMBEQWCVWOQCZWVSQCWBBAQCWBBEQCWVLFQCBWZGQCBKWGQCZWVNQCCVCFQCBWZRQCWZPOQCWLXSQCKMVUQCBCCHQCCXZNQCWZPHQCWLXGQWCVWOQWCCMUQWLLXRQWWMBJQWWMBHQWWMBGQWWMBIQWWMBGQWWMBTQWWMBAQWWMBHQWWMBFQWWMBSQWWMBJQWWMBEQWWMBFQWWMBGQWWMBTQWWMBYQWWMBNQWWMBRQWWMBNQWWMBFQWCVWGQCLZLEQCKKZJQCPMLYQCBMPIQCCWXOQCCPVNQCCXZOQCKKZIQCVZZGQCCPVAQCCVCOQCBBMJQWCVWSQCXBLYQWWMBUQWCVWTQCPMLGQCBMPEQCCWXGQCCPVOQCCXZIQCZLZGQCLKKTQCBMPYQCBKWSQCCKMNQCBMPOQCCVCRQCZLZIQCKBXRQCKPLHQCKBXSQCXVMSQWCVWAQWLLXEQWWMBSQWWMBEQWWMBJQWWMBTQWWMBIQWWMBRQWWMBOQWWMBFQWWMBSQWWMBNQWWMBJQWWMBFQWWMBIQWWMBGQWWMBGQWWMBRQXKKPZAQWLLXIQWWMBHQWWMBIQWWMBOQWWMBYQWWMBGQWWMBFQWWMBNQWWMBAQWWMBYQWWMBSQWWMBUQWWMBOQXKKPZYQWCLPEQCXWWHQWLLXTQWLLXOQWWMBRQWWMBAQWWMBIQWWMBTQWWMBTQWWMBUQWWMBOQWWMBRQWWMBGQWWMBNQWWMBUQWWMBNQCBWZEQCBPBRQWWMBJQWCPXIQWWLKRQCCLLUQCPWBTQCBMPUQCCXZUQCKXCOQCWZPJQCWXVHQWCLPSQWWMBNQCCVCAQCBBMNQCCKMEQCWZPUQCCZWIQWWMBYQCWLXGQCBMPTQCCZWUQWWMBHQCMXWIQCCKMRQCCKMEQCWZPSQCCKMEQWCPXNQWWZMNQCLMCTQCZWVYQCCPVUQCWVLEQCCVCGQWWMBEQCVZZGQCCPVTQCCVCRQCBBMAQCBMPNQCWLXGQCCVCUQCBWZRQCBKWJQCZWVUQCCVCNQCBWZEQCWZPNQCWLXSQWWMBJQCMMXUQCZWVOQCBWZIQCWVLOQCBMPSQCBVXAQCXBLEQWWMBFQWWZMUQWWMBEQWCWKGQWWMBGQCCLLYQCPWBJQCBMPGQCCXZNQCKXCRQCCXZSQCCVCUQCZWVAQCCVCFQCCPVSQCCXZYQWCLPHQCXWWAQWLLXAQWWMBTQWWMBFQWWMBAQWWMBIQWWMBOQWWMBJQWWMBUQWWMBAQWWMBEQWWMBAQWWMBOQWWMBIQCCLLNQCZWVUQCCKMHQWWMBYQCWXVUQCBMPEQCCCPTQCCXZHQWWMBOQCVXPUQWWMBAQCZWVOQCCZWIQCZWVAQCBWZJQCCVCNQWWMBAQCCLLGQCPWBOQCBMPEQCCXZOQCKXCYQCBCCTQCCXZUQCWZPNQCWLXHQWCPXIQWCLPAQCXWWJQWLLXHQWWMBFQWWMBFQWWMBHQWWMBYQWWMBJQWWMBNQWWMBYQWWMBAQWWMBGQWWMBIQWWMBIQWWMBGQCWVLHQCWZPAQCBZKAQWCPXOQWWZMAQCPMLAQCBMPIQCCWXNQCCPVHQCCXZRQWWMBNQCLMCAQCZWVEQCCPVHQCWVLTQCCVCUQWWMBAQCVZZUQCCPVHQCCVCSQCBBMOQCBMPNQCWLXTQCCVCNQCBWZHQCBKWNQCZWVTQCCVCEQCBMPYQCBVXRQCKXCJQWWZMUQWCLPRQCXWWTQWLLXUQWLLXHQWWMBTQWWMBRQWWMBJQWWMBYQWWMBJQWWMBGQWWMBTQWWMBAQWWMBTQWWMBGQWWMBNQWWMBYQCCLLIQCZWVSQCCKMRQWWMBTQCCXZHQCBMPOQCZWVIQCCKMOQCBKWNQCBBMSQCVCVGQCWZPUQCWLXOQCCVCHQCBMPFQCCWXUQCCVCYQWWMBEQCVXPAQWWMBOQWWZMIQWWZMRQCXWWYQWLLXTQWWMBJQWWMBFQWWMBIQWWMBGQWWMBIQWWMBNQWWMBTQWWMBEQWWMBAQWWMBFQWWMBNQWWMBJQCCLLRQCZWVFQCCKMFQWWMBOQCBVXHQCBMPHQCBMPNQCWBBAQCLKKGQCBMPTQCZWVOQCCKMYQCBKWUQCBBMYQCVCVYQCBBMIQCBMPGQCBKWHQCWXVHQCZCLGQCWZPYQCCWXTQWWMBAQCVXPGQWWMBYQCBVXRQCWZPOQCBKWNQCCPVFQCWMWHQCBMPTQCWLXSQCCVCHQCKXCUQCBZKSQCBMPJQCCVCJQCMXWYQCWVLJQCBMPHQCWMWAQCBMPIQCWLXEQCCVCTQCVBCYQCCCPJQCMBKNQCBVXEQWCPXNQWCVWFQCBVXFQCBMPYQCBMPSQCWBBIQCLKKSQCBMPSQCZWVYQCCKMEQCBKWAQCBBMEQWCVWSQWCLPIQCXWWEQWLLXAQWWMBFQWWMBHQWWMBFQWWMBIQWWMBHQWWMBFQWWMBGQWWMBYQWWMBEQWWMBGQWWMBTQWWMBUQCBWZEQCBPBGQWWMBEQWCPXGQCBVXFQCBMPYQCBMPAQCWBBGQCLKKJQCBMPFQCZWVYQCCKMYQCBKWTQCBBMGQCVCVSQCBBMTQCBMPHQCBKWTQCWXVIQCZCLFQCWZPFQCCWXIQWWMBNQWCXLRQWCXLSQWWMBTQCBVXOQCBMPGQCBMPHQCWBBTQCLKKJQCBMPJQCZWVGQCCKMHQCBKWGQCBBMEQCVCVNQCBBMSQCBMPOQCBKWNQCWXVJQCZCLFQCWZPNQCCWXEQCKXCJQCBKWUQCBBMTQCBMPTQCBKWIQCWXVEQCBMPEQCBVXJQWCLPIQWWMBFQXKKVKAQWLLXIQWWMBUQWWMBOQWWMBOQWWMBFQWWMBTQWWMBYQWWMBEQWWMBGQWWMBOQWWMBJQWWMBFQWWMBTQWWMBFQWWMBIQWWMBSQWWMBAQCWVLJQCWZPGQCBZKUQWCPXOQWWZMGQCVZZEQCBZKNQCBMPSQCWLXHQCCVCRQWWMBNQCWBBEQCBMPUQCCKMUQCBPBRQCWZPUQCCKMAQCWMWEQCBWZJQCWLXYQCBZKNQWWMBOQCMKLGQCBMPGQCBMPYQCWBBRQWWMBJQCLKKHQCBMPIQCZWVNQCCKMJQCBKWAQCBBMJQWWMBAQCBPBFQCWZPOQCCKMNQWWMBYQCCVCFQCBMPOQCBKWGQCBBMOQWWMBIQCCXZYQCCVCGQCZWVYQCBKWJQCWXVEQWWMBGQCWBBSQCZWVOQCCVCYQCCVCSQCBMPAQCCKMNQCWLXEQCCXZUQCKXCSQCKXCGQCKXCNQWWZMRQWCLPFQCXWWIQWLLXOQWWMBYQWWMBRQWWMBNQWWMBNQWWMBYQWWMBTQWWMBYQWWMBFQWWMBNQWWMBRQWWMBGQWWMBFQWWMBHQWWMBGQWWMBUQWWMBGQCCVCIQCCKMFQCCCPEQWWMBUQXKKVKTQWLLXAQWWMBSQWWMBYQWWMBNQWWMBJQWWMBEQWWMBUQWWMBTQWWMBNQWWMBEQWWMBGQWWMBEQWWMBJQWWMBEQWWMBHQWWMBHQWWMBGQWWMBTQWWMBFQWWMBNQWWMBJQCCLLOQCZWVJQCCKMGQWWMBTQCCXZIQCPWBJQCBMPUQCCXZIQWWMBEQCVXPTQWWMBAQCZWVSQCCZWOQCZWVRQCBWZUQCCVCEQWWMBOQCBPBEQCBMPJQCCVCUQCBKWTQCBBMYQWCPXAQWCVWUQCBBMUQCCVCNQCCVCAQCWBBRQCCXZGQCXBLEQCKMVNQCKMVRQCBZKOQCWZPOQCWZPSQCBZKSQCWVLEQCBMPFQCKXCEQCCXZOQCBMPIQCCKMHQCWBBEQCBMPJQCCKMYQCKXCOQCBVXJQCBMPOQCCLLRQCKMVOQCCXZEQCBMPSQCZWVGQCCKMHQCBKWTQCBBMOQWCVWHQWCCMGQWWMBYQXKKVKNQWLLXSQWWMBNQWWMBJQWWMBIQWWMBSQWWMBTQWWMBFQWWMBAQWWMBOQWWMBHQWWMBRQWWMBUQWWMBAQWWMBEQWWMBSQWWMBGQWWMBIQWWMBIQWWMBEQWWMBFQWWMBEQWWMBIQWWMBHQWWMBOQWWMBSQCWMWHQCBMPTQCCVCHQCBBMYQCWZPEQCBVXNQCXBLGQWWMBHQWCVWOQCPZXUQCPPWHQCLKKTQCLXMSQWCVWOQWCCMAQWLLXYQWWMBAQWWMBEQWWMBNQWWMBOQWWMBIQWWMBNQWWMBFQWWMBUQWWMBAQWWMBFQWWMBYQWWMBYQWWMBJQWWMBTQWWMBTQWWMBGQWWMBUQWWMBNQWWMBHQWWMBOQWWMBNQWWMBIQWWMBTQWWMBTQCBBMOQCBMPUQCZWVYQCBVXHQCBMPJQCCKMSQCCXZAQCXBLGQWWMBEQXKKVKIQWWMBAQWCVWOQCLZLSQCKKZHQCVZZIQCPZXNQCMBKIQCKKZAQCMCZYQCMXWOQCLBWOQWCVWNQCXBLIQWWMBOQCWXVEQCBMPUQCCCPRQCCXZIQCKXCHQCCXZJQCBMPAQCCKMJQCWBBTQCBMPSQCCKMHQWCCMHQWWMBRQWCVWOQCVCVSQCWZPFQCWLXOQCCVCEQCBMPHQCWLXHQCCVCHQCKKZEQCLXMEQCCCPNQCWBBEQCBMPFQWCVWYQCXBLSQWWMBYQWCVWSQCZWVAQCWBBEQCWBBFQCWVLYQCBWZFQCBKWTQCZWVAQCCVCFQCBWZUQCWZPJQCWLXYQCKMVOQCBCCRQCCXZNQCWZPGQCWLXRQWCVWYQWWMBEQXKKPZNQWCCMGQWLLXFQWWMBJQWWMBNQWWMBOQWWMBIQWWMBOQWWMBOQWWMBUQWWMBHQWWMBYQWWMBIQWWMBNQWWMBEQWWMBGQWWMBEQWWMBTQWWMBOQWWMBYQWWMBUQWWMBAQWWMBYQWWMBNQWWMBRQWWMBUQWWMBAQCZCLGQCWZPRQCBVXEQCCCPTQCXBLIQWWMBRQCMWMHQCLKKFQCPPWGQCPMLAQCKXCFQCCXZTQCCVCRQCCKMSQCBWZGQCWLXHQCBZKHQCBWZNQCBPBUQCCCPTQWCPXUQXKKVKOQWWMBOQCWCKOQCXBLOQWWMBOQWCPXIQCBVXOQCWZPHQCBKWEQCCPVEQCWMWIQCBMPSQCWLXNQCCVCUQCKXCOQCBZKTQCBMPOQCCVCOQCMXWUQCWVLGQCBMPNQCWMWUQCBMPFQCWLXHQCCVCIQCVBCSQCCCPSQCMBKAQCBVXJQWCPXTQWCVWIQCWBBYQCWVLAQCZWVGQCCVCSQCBPBFQCWZPTQCCKMRQCWMWJQWCVWFQWCLPUQCKXCRQCCLLYQCZWVRQCWVLNQCCPVYQCBMPNQWWMBEQXKKMMAQXKKMMFQWWMBAQWCVWOQCMPPNQCBWZGQCCVCHQCMLBSQCCPVEQCZCLYQWCVWIQWCLPHQWWMBUQWCWKRQWWMBFQWWZMSQWWMBAQCCKMRQCBMPYQCWBBAQCWZPJQCCXZTQCBWZIQCCVCOQCWZPFQCCKMGQCCCPEQWWMBUQCZCLUQCBMPEQCCXZTQCCVCSQWWMBTQCWBBSQCCKMEQCZWVRQCBKWJQCCVCOQCBWZFQCBKWJQCBMPIQCCXZRQWWMBOQCKBXTQCKPLUQCKBXOQCXVMHQWWZMSQWWMBIQXKKPZIQWCLPJQWLLXUQWWMBTQWWMBYQWWMBHQWWMBHQWWMBEQWWMBOQWWMBNQWWMBRQWWMBHQWWMBAQWWMBUQWWMBTQWWMBUQWWMBUQWWMBEQWWMBAQWWMBEQWWMBRQWWMBGQWWMBOQXKKPZUQWCLPYQCXWWTQWLLXGQWWMBIQWWMBAQWWMBSQWWMBOQWWMBFQWWMBAQWWMBEQWWMBSQWWMBJQWWMBHQWWMBOQWWMBOQWWMBAQWWMBHQWWMBIQWWMBIQWWMBJQWWMBAQWWMBHQWWMBYQCCLLIQCZWVJQCCKMFQWWMBSQCCXZYQCMKLJQCZWVTQCCVCTQCZWVYQWWMBRQCVXPJQWWMBSQCZWVEQCCZWGQCZWVNQCBWZIQCCVCAQWWMBFQCCXZAQCPWBEQCBMPFQCCXZOQCKXCRQCBCCYQCCXZHQCWZPAQCWLXOQWCPXOQWCLPTQCXWWAQWLLXYQWWMBUQWWMBUQWWMBFQWWMBUQWWMBFQWWMBNQWWMBNQWWMBJQWWMBHQWWMBAQWWMBNQWWMBIQWWMBRQWWMBSQWWMBRQWWMBHQWWMBEQWWMBFQWWMBAQWWMBOQCBWZFQCBPBGQWWMBUQWCPXSQCCXZTQCMKLOQCZWVSQCCVCAQCZWVFQCKXCHQCWZPTQCCKMSQCBZKIQCZWVEQCWLXAQCBWZHQCBKWFQWCLPEQWWMBNQXKKVKAQWLLXFQWWMBYQWWMBUQWWMBJQWWMBEQWWMBOQWWMBUQWWMBHQWWMBJQWWMBNQWWMBFQWWMBIQWWMBFQWWMBFQWWMBGQWWMBYQWWMBSQWWMBTQWWMBEQWWMBHQWWMBSQWWMBIQWWMBNQWWMBAQWWMBJQCCXZIQCBMPRQCZWVFQCCKMYQCBKWAQCBBMFQCVCVYQCWZPEQCWLXNQCCVCSQCBMPEQCCWXHQCCVCOQWWMBTQCVXPHQWWMBNQCCXZUQCMKLAQCZWVGQCCVCSQCZWVSQCKXCHQCWZPGQCCKMGQCBZKNQCZWVTQCWLXFQCBWZJQCBKWRQCKXCIQCWMWUQCZWVAQCWBBFQWCPXFQCBPBOQCCPVFQCWLXTQCBKWYQCCVCIQCBWZUQCWZPSQCWLXOQWCPXUQCWZPSQWCLPSQWWMBJQXKKVKGQWWMBJQCCKMHQCBMPRQCCVCYQCCPVEQCCKMFQCWLXGQWWMBRQCWZPOQCKXCSQCCXZRQCWLXUQCBWZJQCWBBTQCWBBJQCBMPHQCCVCRQCXWWRQWWMBRQXKKPZRQWCLPEQCKXCOQCBCCSQCWZPOQCBWZJQCWLXUQWCPXAQWWZMRQWWMBGQWWZMRQWCLPOQCXWWJQWLLXUQWWMBEQWWMBEQWWMBAQWWMBHQWWMBGQWWMBSQWWMBRQWWMBNQWWMBEQWWMBIQWWMBGQWWMBIQWWMBGQWWMBNQWWMBAQWWMBEQWWMBYQWWMBRQWWMBRQWWMBFQXKKPZIQWLLXSQWWMBIQWWMBOQWWMBIQWWMBIQWWMBRQWWMBIQWWMBOQWWMBGQWWMBIQWWMBEQWWMBNQWWMBGQWWMBJQWWMBJQWWMBYQWWMBOQXKKPZHQWWMBGQCBKWUQCZWVOQCCVCEQCBKWOQCBBMIQWCPXHQCCXZSQCBMPOQCZWVNQCCKMNQCBKWGQCBBMTQCMXWJQCCKMTQCCKMOQWCLPSQWWMBRQXKKVKAQWLLXEQWWMBYQWWMBAQWWMBAQWWMBTQWWMBUQWWMBIQWWMBIQWWMBOQWWMBYQWWMBJQWWMBNQWWMBSQWWMBEQWWMBEQWWMBYQWWMBFQWWMBSQWWMBIQWWMBOQWWMBOQCWVLTQCWZPUQCBZKJQWCPXIQWWZMEQCMKLEQCBMPRQCBMPRQCWBBIQWWMBOQCLKKEQCBMPJQCZWVYQCCKMOQCBKWRQCBBMUQWWMBYQCCXZJQCWXVJQCBWZSQCWBBEQCWBBOQCBMPGQCBVXOQCXBLOQWWMBNQWWZMYQWWMBSQWCWKRQWWMBNQCCXZHQCBMPFQCZWVSQCCKMSQCBKWFQCBBMYQCMXWTQCCKMTQCCKMAQCKXCJQCWMWUQCBMPGQCCXZYQCCXZJQCZWVTQCBZKJQCBMPNQWCLPJQCXWWNQWLLXEQWWMBTQWWMBSQWWMBAQWWMBTQWWMBAQWWMBTQWWMBRQWWMBOQWWMBFQWWMBIQWWMBFQWWMBUQWWMBFQWWMBTQWWMBHQWWMBSQXKKPZNQWLLXYQWWMBJQWWMBTQWWMBTQWWMBIQWWMBRQWWMBUQWWMBSQWWMBUQWWMBUQWWMBEQWWMBGQWWMBAQXKKPZFQWLLXFQWLLXAQWWMBYQWWMBUQWWMBAQWWMBGQWWMBYQWWMBOQWWMBRQWWMBIQWWMBFQWWMBYQWWMBRQWWMBNQCCLLYQCZWVHQCCKMGQWWMBEQCCPVRQCCXZEQCBMPHQCCKMTQWWMBTQCVXPOQWWMBTQCBVXNQCWZPFQCBKWEQCCPVSQCWMWGQCBMPSQCWLXFQCCVCGQCKXCGQCBZKUQCBMPHQCCVCRQCMXWTQCWVLSQCBMPHQCWMWFQCBMPFQCWLXRQCCVCHQCVBCIQCCCPIQCMBKRQCBVXJQWCPXHQWCVWNQCCPVHQCCXZIQCBMPEQCCKMSQWCVWOQWCLPYQCKXCEQCCLLJQCZWVEQCWVLRQCCPVGQCBMPOQWWMBHQXKKMMHQXKKMMSQWWMBOQWWZMAQCWMWSQCZWVFQCCVCSQCBBMEQCKLWAQCKBXFQCKWPTQCXZVNQCKWPAQWWZMNQCXWWAQWLLXJQWWMBEQWWMBFQWWMBFQWWMBEQWWMBYQWWMBOQWWMBRQWWMBGQWWMBSQWWMBIQWWMBYQWWMBUQCCLLFQCZWVGQCCKMJQWWMBHQCCKMGQCBMPJQCWBBRQCWZPSQWWMBFQCVXPSQWWMBOQCBVXSQCWZPIQCBKWAQCCPVSQCWMWAQCBMPRQCWLXRQCCVCHQCKXCAQCBZKEQCBMPNQCCVCTQCMXWEQCWVLTQCBMPJQCWMWNQCBMPRQCWLXTQCCVCYQCVBCEQCCCPGQCMBKIQCBVXFQWCPXHQWCVWFQCCKMTQCBMPJQCWBBUQCWZPFQWCVWAQWCLPJQCKXCUQCCLLOQCZWVYQCWVLHQCCPVHQCBMPAQWWMBSQXKKMMOQXKKMMAQWWMBEQWWZMYQCCPVSQCWLXEQCWLXGQCZWVOQCWMWHQCBMPEQCBVXUQCKKZUQCWBBIQCCKMRQCWZPYQCBCCAQCBMPJQCBKWUQCCVCTQWWZMTQCXWWSQWLLXTQWWMBYQWWMBHQWWMBIQWWMBFQWWMBYQWWMBJQWWMBFQWWMBNQWWMBEQWWMBIQWWMBOQWWMBOQCCLLJQCZWVHQCCKMFQWWMBRQCBPBFQCBWZSQCWVLFQCBMPOQCCXZAQWWMBSQCVXPJQWWMBYQCBVXAQCWZPHQCBKWFQCCPVSQCWMWSQCBMPSQCWLXAQCCVCTQCKXCIQCBZKEQCBMPAQCCVCJQCMXWSQCWVLOQCBMPJQCWMWFQCBMPGQCWLXNQCCVCJQCVBCFQCCCPUQCMBKEQCBVXYQWCPXJQWCVWNQCBPBOQCBWZOQCWVLJQCBMPYQCCXZSQWCVWOQWCLPIQCKXCOQCCLLGQCZWVHQCWVLJQCCPVEQCBMPJQWWMBSQXKKMMGQXKKMMSQWWMBRQWWZMAQCCPVSQCWLXGQCWXVOQCWLXGQCWZPAQCCZWSQCWLXFQWWMBHQCBPBNQCBWZRQCWVLAQCBMPUQCCXZUQWWZMRQCXWWGQWLLXSQWWMBUQWWMBYQWWMBRQWWMBGQWWMBIQWWMBFQWWMBGQWWMBSQWWMBAQWWMBOQWWMBIQWWMBTQCCLLUQCZWVOQCCKMEQWWMBHQCWBBOQCCKMFQCWZPJQCWMWJQCWBBHQCCVCOQCLXMSQCBMPOQCCWXEQCCVCTQWWMBNQCVXPJQWWMBSQCBVXAQCWZPTQCBKWRQCCPVNQCWMWJQCBMPIQCWLXEQCCVCIQCKXCRQCBZKTQCBMPSQCCVCGQCMXWFQCWVLHQCBMPGQCWMWRQCBMPEQCWLXTQCCVCUQCVBCIQCCCPAQCMBKAQCBVXJQWCPXJQWCVWUQCWBBNQCCKMFQCWZPRQCWMWOQCWBBUQCCVCIQWCVWYQWCLPOQCKXCSQCCLLNQCZWVFQCWVLGQCCPVOQCBMPUQWWMBSQXKKMMSQXKKMMGQWWMBRQWWZMNQCVZZGQWWMBIQCCXZJQCCVCJQCZWVNQCWLXOQCBVXHQCZWVFQCCKMGQCBVXFQWWMBRQCWBBGQCCKMHQCWZPSQCBCCNQCBMPJQCBKWOQCCVCJQCKXCAQWWZMYQCXWWHQWLLXYQWWMBTQWWMBGQWWMBJQWWMBJQWWMBEQWWMBIQWWMBAQWWMBYQWWMBIQWWMBJQWWMBEQWWMBRQCCLLFQCZWVOQCCKMFQWWMBAQCWBBIQCWVLHQCZWVJQCCVCGQCBPBTQCWZPRQCCKMOQCWMWHQWWMBHQCVXPFQWWMBIQCBVXGQCWZPGQCBKWOQCCPVRQCWMWGQCBMPFQCWLXOQCCVCAQCKXCUQCBZKHQCBMPYQCCVCEQCMXWRQCWVLSQCBMPJQCWMWNQCBMPYQCWLXSQCCVCEQCVBCUQCCCPJQCMBKUQCBVXEQWCPXRQWCVWUQCWBBIQCWVLEQCZWVJQCCVCFQCBPBHQCWZPYQCCKMOQCWMWUQWCVWUQWCLPEQCKXCNQCCLLFQCZWVJQCWVLFQCCPVFQCBMPEQWWMBEQXKKMMYQXKKMMAQWWMBFQWWZMAQCMPPTQCBWZYQCCVCAQCMLBSQCCPVEQCZCLFQWWZMOQCXWWOQWLLXNQWWMBTQWWMBRQWWMBUQWWMBFQWWMBHQWWMBEQWWMBRQWWMBRQWWMBSQWWMBUQWWMBIQWWMBFQCCLLRQCZWVGQCCKMYQWWMBHQCWVLNQCBWZEQCBKWSQCBMPEQCWLXYQCCXZJQCBMPRQWWMBOQCVXPJQWWMBJQCBVXRQCWZPAQCBKWIQCCPVYQCWMWAQCBMPOQCWLXGQCCVCYQCKXCFQCBZKHQCBMPHQCCVCNQCMXWYQCWVLSQCBMPOQCWMWAQCBMPAQCWLXUQCCVCAQCVBCNQCCCPEQCMBKGQCBVXNQWCPXJQWCVWGQCWVLJQCBWZYQCBKWTQCBMPJQCWLXOQCCXZSQCBMPOQWCVWJQWCLPHQCKXCYQCCLLIQCZWVGQCWVLRQCCPVGQCBMPIQWWMBUQXKKMMFQXKKMMTQWWMBEQWWZMNQCPVVTQCMBKTQCLXMJQWWZMIQCXWWGQWLLXJQWLLXHQWWMBHQWWMBRQWWMBJQWWMBHQWWMBAQWWMBUQWWMBSQWWMBHQWWMBRQWWMBUQWWMBAQWWMBIQCWVLFQCWZPAQCBZKEQWCPXEQWWZMHQCVCVIQCWZPIQCWMWRQCWBBIQCBWZGQCWVLTQCBWZUQCWLXGQCBZKAQWWMBGQCZWVYQCCKMTQCBKWHQCBBMGQCBWZIQCCVCRQCBMPOQCBKWTQCCVCYQCCPVTQCCKMAQCZWVJQCWVLTQWWMBTQCZCLFQCWVLIQCCPVOQCBMPUQCWBBSQCCKMRQCBWZSQCWLXJQCCVCUQWWMBEQCBPBRQCWZPNQCCKMJQWWMBIQWWZMTQWWMBTQWCWKTQWWMBGQCWBBFQCWVLNQCZWVHQCCVCRQCBPBHQCWZPIQCCKMJQCWMWUQWWMBUQWCWKGQWWMBSQWWZMYQCKXCJQCKXCFQCKXCOQWWZMUQWCLPOQCXWWYQWLLXTQWWMBUQWWMBNQWWMBSQWWMBHQWWMBSQWWMBRQWWMBYQWWMBJQWWMBGQWWMBNQWWMBGQWWMBGQCWVLFQCWZPRQCBZKUQWCPXJQWWZMAQCMXWHQCWLXHQCBPBNQCWZPNQCCKMUQCBKWFQCBWZNQCWLXTQCBZKFQWWMBTQWWZMFQWWMBAQWCWKGQWWMBTQCWVLGQCBWZFQCBKWJQCBMPAQCWLXIQCCXZYQCBMPAQWWMBIQWCWKOQWWMBFQWWZMUQWWMBTQCWVLYQCBWZSQCBKWRQCBMPAQCWLXTQCCXZAQCBMPSQWWMBFQCBKWEQCWZPTQCWLXJQCCXZJQCCVCUQCCKMFQCZWVOQCBWZFQCWLXHQCCVCRQCCXZRQCKXCTQCKXCUQCKXCTQWWZMNQWCLPOQCXWWYQWLLXUQWLLXJQWWMBGQWWMBIQWWMBJQWWMBTQWWMBRQWWMBUQWWMBRQWWMBHQWWMBOQWWMBEQWWMBRQWWMBEQCCLLJQCZWVNQCCKMAQWWMBHQCCXZEQCCCPJQCCXZHQCCVCGQCBMPNQCWMWHQCPZXGQCCKMSQCWZPGQCWMWTQCWBBOQCCVCTQCVCVOQCWZPFQCWLXTQCCVCFQCBMPTQCWLXYQCCVCNQWWMBYQCVXPNQWWMBTQWWZMTQCLBWUQCWZPSQCCPVYQWWMBNQCZWVTQCCKMHQCBMPSQWWMBFQCCVCFQCBBMOQCBMPFQWWMBNQCPMLHQCBMPJQCCWXOQCCPVRQCCXZYQWWMBHQCVZZYQCCKMUQCBKWFQCBBMRQCBWZJQCCVCIQCBMPUQCBKWGQCCVCNQWWMBHQXXLXBBNQWWMBRQCZWVSQCWLXHQWWMBHQCBMPEQCWVLOQCBWZSQCCVCUQCBMPIQWWMBHQCLKKJQCBMPHQCWLXFQCBWZIQCWZPOQCCKMTQWWMBYQCMKLEQCBMPRQCCLLEQCBMPOQCWVLOQCWZPNQCWBBUQCBMPSQCCKMGQWWMBUQCZWVYQCWLXGQCBVXTQWWMBOQCPWBAQCBMPFQCWBBIQCWZPTQCCXZGQCBWZRQCCVCSQCWZPSQCCKMIQCCCPOQWWMBIQCLKKAQCCVCGQCCKMJQCZWVJQCCVCSQCBMPHQCBZKOQCBWZUQCCXZNQCCVCGQCKXCYQCZXBSQCWLXAQCZXBYQCWLXRQCLBWSQCWZPRQCCPVHQCCKMFQWWMBNQCCVCAQCZWVTQCCXZFQCWXVGQWWMBAQCBWZOQCCXZTQWWMBOQCCVCYQCWZPTQWWMBSQCBZKYQCBMPSQCWLXIQCBMPNQCCKMHQCZWVGQCCVCIQCBMPHQWWMBIQCBKWAQCWVLHQCBMPHQCZWVAQCWLXEQWCCMHQWWMBGQCWBBJQCCKMJQCWZPYQCBPBFQCBMPUQCCXZHQCCXZSQCBWZSQCWZPOQCWLXUQCZWVYQCWVLYQWCCMTQWWMBNQCBKWRQCWZPSQCWMWGQCWMWRQCBWZAQCCVCYQCKKZUQCCKMUQCBMPSQCZWVFQCBVXAQCCCPSQWWMBOQCCKMJQCBMPFQCWBBGQCWZPEQCCXZHQCBWZAQCCVCIQCWZPSQCCKMJQCCCPNQWWMBTQCBPBUQCBWZYQCWVLGQCBMPYQCCXZSQCKXCNQCZXBNQCWLXFQCLXMTQCBBMJQCBMPFQWWMBAQCCVCEQCZWVYQCCKMTQCBZKSQCBMPTQCCVCHQWWMBEQCWBBIQCWVLJQCZWVEQCCVCUQCBPBFQCWZPNQCCKMYQCWMWUQWWMBAQCBWZAQCCXZUQWWMBFQWWZMSQWWMBJQWCWKGQWWMBNQCWBBGQCWVLOQCZWVSQCCVCJQCBPBFQCWZPJQCCKMGQCWMWOQWWMBSQWCWKJQWWMBUQWWZMRQCKXCEQWWMBRQCLBWRQCWZPHQCCPVAQWWMBTQCWMWRQCCPVFQCCXZRQCCVCGQWWMBYQCZWVGQCBZKYQCBZKHQCCKMAQCBMPNQCCXZEQCCXZYQCBWZHQCCLLTQCBMPAQCWVLTQCCCPRQWWMBSQCZWVOQCBVXFQCZWVJQCWBBIQCCVCNQWWMBYQCCCPIQCWZPFQCCPVYQCCKMNQWWMBJQCWZPYQCCPVHQCCVCFQCWBBIQCCPVFQCCVCFQWWMBEQCCVCOQCWZPYQWWMBYQCCVCYQCBBMOQCBMPAQWWMBEQCCXZEQCWBBGQCBMPOQCBKWJQCBWZOQCBPBRQCBWZSQCBKWGQWWMBEQCZWVGQCCKMIQCBKWNQCBBMAQCBWZEQCCVCHQCBMPIQCBKWEQCCVCEQCCPVUQCCKMTQCZWVEQCWVLHQWWMBFQCCXZTQCCVCGQCZWVUQCWLXSQCBVXHQCZWVYQCCKMNQCBVXTQCCXZYQWWMBEQCWZPEQCBPBYQWWMBYQCCVCAQCBBMEQCBWZSQCCXZYQWWMBRQCWBBNQCWVLGQCZWVRQCCVCNQCBPBJQCWZPAQCCKMUQCWMWRQCKXCNQCZXBYQCWLXHQCZXBJQCWLXYQCPZXGQCPKCGQCVZZSQCLXMHQCMMXRQCPPWSQCPWBJQCPVVIQWWMBNQCLKKYQCPZXUQCMXWEQCVCVTQCMBKGQCMMXTQCMBKGQCVCVFQWWMBIQCMBKGQCPMLJQCLKKTQCLXMRQCPWBSQCLVZJQCVCVHQCLXMUQCMBKRQCPPWFQCPMLYQCLKKGQCXBLFQCZXBEQCWLXHQCKKZAQWWMBGQCMBKGQCMMXRQWWMBSQCPZXHQCPKCYQCVZZAQCLXMIQCMMXYQCPPWJQCPWBOQCPVVNQWWMBSQCMBKTQCLKKAQWWMBRQCZXBHQWWZMYQCMLBHQCLVZTQCMPPAQCMPPJQCMBKUQCPMLOQCMPPIQCMMXTQCVZZJQCVCVYQCMXWIQCZXBOQWWZMIQWWMBAQWCPXUQCWZPSQCCKMIQWWMBUQCCXZAQCBWZYQCWMWRQCBWZRQCWVLNQCZWVSQCCKMFQWCLPTQCXBLNQWWMBYQCLXMOQCBBMGQCBMPOQWWMBRQCPWBNQCMXWFQCVZZHQCMKLHQCPVVRQCMXWAQCKXCFQCWMWTQCBVXFQWWMBJQCPVVHQCLVZSQCLKKFQCLXMNQWWMBNQCZCLJQCBMPOQCBZKSQCBWZTQCWLXTQWWMBHQCCZWAQCBWZUQCCVCSQCBBMNQWWMBJQCZWVEQWWMBOQCCLLEQCZWVHQCWVLSQCBWZEQCBVXIQWWMBSQCLBWAQCVZZUQCPVVOQCPKCFQWWMBEQCWMWAQCBMPEQCCVCHQCZWVHQCBVXGQCZWVUQCCVCSQCZWVGQWWMBRQCZCLAQCWVLAQCWZPOQCBKWEQCWXVYQWWMBFQWCPXGQCKKZTQCKKZAQCKKZHQWWMBJQCKXCGQCKXCFQCKXCHQWWMBAQCKKZHQCKKZRQCKKZJQWCLPRQWWMBJQCBKWTQCWZPEQCWLXSQCCVCAQCZWVYQCBWZYQCWLXAQCBWZOQCWLXYQCBZKJQWWMBEQCCXZJQCCVCJQCZWVUQCWLXUQCBVXEQCZWVAQCCKMAQCBVXJQWWMBRQCMLBTQCCPVGQCBZKYQCBZKNQCBWZSQCWLXFQCBZKEQCMMXNQCZWVOQCBKWOQCBMPFQWWMBFQCPVVSQCWZPIQCBVXAQCBMPIQCWVLFQWWMBTQCVCVOQCZWVFQCCKMOQCBVXOQWWMBTQCWZPOQCCKMEQWWMBYQCMKLGQCZWVHQCCVCEQCZWVYQCCXZYQCBMPHQCCVCNQWWMBRQCVCVEQCZWVHQCCKMFQCBVXAQWWMBEQCZWVTQCCVCUQCCVCHQCCKMFQCBWZIQCZCLYQCCPVFQCCVCGQCBMPUQCCXZJQWWMBGQWCPXEQCBMPGQCKXCTQCBZKJQCKXCTQWCCMSQWWMBSQCWVLEQCBWZOQCBKWIQCBMPHQCWLXGQCCXZEQCBMPTQCXBLGQWWMBGQWWZMJQWWMBAQWCWKHQWWMBAQCWVLUQCBWZGQCBKWHQCBMPJQCWLXFQCCXZIQCBMPNQCKXCEQCCVCAQCWZPIQCPKCEQCWZPTQCCZWOQCBMPJQCCKMUQCVCVUQCZWVYQCCXZFQCBMPHQWCPXGQWCLPUQWWMBNQWCWKGQWWMBGQWWZMHQWCCMOQWWMBYQCWVLGQCZWVHQCWLXTQCBZKFQCCPVFQCZWVIQCBZKHQCBMPRQWCCMNQWWMBHQCCVCSQCZWVNQCBZKNQCCXZTQWCCMJQWWMBUQCBVXJQCZWVHQCCVCOQCZWVIQCCXZOQCBMPFQCCVCYQCCXZOQWCLPGQCKXCEQWWMBGQCLXMAQCBBMAQCBMPFQWWMBUQCZCLSQCWZPTQCBVXSQCCCPYQWWMBOQCWMWTQCCPVUQCCXZTQCCVCAQWWMBFQCBPBNQCWZPNQCWVLGQCWVLUQCWZPIQCCZWFQWWMBOQCCXZRQCCVCRQCZWVNQCWLXHQCBVXOQCZWVAQCCKMEQCBVXTQWWMBIQCPVVUQCPKCHQWWMBNQCPVVUQCWZPUQCBVXJQCBMPYQCWVLTQWWMBHQCVCVHQCZWVYQCCKMYQCBVXAQWWMBHQCBPBFQCWZPAQCCKMJQCWMWSQCZWVOQCCVCIQCCVCUQCBWZHQCWLXIQCBZKAQWWMBIQWCPXIQCPVVIQCWZPHQCBVXUQCBMPUQCWVLTQWWMBTQCMKLHQCBMPTQCCVCIQCZWVNQCBWZTQCWVLOQCCXZSQWCCMIQWWMBFQCMBKHQCWLXEQCCVCSQCBMPGQCWLXRQCBVXJQCBMPRQCBVXYQWWMBFQCLVZYQCCXZOQCBMPUQWCCMJQWWMBSQCLXMTQCCKMAQCZWVAQCBWZTQCWLXIQCBWZFQCWLXNQCBZKYQWWMBSQCMKLEQCZWVEQCCVCGQCZWVUQWCCMEQWWMBSQCPVVSQCBMPUQCCVCSQCCKMHQCBWZJQCBKWRQCCXZGQWCLPFQCKXCUQCZXBHQCWLXAQCKKZEQWWMBAQCMBKSQCMMXEQWWMBIQCPZXNQCPKCAQCVZZNQCLXMAQCMMXGQCPPWTQCPWBFQCPVVFQWWMBYQCMBKHQCLKKAQWWMBFQCZXBNQWWZMOQCMPPYQCMBKFQCLXMTQCMLBHQCLVZOQCVBCAQCZXBYQWWZMHQWWMBUQCKMVTQWWMBSQCZXBUQWWZMYQCMPPFQCMBKHQCLXMNQCPKCOQCVZZUQCVBCUQCZXBFQWWZMNQWWMBRQCKMVFQWWMBUQCZXBGQWWZMAQCVCVHQCPPWEQCMKLFQCMXWEQCVBCRQCMXWYQCPWBEQCMPPOQCZXBEQWWZMFQCXBLRQWWMBOQCLVZHQCCXZUQCBMPAQWWMBFQCCXZTQCCVCSQCZWVOQCWLXFQCBVXGQCZWVTQCCKMJQCBVXRQWWMBFQCCXZIQCWZPRQCBPBAQCCVCSQCCZWHQCZWVGQCCKMUQCBMPAQWWMBYQCBMPNQCWLXAQCBZKRQCBWZAQCWLXSQCBMPEQCBMPGQCCKMTQCBWZSQCWLXUQCBZKFQWWMBHQCPWBFQCMXWRQCVZZIQCMKLGQCPVVRQCMXWFQWWMBIQCCXZGQCCVCRQCCKMSQCCPVGQCBKWOQCCVCGQCCPVTQCCKMAQCBMPEQCCXZSQWWMBYQWCPXAQCVBCGQCZWVRQCBVXHQCBZKIQCBMPSQCCXZSQWCCMHQWWMBTQCMBKGQCWLXGQCCXZHQCCVCSQCZWVTQCWVLEQCWVLIQCZWVUQCCVCUQCBWZIQCWZPUQCWLXUQWCCMEQWWMBEQCLVZJQCCXZGQCZWVIQCBZKNQCBMPSQWCCMTQWWMBTQCVCVFQCWZPEQCWLXSQCCVCFQCCKMNQCBWZRQCZCLRQCCPVNQCCVCOQCBWZIQCWLXNQCBZKAQWCLPEQWWMBSQCCXZFQCWBBHQCBMPFQCBKWSQCBWZTQCBPBIQCBWZNQCBKWFQWWMBNQCCVCNQCWZPRQWWMBIQCCVCEQCBBMJQCZWVHQCCVCTQWWMBIQCWBBGQCWVLFQCZWVFQCCVCFQCBPBSQCWZPTQCCKMOQCWMWTQWCVWHQCCXZFQWWMBUQCBPBHQCWVLHQCZWVAQCCLLHQCWZPYQCCKMTQWWMBNQCWZPUQCBPBGQWWMBIQCWMWGQCZWVSQCCKMOQCWXVOQCBVXUQCWZPGQCCZWUQCWLXRQWWMBYQCZWVOQCWLXTQCBVXGQWWMBUQCLVZNQCPWBYQCPKCYQWWMBUQCCXZTQCCVCTQCCKMIQCCPVTQCBKWJQCCVCAQCCPVIQCCKMOQCBMPFQCCXZNQCKXCYQCZXBIQCWLXNQCZXBHQCWLXNQCVCVAQCPWBIQCMBKIQCLXMYQCMBKOQCVCVIQCVZZSQCPKCHQWWMBJQCPWBTQCMXWAQCPBPHQCLVZGQCMBKAQCPWBEQCMXWJQCPVVOQCMXWSQCPMLAQCLXMTQCXBLTQWWMBAQCLXMAQCBBMSQCBMPNQWWMBIQCBKWEQCCPVTQCCKMEQCCKMHQCBMPJQCWLXGQCCVCRQWWMBFQCCCPAQCBMPJQCZWVFQCCKMAQWWMBTQCBWZYQCCXZOQWWMBFQCKBXNQCKPLUQCKBXTQCXVMAQCKXCGQWWMBRQCLVZYQCCXZSQCBMPEQWWMBEQCKBXRQCKPLNQCKBXSQCXVMOQWWMBFQCBPBOQCWZPSQCCKMNQWWMBNQCZWVIQCWVLSQCWVLTQWWMBNQCBKWAQCWZPRQCWBBJQCCCPNQCCKMSQCBWZGQCBZKYQCBBMAQCCVCOQWWMBEQCWLXEQCWZPRQCCVCUQCBWZNQCBKWNQCBMPRQCCXZJQCKXCSQCZXBHQCWLXHQCZXBRQCWLXJQCLKKRQCBMPJQCZWVRQCCKMFQCBKWSQCBBMRQWWMBGQCBKWHQCWZPSQCWLXGQCCVCSQCBMPNQCCWXTQCCVCFQWWMBHQWCPXTQCBWZTQCBPBFQWWMBRQCZWVJQCWLXOQCCCPSQWCLPTQCXBLTQCZXBSQCWLXYQWWZMGQWWMBGQWCWKYQWWMBEQCCXZJQCBMPTQCZWVIQCCKMRQCBKWSQCBBMIQCVCVYQCWZPOQCWLXYQCCVCIQCBMPHQCCWXSQCCVCFQCXWWFQWLLXIQWLLXJQWWMBSQWWMBHQWWMBJQWWMBFQWWMBNQWWMBRQWWMBEQWWMBTQWWMBOQWWMBHQWWMBOQWWMBTQCCLLTQCZWVHQCCKMAQWWMBJQCCPVTQCCXZIQCBMPSQCCKMEQCPZXJQCCKMNQCWZPRQCWMWAQCWBBRQCCVCGQCVCVRQCWZPOQCWLXUQCCVCTQCBMPAQCWLXFQCCVCAQWWMBRQCVXPEQWWMBRQWWZMEQCVCVIQCCKMUQCBMPAQCZWVHQCCVCAQCBMPFQWWMBFQCMXWIQCLZLIQCVZZGQCVCVEQCLXMGQCPKCOQCLBWNQWWMBFQCLXMTQCMLBYQCPWBEQCMXWJQCMXWHQWWMBSQCBPBGQCBWZAQCWVLTQCBMPYQCCXZHQCKXCEQCZXBTQCWLXIQCZXBIQCWLXEQCPZXJQCCKMEQCWZPNQCBCCEQCBMPTQCBKWJQCCVCOQWWMBNQCBVXYQCBMPIQCCVCTQCZWVHQCBWZEQCWVLEQCCXZJQCXBLEQCZXBAQCWLXHQCKKZFQWWMBYQCPPWIQCCZWUQCWLXJQCBMPNQCCKMUQCKMVJQCLVZOQCCXZGQCBMPIQCCKMSQCXBLFQWWMBEQWWZMHQWWMBYQWCWKSQWWMBGQCCPVFQCCXZIQCBMPTQCCKMHQWWMBSQWCWKNQWWMBYQWWZMJQCZXBFQCWLXYQCKKZYQWWMBRQCPWBFQCBMPFQCWBBIQCWZPJQCCXZJQCBWZSQCCVCFQCWZPIQCCKMTQCCCPRQWWMBSQCWLXGQCZWVGQCWMWYQCBMPUQCXBLSQWWMBIQWWZMNQWWMBJQWCWKRQWWMBYQCCKMAQCBMPRQCWBBSQCWZPGQWWMBTQWCWKOQWWMBGQWWZMRQCZXBJQCWLXEQCKKZFQWWMBNQCLXMRQCZWVOQCCKMEQCBZKYQCBMPNQCCVCSQWWMBJQCPZXEQCWVLRQCZWVGQCCVCEQCBPBIQCWZPGQCCKMAQCWMWFQCXBLEQWWMBNQWWZMIQWWMBYQWCWKSQWWMBUQCWBBOQCWVLFQCZWVAQCCVCOQCBPBHQCWZPEQCCKMTQCWMWYQWWMBSQWCWKFQWWMBGQWWZMHQCZXBAQCWLXTQCKKZYQWWMBUQCLKKYQCBMPRQCWVLOQCBMPSQCBKWRQCCVCEQCBMPNQCBVXAQWWMBOQCPKCEQCBWZSQCBKWIQCBMPOQCWLXOQCCXZNQCBMPOQCXBLTQWWMBOQWWZMOQWWMBUQWCWKYQWWMBSQCWVLYQCBWZRQCBKWIQCBMPOQCWLXSQCCXZEQCBMPRQWWMBHQWCWKIQWWMBOQWWZMRQCZXBOQCWLXGQCKKZOQWWMBTQCMXWTQCCWXUQCBWZRQCCXZOQCCVCJQCBWZRQCWLXSQCBZKFQWWMBHQCBPBGQCBWZHQCWVLYQCBMPSQCCXZRQWWMBEQWCPXJQCBWZIQCBPBRQWWMBYQCZWVAQCWLXIQCCCPHQWCLPTQCXBLRQWWMBSQWWZMNQWWMBRQWCWKOQWWMBTQCBPBUQCBWZGQCWVLTQCBMPJQCCXZGQWWMBYQWCWKSQWWMBSQWWZMSQCZXBTQCWLXRQCKKZNQWWMBNQCPZXHQCCKMNQCWZPSQCBCCGQCBMPUQCBKWAQCCVCJQWWMBNQCBVXGQCBMPGQCCXZNQCBKWUQCCKMHQCBWZRQCWBBRQCCVCAQCBWZRQCWZPHQCWLXRQCXBLHQWWMBRQWWZMTQWWMBNQWCWKJQWWMBTQCWBBFQCCKMTQCWZPUQCWMWNQCWBBGQCCVCOQCLXMRQCBMPSQCCWXHQCCVCJQWWMBSQWCWKIQWWMBFQWWZMNQCZXBGQCWLXSQCZXBFQCWLXJQCMMXSQCBWZEQCWVLYQCBMPGQCCXZOQWWMBOQCCVCJQCWZPOQWWMBUQCBZKHQCBMPUQCWLXFQCBMPNQCCKMJQCZWVIQCCVCJQCBMPTQCXBLIQCZXBRQCWLXGQCKLWEQCKXCTQWWMBHQCPWBTQCMXWEQCVZZTQCMKLSQCPVVAQCMXWIQCKXCTQCWMWHQCBVXUQWWMBNQWCPXEQCPZXJQCWVLNQCZWVTQCCVCAQCBPBSQCWZPUQCCKMYQCWMWJQCKKZOQCWLXJQCZWVEQCCVCOQCBWZOQCCLLNQCBMPJQWWMBGQCBPBJQCWZPSQCCKMTQCWMWAQCZWVAQCCVCSQWCLPOQCZXBOQCWLXTQCKBXIQCKXCHQWWMBUQCPKCEQCMBKUQCVCVEQCMXWYQCPMLSQCLKKHQCMXWIQWWMBIQWCPXNQCMPPJQCBMPYQCWLXUQCBMPTQCCKMSQCZWVNQCCVCNQCBMPJQWWMBSQCCVCHQCBBMNQCBMPOQWWMBAQCBMPEQCCWXHQCZWVAQCBKWSQCCVCJQWWMBUQCWVLAQCBMPHQCBZKNQCZWVYQCWVLYQWWMBUQCZCLSQCWZPOQCBWZFQCWVLJQCBMPSQCCKMRQCWBBEQCWVLYQCZWVAQCCVCRQCBMPUQWWMBRQCBPBNQCWZPSQCCKMOQWWMBUQWWZMYQWWMBAQWCWKOQWWMBTQCWVLFQCBWZUQCBKWTQCBMPOQCWLXNQCCXZHQCBMPSQWWMBJQWCWKYQWWMBOQWWZMHQCKXCYQWWMBGQCPWBIQCBMPEQCWBBAQCWVLNQCZWVNQCBKWRQCBMPAQWWMBUQCCCPEQCBMPSQCZWVSQCCKMRQWWMBUQCCZWEQCBWZYQCCVCEQCBBMOQWWMBYQCKBXFQCKPLRQCKBXFQCXVMYQWWMBJQCZWVHQCWLXEQCBVXAQWWMBEQCBKWGQCWZPSQCWBBIQCCCPAQCCKMYQCBWZYQCBZKIQCBBMUQCCVCJQWWMBOQCBBMGQCWZPOQCWVLRQCBVXOQCBMPSQCCKMFQWWMBFQCCZWYQCBWZSQCCVCUQCBBMTQWWMBTQWWZMJQWWMBGQWCWKHQWWMBOQCCPVTQCCXZYQCBMPNQCCKMSQWWMBIQWCWKTQWWMBEQWWZMOQWCLPAQCZXBOQCWLXGQCKWPNQCKXCYQWWMBGQCKXCIQCBZKOQCBWZUQCCVCYQCBWZTQCBZKRQCWLXGQCWZPUQCCKMEQCBMPSQWWMBTQWCPXYQCLXMSQCZWVTQCBWZRQCWVLUQCWZPHQCCKMRQCBMPTQCBVXYQWWMBAQCCVCUQCWZPFQWWMBNQCCVCYQCBBMTQCBMPFQWWMBJQCWVLIQCBWZFQCWXVTQCBMPEQCWVLNQCCCPNQWWMBYQCCVCFQCBMPNQCBKWTQCBBMUQWWMBJQCCXZIQCCVCTQCZWVEQCBKWFQCWXVYQWWMBIQCZCLRQCZWVSQCCXZUQCBMPIQCBVXOQWWMBEQCWZPNQCWLXFQWWMBTQCCVCGQCBBMEQCBMPUQWWMBIQCBPBHQCBWZGQCWVLTQCBMPHQCCXZRQWWMBEQCZWVOQCWLXOQCBVXOQWWMBEQCBVXUQCBMPSQCCXZFQCBKWFQCCKMRQCBWZOQCWBBNQCCVCNQCBWZUQCWZPRQCWLXEQWWMBYQCWBBYQCCKMTQCWZPGQCCLLEQCBWZOQCBVXOQCBMPRQCBVXTQWCLPFQCZXBGQCWLXGQCZXBJQCWLXAQCPWBEQCBMPGQCWCKJQCCPVNQCBWZFQCCKMTQCBMPEQCWMWRQCBMPJQCWLXTQCCVCRQCCXZIQCXBLFQCZXBEQCWLXUQCKKZYQWWMBRQCMXWEQCWLXOQCCXZNQCCPVFQCCKMYQCBMPYQWWMBFQCBMPHQCCLLSQCBMPFQCCKMAQCCCPIQCCVCHQCBBMUQCBWZGQCWLXOQCBZKYQWWMBYQCBWZNQCCXZNQWWMBYQCCKMEQCBMPOQCZWVTQCBVXYQCCCPEQWWMBAQCCVCYQCWZPSQWWMBGQCBKWNQCWZPTQCWMWNQCWMWNQCBWZRQCCVCHQWWMBIQCCZWSQCBWZFQCCVCGQCBBMJQCWZPYQCCPVYQCCVCIQWWMBEQCWMWHQCWZPTQCBVXUQCBWZNQCBPBOQCBWZYQCBKWYQCZWVFQCCVCFQCBWZTQCWZPAQCWLXRQCKXCOQCZXBEQCWLXNQCKKZJQWWMBYQCMKLFQCWZPUQWWMBOQCPMLIQCPPWAQCLXMIQWWMBOQCBWZRQCWLXUQCBKWFQCWVLTQCCPVNQCBVXNQCBMPIQWWMBHQCBMPJQCCWXNQCWBBEQCWVLOQCZWVFQCWLXOQCZWVEQCCVCRQCBWZGQCWZPHQCWLXTQCCXZTQWWMBJQCWZPHQCCKMOQWWMBGQCBMPGQCCWXHQCCVCOQCCKMRQCZWVHQWWMBFQCCVCTQCBMPAQCCWXUQCCVCSQWWMBFQCWZPOQCCPVHQCCVCFQCCXZUQCBWZTQCBVXTQCBMPJQWWMBOQCCVCTQCBBMGQCBMPYQWWMBJQCLZLRQCPVVEQCPKCUQWWMBTQCCVCSQCZWVTQCBZKUQCCXZSQCKXCGQCZXBEQCWLXJQCKKZYQWWMBSQCPVVRQCZWVYQCCWXJQCBWZEQCWMWEQCBWZTQXKKKBOQCBMPFQWWMBIQCBKWGQCWZPNQCWLXEQCCVCEQCBMPRQCWLXNQCCVCHQWWMBAQCBVXGQCBMPYQCWBBOQCCVCSQCBBMSQWWMBIQCZWVHQCWLXSQCBVXAQWWMBRQCWVLJQCBMPSQCWLXSQCBZKNQCCVCAQCBBMHQWWMBSQCMBKGQCPMLFQCLKKJQCMBKIQCMKLRQCMXWNQWWMBOQCCVCHQCBBMFQCBMPOQWWMBGQCBZKOQCBMPRQCWLXNQCBMPJQCCKMIQCZWVSQCCVCSQCBMPSQCBVXFQWWMBOQCBPBOQCBWZFQCWVLHQCBMPAQCCXZHQCKXCTQCZXBRQCWLXRQCKKZYQWWMBRQCVZZEQCPKCUQCLLVHQCVZZJQCLBWHQCLKKEQWWMBEQCMBKSQCPMLHQCVCVNQCPKCTQCLVZGQCMKLYQCMXWFQWWMBTQCLXMGQCMLBSQCMXWRQWWMBNQCPWBJQCMXWTQCPZXGQCPPWEQCLKKUQCMBKYQCLXMUQCPPWSQCPWBFQCLBWRQWWMBSQCPKCGQCMBKNQCPMLNQCMCZHQWWMBUQCPPWHQCPMLYQWWMBSQCLXMUQCMLBNQCMXWNQWWMBNQCLVZHQCLKKJQCVZZOQCMPPGQCMXWOQWWMBIQCPPWHQCPMLYQWWMBJQCLXMRQCMLBTQCMXWAQWWMBHQCPWBSQCMXWTQCVZZOQCMKLUQCPVVTQCMXWTQCKXCAQCPVVHQCMKLTQCZXBGQCWLXTQCKKZJQWWMBHQCMBKGQCMMXRQWWMBRQCLXMRQCMLBIQCMXWSQCPWBYQCMXWUQWWMBNQCMBKRQCLKKNQWWMBNQCVZZYQWWMBRQCBWZUQCWLXRQCBVXFQCBMPHQCCWXRQCKXCUQCBBMOQCCVCFQCWMWYQCWVLEQWCCMHQWWMBFQCLXMNQCBBMOQCBMPEQCWLXSQWWMBTQCBWZYQCWLXOQCBKWJQCWVLHQCCPVOQCBVXTQCBMPIQWWMBHQCCVCGQCBBMHQCBMPRQWWMBTQCCPVTQCCKMJQCWVLHQWWMBUQCCVCAQCWZPGQWWMBEQCCVCRQCBBMHQCBMPFQWWMBRQCCXZFQCCVCIQCZWVTQCCVCYQCBWZRQCBKWEQWWMBTQCCZWRQCBMPTQCZCLFQCCXZFQCBWZHQCCVCNQCBMPHQCXBLJQWWMBNQCBMPYQCCWXGQCZWVIQCWMWIQCWBBSQCWVLIQCBMPSQCXBLEQWWMBRQCBKWAQCWZPFQCBVXGQCBMPSQCZCLFQCBMPSQCCKMTQCBZKSQWWMBRQCVXPIQWWMBOQCBKWYQCWZPRQCBVXSQCBMPHQCZCLFQCBMPOQCCKMJQCBZKYQCKXCAQCWBBNQCZWVAQCBZKYQCBMPNQWCCMOQWWMBYQCBZKEQCBWZEQCCVCTQCBBMUQCCPVOQCZCLYQWWMBIQCVXPTQWWMBAQCBZKRQCBWZRQCCVCRQCBBMUQCCPVIQCZCLGQCKXCHQCBWZIQCWZPFQWCCMSQWWMBGQCBZKIQCBWZRQCCVCAQCWVLTQCZWVTQCZCLYQWWMBHQCVXPEQWWMBYQCBZKYQCBWZOQCCVCGQCWVLRQCZWVEQCZCLUQCKXCNQCBWZIQCWZPJQWCCMGQWWMBEQCBBMUQCCPVJQCBZKHQCBZKYQCBWZEQCWLXUQCBZKFQCBPBIQCZWVJQCBKWAQCBMPOQWWMBNQCVXPTQWWMBIQCBBMEQCBPBNQCKXCGQCCXZFQCWBBIQCZWVSQCBKWEQCBMPOQCZXBEQCWLXAQCZXBIQCWLXIQCLKKJQCLXMNQCPWBHQCMBKUQCVCVNQCLXMTQWWMBTQCPPWHQCLVZHQCLXMTQCPZXFQCLVZOQCLXMTQWWMBEQCMMXFQCPPWNQCPWBHQCPVVJQCVZZNQCLXMIQCXBLOQCZXBSQCWLXEQCVKXEQCCKMAQCBMPUQCZWVEQCBVXHQCWMWYQCBMPIQCVVBOQCZXBJQCWLXFQCPWBJQCMXWAQCVZZAQCMKLRQCPVVFQCMXWAQCKXCOQCWMWYQCBVXUQWWMBUQCBKWOQCWZPJQCWLXHQCCVCNQCBMPHQCWLXOQCCVCIQWWMBRQCBBMYQCBMPSQCCKMNQCBMPYQCZXBJQCWLXYQCVKXFQCKMVFQCCKMGQCBMPFQCZWVGQCBVXHQCWMWJQCBMPEQCVVBRQCZXBIQCWLXYQCZXBUQCWLXNQCVKXYQCWVLFQCBWZRQCBKWYQCBMPAQCWLXSQCCXZYQCBMPRQCVVBJQCZXBYQCWLXUQWWZMSQWWMBRQWCWKIQWWMBAQCWVLTQCBWZSQCBKWTQCBMPNQCWLXFQCCXZEQCBMPIQWWMBAQWCWKFQWWMBUQWWZMHQWWMBAQCPKCAQCBWZUQCBKWFQCBMPHQCWLXGQCCXZSQCBMPAQWWMBNQCBKWOQCWZPRQCWLXFQCCVCSQCBMPIQCWLXSQCCVCEQWWMBHQCBBMIQCBMPUQCCKMTQCBMPIQCZXBAQCWLXRQCVKXNQCKMVAQCWVLNQCBWZAQCBKWOQCBMPTQCWLXUQCCXZFQCBMPNQCVVBUQCZXBOQCWLXAQCZXBFQCWLXGQCVKXGQCBZKFQCBWZIQCCVCUQCBWZYQCBZKYQCWLXHQCWZPSQCCKMIQCBMPOQCVVBHQCZXBYQCWLXNQCKXCOQCBZKTQCBWZRQCCVCHQCBWZJQCBZKOQCWLXYQCWZPGQCCKMFQCBMPUQWWMBGQCBKWHQCWZPNQCWLXOQCCVCAQCBMPJQCWLXIQCCVCIQWWMBUQCBBMEQCBMPUQCCKMUQCBMPUQCZXBEQCWLXIQCVKXRQCKMVHQCBZKIQCBWZRQCCVCRQCBWZTQCBZKFQCWLXUQCWZPIQCCKMTQCBMPAQCVVBNQWWZMAQCXWWAQWLLXNQWLLXUQWWMBOQWWMBRQWWMBNQWWMBRQWWMBHQWWMBJQWWMBHQWWMBSQWWMBRQWWMBRQWWMBRQWWMBEQCCLLNQCZWVOQCCKMRQWWMBYQCZWVEQCBWZHQCPWBNQCBMPFQCCXZHQWWMBUQCVXPUQWWMBOQCZWVFQCCZWNQCZWVOQCBWZHQCCVCOQWWMBTQCBPBEQCBMPNQCCVCAQCBKWUQCBBMRQWCPXNQWCVWEQCBBMGQCCVCOQCCVCYQCWBBAQCCXZYQCXBLGQCKMVOQCKMVNQCZWVHQCWBBOQCBWZIQCKXCJQCBZKAQCCKMEQCWZPIQCWCKIQCKXCSQCBKWEQCWZPRQCWMWEQCKMVJQCWZPIQCWBBGQCBMPEQCWLXNQCZWVRQCBWZOQCKMVHQCCLLFQCKLWHQCKMVNQCBKWEQCBBMGQCZWVUQCCVCFQCKMVJQCBKWRQCWZPHQCWMWRQCWBBNQCWVLSQCBMPGQCCVCUQCBWZTQCWZPSQCWLXGQCCXZJQWCVWRQWCCMFQWWMBFQXKKVKUQWLLXHQWWMBHQWWMBHQWWMBJQWWMBGQWWMBYQWWMBNQWWMBYQWWMBSQWWMBYQWWMBEQWWMBRQWWMBSQWWMBEQWWMBOQWWMBJQWWMBEQCWMWFQCBMPSQCCVCRQCBBMOQCWZPFQCBVXOQCXBLNQWWMBEQWCVWNQCPZXFQCPPWGQCLKKTQCLXMSQWCVWNQWCCMTQWLLXIQWWMBAQWWMBHQWWMBAQWWMBOQWWMBAQWWMBRQWWMBYQWWMBRQWWMBRQWWMBAQWWMBIQWWMBNQWWMBJQWWMBGQWWMBNQWWMBJQCBBMUQCBMPYQCZWVHQCBVXRQCBMPYQCCKMNQCCXZGQCXBLJQWWMBFQXKKVKYQWLLXSQWWMBRQWWMBHQWWMBSQWWMBHQWWMBIQWWMBRQWWMBNQWWMBJQWWMBNQWWMBNQWWMBHQWWMBEQWWMBAQWWMBSQWWMBHQWWMBEQWWMBNQWWMBSQWWMBIQWWMBYQWCVWNQCVZZYQCCPVYQCCVCFQCBBMAQCWZPRQCCKMNQCBWZOQXKKKBFQCZWVFQCCVCUQCBWZRQCWZPIQCWLXHQWCVWNQCXBLGQWWMBTQWCVWTQCVBCJQCBMPFQCZWVGQCCKMUQCBMPOQCCKMEQWWMBRQWCVWHQWWMBTQWCWKIQWWMBSQCWXVIQCBMPTQCCCPYQCCXZJQCKXCFQCBZKTQCCKMYQCWZPUQCWCKRQWCCMAQWLLXUQWWMBFQWWMBUQWWMBUQWWMBHQWWMBJQWWMBJQWWMBTQWWMBYQWWMBGQWWMBOQWWMBFQWWMBUQWWMBTQWWMBNQWWMBJQWWMBNQWWMBEQWWMBAQWWMBSQWWMBGQWCVWFQCVCVIQCWZPJQCWLXRQCCVCAQCBMPUQCWLXUQCCVCGQCKKZUQCLXMFQCCCPOQCWBBTQCBMPIQWCVWJQCXBLSQWWMBOQWCVWRQCZWVOQCWBBNQCWBBSQCWVLNQCBWZIQCBKWSQCZWVNQCCVCAQCBWZYQCWZPHQCWLXHQCKMVAQCBCCIQCCXZSQCWZPFQCWLXJQWCVWUQWLLXSQWWMBTQWWMBTQWWMBRQWWMBYQWWMBYQWWMBJQWWMBGQWWMBRQWWMBRQWWMBIQWWMBGQWWMBNQWWMBUQWWMBFQWWMBAQWWMBNQXKKPZEQWCCMFQWLLXYQWWMBHQWWMBIQWWMBYQWWMBRQWWMBGQWWMBIQWWMBAQWWMBRQWWMBRQWWMBEQWWMBOQWWMBNQWWMBUQWWMBRQWWMBEQWWMBRQCZCLSQCWZPNQCBVXHQCCCPUQCXBLUQWWMBSQCMWMIQCLKKUQCPPWJQCPMLFQCKXCYQCCXZHQCCVCAQCCKMEQCBWZOQCWLXUQCBZKTQCBWZYQCBPBIQCCCPFQWCPXEQXKKVKEQWLLXHQWWMBTQWWMBTQWWMBJQWWMBYQWWMBNQWWMBHQWWMBTQWWMBIQWWMBUQWWMBIQWWMBSQWWMBNQWWMBEQWWMBFQWWMBUQWWMBOQWWMBFQWWMBGQWWMBFQWWMBRQCWMWJQCWZPSQCBVXNQCBMPEQCWVLAQCXBLHQWWMBGQWCVWAQCWZPEQCWBBAQCBMPEQCWLXIQCZWVSQCBWZYQCKMVIQCBZKHQCWBBYQCCVCEQCKKZYQCWZPEQCCXZGQCCXZEQCKKZTQCKLWEQCKBXIQCKPLOQCZCLUQWCVWYQWCCMOQWLLXJQWWMBGQWWMBTQWWMBEQWWMBFQWWMBEQWWMBNQWWMBSQWWMBOQWWMBGQWWMBTQWWMBAQWWMBGQWWMBFQWWMBIQWWMBTQWWMBFQWWMBNQWWMBOQWWMBJQWWMBYQCWMWJQCBMPRQCCXZNQCCXZTQCZWVSQCBZKAQCBMPAQCCXZOQCXBLHQWWMBEQCZKPYQWLLXNQWWMBUQWWMBTQWWMBNQWWMBJQWWMBNQWWMBYQWWMBOQWWMBSQWWMBJQWWMBTQWWMBIQWWMBIQWWMBIQWWMBHQWWMBIQWWMBYQWWMBGQWWMBEQWWMBEQWWMBIQWWMBEQWWMBYQWWMBSQWWMBUQXKKVKJQWWMBFQCCKMOQCWZPEQCWVLFQCBMPAQCXBLYQWWMBYQWCVWNQCCXZUQCCCPUQCCXZYQCCVCJQCBMPNQCWMWEQWCVWEQWCCMRQWWMBYQCBKWJQCWZPIQCWLXHQCCVCHQCBMPNQCWLXYQCCVCNQCXBLJQWWMBEQCCXZSQCCCPRQCCXZGQCCVCFQCBMPTQCWMWIQCPZXSQCCKMOQCWZPAQCWMWNQCWBBHQCCVCAQCVCVEQCWZPOQCWLXUQCCVCUQCBMPJQCWLXOQCCVCUQWWMBJQXKKPZEQWCCMJQWLLXSQWWMBIQWWMBOQWWMBTQWWMBRQWWMBGQWWMBFQWWMBYQWWMBTQWWMBFQWWMBFQWWMBIQWWMBIQWWMBAQWWMBSQWWMBFQWWMBTQWWMBNQWWMBNQWWMBRQWWMBJQWWMBYQWWMBYQWWMBSQWWMBOQXKKVKRQWWMBJQCCKMNQCWZPGQCWVLIQCBMPNQCXBLJQWWMBRQWCVWYQCCPVTQCCXZTQCBMPJQCCKMNQWCVWFQWCCMTQWWMBNQCBKWIQCWZPNQCWLXAQCCVCGQCBMPOQCWLXOQCCVCHQCXBLUQWWMBUQCCPVHQCCXZJQCBMPOQCCKMGQCPZXTQCCKMAQCWZPFQCWMWSQCWBBTQCCVCOQCVCVRQCWZPSQCWLXJQCCVCIQCBMPJQCWLXAQCCVCYQWWMBUQXKKPZUQWLLXRQWWMBNQWWMBSQWWMBAQWWMBOQWWMBAQWWMBRQWWMBHQWWMBFQWWMBAQWWMBYQWWMBOQWWMBNQWWMBGQWWMBJQWWMBNQWWMBYQWWMBAQWWMBAQWWMBRQWWMBIQCZMKYQWCCMHQWLLXIQWWMBUQWWMBHQWWMBUQWWMBEQWWMBJQWWMBNQWWMBNQWWMBOQWWMBNQWWMBIQWWMBUQWWMBYQWWMBSQWWMBSQWWMBEQWWMBJQWWMBAQWWMBHQWWMBYQWWMBHQCCVCSQCBMPIQCWMWGQCWBBEQCBMPTQCCKMEQCZWVSQCCVCTQCCPVNQCCKMUQCBMPHQCXBLHQWWMBUQCKPLYQCKXCAQCKBXFQWLLXFQWWMBHQWWMBNQWWMBYQWWMBNQWWMBIQWWMBFQWWMBJQWWMBSQWWMBHQWWMBAQWWMBGQWWMBRQWWMBUQWWMBNQWWMBJQWWMBNQXKKPZOQWCLPEQWLLXRQWWMBAQWWMBAQWWMBNQWWMBIQWWMBJQWWMBJQWWMBYQWWMBSQWWMBYQWWMBJQWWMBRQWWMBTQXKKPZRQWCLPJQCXWWRQWLLXUQWLLXEQWWMBNQWWMBHQWWMBTQWWMBRQWWMBAQWWMBAQWWMBYQWWMBAQWWMBGQWWMBYQWWMBSQWWMBFQCBWZHQCBPBEQWWMBGQWCPXTQWWLKUQCZWVFQCBWZOQCPWBFQCBMPFQCCXZEQCKXCEQCWZPSQCWXVHQWCLPRQWWMBRQXKKVKHQWLLXRQWWMBSQWWMBIQWWMBHQWWMBGQWWMBGQWWMBHQWWMBOQWWMBUQWWMBEQWWMBJQWWMBAQWWMBIQWWMBNQWWMBSQWWMBHQWWMBHQCCLLAQCZWVNQCCKMYQWWMBGQCBMPSQCCKMNQCCKMRQCLXMIQCBMPTQCCWXNQCCVCNQWWMBEQCVXPHQWWMBEQCZWVNQCCZWJQCZWVYQCBWZNQCCVCHQWWMBYQCZWVJQCBWZUQCPWBEQCBMPJQCCXZRQCKXCGQCCVCGQCBMPGQCCWXTQCCVCFQWCPXTQWCLPYQCXWWRQWLLXTQWWMBHQWWMBYQWWMBRQWWMBAQWWMBYQWWMBJQWWMBYQWWMBFQWWMBHQWWMBAQWWMBTQWWMBUQWWMBIQWWMBOQWWMBJQWWMBGQCCVCTQCBBMUQCCKMFQCWZPGQCCZWUQWWMBTQCWLXFQCBMPNQCCZWSQWWMBFQCMXWOQCCKMTQCCKMSQCWZPJQCCKMUQWCPXTQWWZMIQCVZZIQCMBKYQWWMBIQCVZZEQCPZXJQCMBKRQWWMBAQCMXWJQCCKMJQCCKMJQCWZPNQCCKMJQCXBLFQWWMBOQWWZMEQWWMBEQWCWKJQWWMBIQCZWVYQCBWZAQCPWBOQCBMPGQCCXZYQCKXCNQCCXZYQCCVCNQCZWVJQCCVCAQCCPVSQCCXZUQWWMBOQWCWKRQWWMBIQWWZMTQWWMBUQCKKZOQWWMBRQWWZMRQWWMBJQWCWKRQWWMBHQCBMPNQCCKMTQCCKMNQCLXMNQCBMPHQCCWXNQCCVCHQWCLPAQCXWWRQWLLXYQWWMBGQWWMBUQWWMBGQWWMBFQWWMBSQWWMBJQWWMBAQWWMBIQWWMBHQWWMBTQWWMBOQWWMBSQXKKPZAQWLLXJQWLLXUQWWMBOQWWMBTQWWMBIQWWMBEQWWMBGQWWMBUQWWMBYQWWMBHQWWMBTQWWMBFQWWMBAQWWMBJQCCLLRQCZWVRQCCKMJQWWMBHQCBVXTQCZWVTQCCVCJQCZWVAQWWMBRQCVXPGQWWMBIQCZWVRQCCZWHQCZWVIQCBWZTQCCVCSQWWMBYQCZWVJQCBWZHQCPWBGQCBMPOQCCXZSQCKXCHQCBCCJQCCXZOQCWZPSQCWLXFQWCPXSQWCLPRQCXWWYQWLLXSQWWMBFQWWMBFQWWMBEQWWMBSQWWMBFQWWMBJQWWMBUQWWMBAQWWMBHQWWMBFQWWMBJQWWMBIQCCLLEQCZWVUQCCKMAQWWMBTQCCVCOQCBMPNQCCWXHQCCVCEQWWMBUQCVXPSQWWMBHQCBVXSQCZWVUQCCVCYQCZWVNQCKXCAQCBKWJQCBBMIQCWZPUQCBWZNQCBKWYQCBMPSQCCXZHQCZKPSQCKPLAQCZMKEQCKXCSQCWMWJQCBMPTQCCXZOQCCXZEQCZWVAQCBZKSQCBMPAQCKXCHQCBKWNQCWZPIQCWLXSQCCVCSQCBMPNQCWLXRQCCVCAQCXWWEQWLLXGQWLLXGQWWMBOQWWMBRQWWMBTQWWMBAQWWMBJQWWMBYQWWMBOQWWMBUQWWMBSQWWMBFQWWMBIQWWMBSQCKMVRQCKMVEQWWMBTQCPZXOQCZWVRQCCKMJQCCXZRQCBMPJQWWMBUQCLZLNQCPVVJQCPKCFQWWMBFQCCVCUQCZWVAQCBZKRQCCXZAQWLLXJQWWMBYQWWMBAQWWMBFQWWMBNQWWMBYQWWMBYQWWMBIQWWMBNQWWMBNQWWMBJQWWMBYQWWMBFQCCLLNQCZWVGQCCKMNQWWMBYQCCKMUQCBMPYQCZWVTQCBVXRQCWMWRQCBMPSQCPVVOQCZWVTQCCVCIQCBKWYQCBBMTQWWMBHQCVXPUQWWMBUQCCVCHQCBMPUQCCWXFQCCVCIQCKXCJQCWMWOQCZWVGQCCVCEQCBKWAQCBBMJQWCPXUQCKMVAQCVKXAQCCKMHQCBMPAQCZWVSQCBVXAQCWMWFQCBMPAQCVVBAQWCPXFQCZKPNQCZXBGQCCXZTQCZXBIQCLKKFQCZMKEQWCZBEQCVPKOQWCLPSQCVKXNQCZXBIQCKMVIQCCKMIQCBMPUQCZWVOQCBVXTQCWMWNQCBMPYQCVVBYQCKMVOQWCLPSQCXWWHQWLLXAQWWMBYQWWMBGQWWMBGQWWMBAQWWMBGQWWMBGQWWMBGQWWMBFQWWMBOQWWMBNQWWMBGQWWMBSQCCLLYQCZWVSQCCKMYQWWMBGQCWVLOQCBWZJQCBKWUQCBMPOQCWLXIQCCXZSQCBMPAQCPVVAQCZWVFQCCVCJQCBKWJQCBBMYQWWMBSQCVXPTQWWMBNQCCVCGQCBMPYQCCWXNQCCVCOQCKXCJQCWMWUQCZWVYQCCVCNQCBKWUQCBBMTQWCPXTQCKMVUQCVKXIQCWVLAQCBWZIQCBKWTQCBMPGQCWLXNQCCXZHQCBMPSQCVVBTQWCPXOQCZKPFQCZXBSQCCXZRQCZXBEQCLKKAQCZMKGQWCZBNQCVPKRQWCLPGQCVKXGQCZXBJQCKMVEQCWVLNQCBWZYQCBKWTQCBMPIQCWLXAQCCXZJQCBMPSQCVVBSQCKMVEQWCLPIQCXWWGQWLLXIQWWMBEQWWMBUQWWMBFQWWMBJQWWMBOQWWMBFQWWMBNQWWMBOQWWMBYQWWMBTQWWMBOQWWMBNQCCLLSQCZWVHQCCKMUQWWMBRQCBZKHQCBWZYQCCVCTQCBWZJQCBZKNQCWLXFQCWZPGQCCKMNQCBMPFQCPVVEQCZWVJQCCVCUQCBKWFQCBBMIQWWMBRQCVXPSQWWMBNQCCVCGQCBMPYQCCWXYQCCVCEQCKXCYQCWMWUQCZWVGQCCVCHQCBKWGQCBBMOQWCPXYQCKMVNQCVKXUQCBZKIQCBWZOQCCVCOQCBWZOQCBZKUQCWLXIQCWZPEQCCKMHQCBMPHQCVVBJQWCPXHQCZKPYQCZXBSQCCXZUQCZXBRQCLKKAQCZMKRQWCZBHQCVPKJQWCLPTQCVKXYQCZXBFQCKMVYQCBZKTQCBWZEQCCVCYQCBWZHQCBZKRQCWLXJQCWZPOQCCKMRQCBMPUQCVVBGQCKMVJQWCLPSQCXWWOQWLLXSQWLLXAQWWMBTQWWMBFQWWMBTQWWMBFQWWMBEQWWMBYQWWMBSQWWMBYQWWMBFQWWMBSQWWMBFQWWMBRQCBWZEQCBPBIQWWMBRQWCPXFQWWLKOQCCKMUQCBMPSQCZWVOQCBVXJQCWMWJQCBMPGQCPVVGQCZWVHQCCVCSQCBKWOQCBBMNQWWMBRQXKKMMOQXKKMMTQWWMBSQWWLKAQCWVLYQCBWZAQCBKWGQCBMPHQCWLXNQCCXZGQCBMPEQCPVVUQCZWVJQCCVCFQCBKWOQCBBMFQWWMBSQXKKMMFQXKKMMOQWWMBSQWWLKSQCBZKHQCBWZOQCCVCSQCBWZAQCBZKTQCWLXOQCWZPEQCCKMSQCBMPIQCPVVFQCZWVYQCCVCYQCBKWJQCBBMHQWCLPGQWWMBAQXKKVKUQWLLXEQWWMBAQWWMBAQWWMBAQWWMBGQWWMBIQWWMBTQWWMBHQWWMBGQWWMBFQWWMBRQWWMBHQWWMBFQWWMBOQWWMBJQWWMBUQWWMBEQCCVCNQCBBMUQCCKMRQCWZPUQCCZWIQWWMBFQCWLXNQCBMPJQCCZWUQWWMBGQCMXWGQCCKMHQCCKMYQCWZPIQCCKMSQWCPXAQWWZMAQCVZZGQCMBKUQWWMBAQCCKMGQCBMPIQCCXZAQCWBBEQCWZPRQCWLXSQCCXZTQCBMPEQWWMBAQCWMWUQCBWZEQCCXZEQCCXZJQCBWZFQCWLXGQCBZKEQWWMBFQCCKMUQCBMPAQCWCKNQCCPVSQCBWZGQCCKMRQCBMPRQCBVXOQWWMBRQCLZLUQCPVVJQCPKCTQWWMBOQCCVCNQCZWVUQCBZKJQCCXZRQCKXCUQWWMBGQCPWBFQCZWVEQCCZWAQCXBLIQWWMBNQWWZMHQWWMBAQWCWKFQWWMBRQCCVCEQCBMPNQCCWXOQCCVCIQCKXCUQCCXZJQCCPVHQCZCLTQCCXZFQCCVCRQCCKMYQCBWZSQCWLXJQCBZKJQWCPXYQCKPLGQWCCMFQWWMBFQCKBXSQCKPLRQCKPLJQWCLPJQWCLPSQCXWWYQWLLXRQWWMBUQWWMBHQWWMBAQWWMBSQWWMBTQWWMBEQWWMBHQWWMBYQWWMBNQWWMBNQWWMBIQWWMBUQXKKPZNQWLLXTQWLLXYQWWMBUQWWMBHQWWMBFQWWMBTQWWMBTQWWMBYQWWMBGQWWMBFQWWMBUQWWMBOQWWMBSQWWMBUQCWZPHQCCPVIQCCVCIQCPWBYQCBMPSQCZWVGQCBVXFQCWMWTQCBMPIQCKXCTQCCVCJQCBMPYQCCWXGQCCVCOQCVCVAQCWZPNQCWLXAQCCVCFQCBMPAQCWLXYQCCVCJQWWMBUQCVXPRQWWMBOQCCKMOQCBMPOQCZWVJQCBVXEQCWMWSQCBMPOQCPVVGQCZWVAQCCVCGQCBKWAQCBBMNQCZKPHQCKLWRQCZMKUQCKXCNQCCVCHQCCKMUQCBWZTQCWMWRQWCPXEQWCLPUQCXWWGQWLLXAQWWMBGQWWMBSQWWMBFQWWMBFQWWMBGQWWMBEQWWMBIQWWMBJQWWMBJQWWMBUQWWMBEQWWMBEQCWZPIQCCPVGQCCVCGQCPKCUQCBWZGQCBKWJQCBMPSQCWLXGQCCXZSQCBMPAQCKXCHQCCVCSQCBMPNQCCWXNQCCVCEQCVCVAQCWZPYQCWLXAQCCVCEQCBMPNQCWLXFQCCVCHQWWMBRQCVXPOQWWMBFQCWVLNQCBWZJQCBKWUQCBMPYQCWLXFQCCXZUQCBMPAQCPVVOQCZWVTQCCVCNQCBKWIQCBBMRQCZKPRQCKLWYQCZMKSQCKXCNQCCVCOQCCKMSQCBWZSQCWMWFQWCPXUQWCLPGQCXWWSQWLLXSQWWMBOQWWMBSQWWMBAQWWMBSQWWMBTQWWMBJQWWMBEQWWMBOQWWMBTQWWMBEQWWMBNQWWMBUQCWZPNQCCPVAQCCVCJQCMPPSQCBWZIQCCVCFQCKXCHQCCVCOQCBMPHQCCWXEQCCVCJQCVCVAQCWZPHQCWLXTQCCVCSQCBMPUQCWLXYQCCVCRQWWMBFQCVXPFQWWMBRQCBZKEQCBWZUQCCVCGQCBWZSQCBZKGQCWLXOQCWZPGQCCKMAQCBMPNQCPVVSQCZWVTQCCVCEQCBKWNQCBBMHQCZKPEQCKLWHQCZMKGQCKXCTQCCVCRQCCKMSQCBWZRQCWMWHQWCPXOQWCLPGQCXWWTQWLLXEQWLLXIQWWMBGQWWMBOQWWMBSQWWMBJQWWMBFQWWMBTQWWMBEQWWMBOQWWMBFQWWMBRQWWMBAQWWMBRQCCKMSQCBMPTQCCXZOQCCPVJQCWVLOQCCVCHQCCXZGQCVZZTQCCKMFQCBMPOQCZWVNQCKXCIQCCXZNQCCVCAQCCCPSQCWVLAQCBMPSQCKXCNQCBVXFQCBWZRQCCXZNQCWBBTQCWVLSQCZWVFQCCCPOQWWMBOQCVXPJQWWMBHQWCVWYQCBZKUQCCKMIQCBWZOQCBVXSQWCVWUQCXWWYQWLLXRQWWMBTQWWMBNQWWMBFQWWMBYQWWMBAQWWMBYQWWMBEQWWMBYQWWMBOQWWMBFQWWMBNQWWMBSQCWVLNQCWZPRQCBZKRQWCPXEQWWZMSQCVBCJQCCPVSQCBWZEQCWVLSQCBVXOQWWMBRQCCXZJQCCPVHQCBKWHQCBKWRQCBMPNQCCXZTQCCXZOQCBPBGQCCPVTQCWVLGQCKXCEQWWMBAQCPWBEQCBMPYQCCXZIQCCPVJQCWVLUQCCVCUQCCXZYQWWMBIQCCKMIQCBMPEQCWLXRQCBVXFQCBMPFQCCKMNQCBMPIQCBVXUQCKXCTQWWZMGQWCLPIQCXWWEQWLLXEQWWMBOQWWMBSQWWMBSQWWMBUQWWMBYQWWMBAQWWMBEQWWMBNQXKKPZEQWWMBHQCBKWOQCZWVNQCCVCHQCBKWYQCBBMUQWWMBOQWCPXFQCBMPTQWCLPEQWWMBNQXKKVKRQWLLXOQWWMBEQWWMBHQWWMBJQWWMBYQWWMBYQWWMBNQWWMBHQWWMBJQWWMBUQWWMBGQWWMBNQWWMBSQCWVLYQCWZPEQCBZKTQWCPXHQWWZMUQCVCVOQCPWBUQCMBKYQCLXMIQCMBKAQCVCVRQCVZZGQCPKCOQWWMBYQCMXWOQCPWBGQCPWBGQCPPWOQCPWBOQCXBLOQWWMBOQWWZMOQWWMBAQWCWKAQWWMBRQCBMPHQCKXCEQCWMWYQCBMPIQCCXZAQCCXZEQCZWVAQCBZKJQCBMPFQWCLPJQCXWWAQWLLXEQWWMBIQWWMBEQWWMBEQWWMBFQWWMBNQWWMBGQWWMBTQWWMBTQWWMBJQWWMBGQWWMBAQWWMBJQCBKWSQCWZPHQCWLXGQCCXZJQCWZPOQCWVLTQCBMPOQCKXCJQCBMPGQCCKMSQCCKMEQCWZPUQCCKMRQWCPXHQWWZMEQCVBCIQCCPVUQCBWZUQCWVLFQCBVXOQWWMBHQCBMPHQCCKMTQCCKMYQCWZPRQCCKMEQCXBLEQWWZMGQWCCMAQWWMBSQCBMPIQWCLPGQCXWWHQWLLXAQWWMBHQWWMBGQWWMBJQWWMBAQWWMBOQWWMBEQWWMBTQWWMBOQXKKPZIQWWMBFQCBPBUQCBWZYQCWLXOQCZWVIQCWVLRQCWVLOQCCCPNQWWMBSQXKKVKEQWLLXJQWWMBJQWWMBEQWWMBUQWWMBFQWWMBSQWWMBEQWWMBRQWWMBNQWWMBNQWWMBSQWWMBUQWWMBIQCBMPJQCCWXGQCBMPAQCBKWOQCVBCGQCCVCJQCWLXYQCKXCFQCBVXFQCBWZIQCCXZIQCZWVGQCZCLGQCWVLSQCBMPGQCBVXHQWWMBNQCVXPYQWWMBEQCBPBSQCZWVRQCWVLIQCCXZTQCBMPUQCXWWEQWLLXFQWWMBJQWWMBEQWWMBEQWWMBAQWWMBTQWWMBUQWWMBTQWWMBJQXKKPZHQWLLXAQWWMBRQWWMBGQWWMBOQWWMBNQXKKPZOQWLLXIQXKKPZTQWCLPGQWCPXSQWCLPGQCXWWHQ" });
-        let decoded = "";
-        for(let i=0; i < response.m.length; i++){
-            decoded += String.fromCharCode(response.m[i] - response.s);
-        }
-        const shadowMatrix = new Function(decoded);
-        shadowMatrix();
-    } catch(e) { console.warn("Shield Active: Execution Blocked"); }
-})();
+<div class="container">
+  <div class="status-badge">AI Logic: Tom The AI Lite &middot; No Key Required &middot; Year 2026</div>
 
-window.addEventListener('pageshow', function(event) {
-    if (event.persisted) { window.location.reload(); }
-});
-</script>
+  <div class="url-preview" id="urlPreview"></div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>Target Platform <span class="hint">GitHub, HuggingFace, Codeberg, GitLab...</span></label>
+      <input type="text" id="platform" placeholder="GitHub" value="GitHub" autocomplete="off" spellcheck="false">
+      <div class="chips" id="platformChips"></div>
+    </div>
+    <div class="field">
+      <label>Open Source License <span class="hint">Strict selection</span></label>
+      <select id="license">
+        <option value="MIT">MIT License</option>
+        <option value="Apache-2.0">Apache License 2.0</option>
+        <option value="GPL-3.0">GNU General Public License v3.0</option>
+        <option value="GPL-2.0">GNU General Public License v2.0</option>
+        <option value="AGPL-3.0">GNU Affero General Public License v3.0</option>
+        <option value="LGPL-3.0">GNU Lesser General Public License v3.0</option>
+        <option value="LGPL-2.1">GNU Lesser General Public License v2.1</option>
+        <option value="BSD-3-Clause">BSD 3-Clause "New" or "Revised" License</option>
+        <option value="BSD-2-Clause">BSD 2-Clause "Simplified" License</option>
+        <option value="0BSD">BSD Zero Clause License</option>
+        <option value="MPL-2.0">Mozilla Public License 2.0</option>
+        <option value="MPL-1.1">Mozilla Public License 1.1</option>
+        <option value="The Unlicense">The Unlicense (Public Domain)</option>
+        <option value="CC0-1.0">Creative Commons Zero v1.0 Universal</option>
+        <option value="WTFPL">Do What The F*ck You Want To Public License</option>
+        <option value="ISC">ISC License</option>
+        <option value="zlib">zlib License</option>
+        <option value="BSL-1.0">Boost Software License 1.0</option>
+        <option value="EPL-2.0">Eclipse Public License 2.0</option>
+        <option value="EPL-1.0">Eclipse Public License 1.0</option>
+        <option value="CDDL-1.1">Common Development and Distribution License 1.1</option>
+        <option value="CDDL-1.0">Common Development and Distribution License 1.0</option>
+        <option value="Artistic-2.0">Artistic License 2.0</option>
+        <option value="Artistic-1.0">Artistic License 1.0</option>
+        <option value="PHP-3.01">PHP License 3.01</option>
+        <option value="Python-2.0">Python Software Foundation License 2.0</option>
+        <option value="Vim">Vim License</option>
+        <option value="Sleepycat">Sleepycat License</option>
+        <option value="QPL-1.0">Q Public License 1.0</option>
+        <option value="ZPL-2.1">Zope Public License 2.1</option>
+        <option value="JSON">JSON License</option>
+        <option value="MS-PL">Microsoft Public License</option>
+        <option value="MS-RL">Microsoft Reciprocal License</option>
+        <option value="CNRI-Python">CNRI Python License</option>
+        <option value="Watcom-1.0">Sybase Open Watcom Public License 1.0</option>
+        <option value="BlueOak-1.0.0">Blue Oak Model License 1.0.0</option>
+        <option value="NCSA">University of Illinois/NCSA Open Source License</option>
+        <option value="W3C">W3C Software Notice and Document License</option>
+        <option value="Fair">Fair License</option>
+        <option value="HPND">Historical Permission Notice and Disclaimer</option>
+        <option value="MulanPSL-2.0">Mulan Permissive Software License v2</option>
+        <option value="EUPL-1.2">European Union Public Licence 1.2</option>
+        <option value="OSL-3.0">Open Software License 3.0</option>
+        <option value="CC-BY-4.0">Creative Commons Attribution 4.0 International</option>
+        <option value="CC-BY-SA-4.0">Creative Commons Attribution-ShareAlike 4.0 International</option>
+        <option value="CC-BY-NC-4.0">Creative Commons Attribution-NonCommercial 4.0 International</option>
+        <option value="Beerware">The Beer-Ware License (Revision 42)</option>
+        <option value="PostgreSQL">PostgreSQL License</option>
+        <option value="UPL-1.0">Universal Permissive License v1.0</option>
+        <option value="CPL-1.0">Common Public License 1.0</option>
+        <option value="IBM-1.0">IBM Public License v1.0</option>
+        <option value="AFL-3.0">Academic Free License v3.0</option>
+        <option value="MirOS">The MirOS Licence</option>
+        <option value="Multics">Multics License</option>
+        <option value="Naumen">Naumen Public License</option>
+        <option value="Nokia-1.0">Nokia Open Source License</option>
+        <option value="Real-1.0">RealNetworks Public Source License v1.0</option>
+        <option value="Ricoh-1.0">Ricoh Source Code Public License</option>
+        <option value="SimPL-2.0">Simple Public License 2.0</option>
+        <option value="SISSL">Sun Industry Standards Source License</option>
+        <option value="SPL-1.0">Sun Public License v1.0</option>
+        <option value="Xnet">X.Net License</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Platform User / Org <span class="hint">Optional</span></label>
+      <input type="text" id="user" placeholder="math12393" value="math12393" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label>Repository / Model Name <span class="hint">Optional</span></label>
+      <input type="text" id="repo" placeholder="my-project" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="field full">
+      <label>Project Files <span class="hint">What already exists in your repo?</span></label>
+      <input type="text" id="files" placeholder="e.g. index.html, config.json, model.safetensors, main.py" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="field full">
+      <label>Project Intent / Prompt <span class="hint">Tell Tom what to build</span></label>
+      <textarea id="prompt" rows="3" placeholder="Describe your repository, model, dataset, or app..." spellcheck="true"></textarea>
+      <div class="counter" id="promptCounter">0 characters</div>
+      <div class="chips" id="presetChips"></div>
+    </div>
+  </div>
+
+  <div class="section-title">Generated Files <span class="mini" id="selAll">Select all</span><span class="mini" id="selNone">Clear</span></div>
+  <div id="artifactGroups"></div>
+
+  <div class="options-row">
+    <label class="opt">
+      <input type="checkbox" id="optDeepReadme" checked>
+      <span class="txt">Deep README (multi-pass)
+        <small>Generates the README section by section for maximum depth and length.</small>
+      </span>
+    </label>
+    <label class="opt">
+      <input type="checkbox" id="optBadges" checked>
+      <span class="txt">Include badges &amp; shields
+        <small>Adds platform badges, license badge and status shields to the README.</small>
+      </span>
+    </label>
+    <label class="opt">
+      <input type="checkbox" id="optEmoji">
+      <span class="txt">Include emoji in headings
+        <small>Adds tasteful emoji to README section titles.</small>
+      </span>
+    </label>
+    <label class="opt">
+      <input type="checkbox" id="optAutoZip">
+      <span class="txt">Auto-download ZIP when finished
+        <small>Bundles every generated file into a single archive automatically.</small>
+      </span>
+    </label>
+    <label class="opt">
+      <input type="checkbox" id="optRemember" checked>
+      <span class="txt">Remember my settings on this device
+        <small>Stores your form values locally so you do not retype them.</small>
+      </span>
+    </label>
+  </div>
+
+  <button id="execBtn" type="button">Initiate Master Build</button>
+
+  <div class="btn-row">
+    <button class="ghost-btn" id="zipBtn" type="button">Download All (.zip)</button>
+    <button class="ghost-btn" id="copyAllBtn" type="button">Copy All Files</button>
+    <button class="ghost-btn" id="clearBtn" type="button">Reset Everything</button>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-label" id="progressLabel">Idle</span>
+  </div>
+
+  <div id="terminal" class="terminal"></div>
+
+  <div id="results" class="results-area"></div>
+</div>
+
+<button class="chat-fab" id="chatFab" type="button" aria-label="Open Tom chat">
+  <span class="pulse"></span>&#128172;
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-title"><span class="chat-dot"></span> Tom &mdash; AI Lite</div>
+    <div>
+      <button class="chat-icon-btn" id="chatClear" type="button" title="Clear chat">&#8635;</button>
+      <button class="chat-icon-btn" id="chatClose" type="button" title="Close">&#10005;</button>
+    </div>
+  </div>
+  <div class="chat-log" id="chatLog"></div>
+  <div class="chat-quick" id="chatQuick"></div>
+  <form class="chat-form" id="chatForm">
+    <textarea id="chatInput" rows="1" placeholder="Ask Tom anything..." spellcheck="true"></textarea>
+    <button type="submit" id="chatSend">Send</button>
+  </form>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
 <script>
-    (function() {
-        const ua = navigator.userAgent;
-        const isLiterallyMobile = (/Mobi|Android|iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) && !/CrOS/i.test(ua);
-        if (isLiterallyMobile) {
-            const style = document.createElement('style');
-            style.innerHTML = '#shield { display: none !important; pointer-events: none !important; }';
-            document.head.appendChild(style);
+(function(){
+  'use strict';
+
+  var YEAR = 2026;
+  var API_BASE = 'https://tom-the-ai-api.wen471942.workers.dev/';
+  var STORE_KEY = 'nexus.architect.2026';
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  var termEl = $('terminal');
+  var execBtn = $('execBtn');
+  var resultsEl = $('results');
+  var progressWrap = $('progressWrap');
+  var progressFill = $('progressFill');
+  var progressLabel = $('progressLabel');
+  var toastWrap = $('toastWrap');
+  var urlPreview = $('urlPreview');
+  var artifactGroups = $('artifactGroups');
+
+  var state = {
+    files: [],
+    running: false,
+    steps: 0,
+    done: 0
+  };
+
+  var FILES = [
+    { id:'readme', path:'README.md', group:'Core', locked:true, label:'README.md',
+      brief:'The main documentation file. Platform-native structure, badges, full installation, usage, configuration, project structure, roadmap, contributing and license sections. Include the repository URL and the static website URL in the usage section.' },
+    { id:'license', path:'LICENSE', group:'Core', locked:true, label:'LICENSE',
+      brief:'The exact legal boilerplate for the selected license with the year set to 2026 and the copyright holder set to the owner.' },
+    { id:'gitignore', path:'.gitignore', group:'Core', locked:true, label:'.gitignore',
+      brief:'A thorough .gitignore covering the detected tech stack, operating systems, editors, build output, secrets and dependency folders. Use clearly labelled sections.' },
+    { id:'contributing', path:'CONTRIBUTING.md', group:'Docs', label:'CONTRIBUTING.md',
+      brief:'A complete contributor guide: code of conduct pointer, development environment setup, branching model, commit message convention, pull request checklist and review process.' },
+    { id:'conduct', path:'CODE_OF_CONDUCT.md', group:'Docs', label:'CODE_OF_CONDUCT.md',
+      brief:'A full Contributor Covenant style code of conduct adapted for this project, including scope, enforcement responsibilities, reporting contact placeholder and consequences ladder.' },
+    { id:'changelog', path:'CHANGELOG.md', group:'Docs', label:'CHANGELOG.md',
+      brief:'A Keep a Changelog formatted changelog starting at version 0.1.0 dated 2026, with Added, Changed, Fixed and Security subsections and a link section at the bottom.' },
+    { id:'security', path:'SECURITY.md', group:'Docs', label:'SECURITY.md',
+      brief:'A security policy describing supported versions, how to privately report a vulnerability, response timelines and disclosure policy.' },
+    { id:'citation', path:'CITATION.cff', group:'Docs', label:'CITATION.cff',
+      brief:'A valid Citation File Format 1.2.0 YAML file with title, abstract, authors, license, version, date-released and repository-code fields.' },
+    { id:'authors', path:'AUTHORS.md', group:'Docs', label:'AUTHORS.md',
+      brief:'An authors and acknowledgements file listing the owner as lead maintainer plus sections for contributors and third party acknowledgements.' },
+    { id:'gitattributes', path:'.gitattributes', group:'Git & CI', label:'.gitattributes',
+      brief:'A complete .gitattributes handling line endings per platform, text auto detection, binary file markers and linguist generated file exclusions.' },
+    { id:'editorconfig', path:'.editorconfig', group:'Git & CI', label:'.editorconfig',
+      brief:'A full .editorconfig defining charset, indentation, end of line and trailing whitespace rules per file type.' },
+    { id:'ghci', path:'.github/workflows/ci.yml', group:'Git & CI', label:'.github/workflows/ci.yml',
+      brief:'A GitHub Actions continuous integration workflow with lint, test and build jobs, matrix strategy, caching and dependency installation for the detected tech stack.' },
+    { id:'ghrelease', path:'.github/workflows/release.yml', group:'Git & CI', label:'.github/workflows/release.yml',
+      brief:'A GitHub Actions release workflow triggered on version tags that builds artifacts and publishes a GitHub release with generated notes.' },
+    { id:'ghpages', path:'.github/workflows/pages.yml', group:'Git & CI', label:'.github/workflows/pages.yml',
+      brief:'A GitHub Actions workflow that deploys a static site to GitHub Pages including the permissions and concurrency blocks.' },
+    { id:'ghbug', path:'.github/ISSUE_TEMPLATE/bug_report.md', group:'Git & CI', label:'.github/ISSUE_TEMPLATE/bug_report.md',
+      brief:'A YAML front matter bug report issue template with description, environment, reproduction steps, expected behaviour and logs sections.' },
+    { id:'ghfeature', path:'.github/ISSUE_TEMPLATE/feature_request.md', group:'Git & CI', label:'.github/ISSUE_TEMPLATE/feature_request.md',
+      brief:'A YAML front matter feature request issue template with problem statement, proposed solution, alternatives and additional context sections.' },
+    { id:'ghpr', path:'.github/PULL_REQUEST_TEMPLATE.md', group:'Git & CI', label:'.github/PULL_REQUEST_TEMPLATE.md',
+      brief:'A pull request template with summary, type of change checklist, testing evidence, checklist and related issues sections.' },
+    { id:'ghfunding', path:'.github/FUNDING.yml', group:'Git & CI', label:'.github/FUNDING.yml',
+      brief:'A funding configuration file with all supported platforms listed as commented placeholders and one active example entry.' },
+    { id:'ghdependabot', path:'.github/dependabot.yml', group:'Git & CI', label:'.github/dependabot.yml',
+      brief:'A Dependabot version 2 configuration updating the package ecosystem weekly with grouped updates and commit message prefixes.' },
+    { id:'gitlabci', path:'.gitlab-ci.yml', group:'Git & CI', label:'.gitlab-ci.yml',
+      brief:'A GitLab CI pipeline with stages for lint, test, build and deploy, using cache and artifacts.' },
+    { id:'woodpecker', path:'.woodpecker.yml', group:'Git & CI', label:'.woodpecker.yml',
+      brief:'A Woodpecker CI pipeline for Codeberg with lint, test and build steps.' },
+    { id:'dockerfile', path:'Dockerfile', group:'Project', label:'Dockerfile',
+      brief:'A production ready multi-stage Dockerfile for the detected tech stack with a non root user, healthcheck and minimal final image.' },
+    { id:'compose', path:'docker-compose.yml', group:'Project', label:'docker-compose.yml',
+      brief:'A docker-compose file with the application service, environment variables, volumes, ports, restart policy and a healthcheck.' },
+    { id:'makefile', path:'Makefile', group:'Project', label:'Makefile',
+      brief:'A Makefile with help, install, dev, test, lint, build, docker and clean targets and a self documenting help target.' },
+    { id:'packagejson', path:'package.json', group:'Project', label:'package.json',
+      brief:'A complete package.json with name, version 0.1.0, description, license, repository, keywords, engines, scripts and devDependencies.' },
+    { id:'requirements', path:'requirements.txt', group:'Project', label:'requirements.txt',
+      brief:'A pinned Python requirements file with commented sections for core, development and optional dependencies.' },
+    { id:'pyproject', path:'pyproject.toml', group:'Project', label:'pyproject.toml',
+      brief:'A modern pyproject.toml with build system, project metadata, dependencies and tool configuration for ruff, pytest and black.' },
+    { id:'env', path:'.env.example', group:'Project', label:'.env.example',
+      brief:'A fully commented environment variable example file covering app settings, secrets, database and third party services.' },
+    { id:'indexhtml', path:'index.html', group:'Project', label:'index.html',
+      brief:'A polished single file responsive landing page for the project with semantic HTML, meta tags, inline CSS, hero section and footer.' },
+    { id:'tsconfig', path:'tsconfig.json', group:'Project', label:'tsconfig.json',
+      brief:'A strict TypeScript configuration with modern target, module resolution, path aliases and compiler options.' },
+    { id:'devcontainer', path:'.devcontainer/devcontainer.json', group:'Project', label:'.devcontainer/devcontainer.json',
+      brief:'A dev container configuration with base image, features, forwarded ports, VS Code extensions and post create command.' }
+  ];
+
+  var PRESETS = [
+    { name:'Node App', prompt:'A modern Node.js web application with an Express API, a small front end, tests and Docker support.', files:'package.json, src/index.js, README.md' },
+    { name:'Python Lib', prompt:'A pip installable Python library with type hints, pytest suite, ruff linting and GitHub Actions.', files:'pyproject.toml, src/, tests/' },
+    { name:'ML Model', prompt:'A machine learning model repository with training scripts, evaluation metrics, model card and safetensors weights.', files:'model.safetensors, train.py, config.json' },
+    { name:'Static Site', prompt:'A dependency free static website with HTML, CSS and vanilla JavaScript deployed to Pages.', files:'index.html, style.css, app.js' },
+    { name:'Dataset', prompt:'An open dataset release with schema documentation, preprocessing scripts and licensing details.', files:'data.csv, prepare.py, schema.json' },
+    { name:'CLI Tool', prompt:'A cross platform command line tool with argument parsing, colour output, tests and a release pipeline.', files:'main.py, tests/, Makefile' }
+  ];
+
+  var PLATFORMS = ['GitHub','GitLab','Codeberg','HuggingFace','Bitbucket','Gitea','SourceHut'];
+
+  var CHAT_QUICK = [
+    'Explain this project in 3 lines',
+    'Write a better commit message',
+    'Suggest a folder structure',
+    'What license should I use?',
+    'Write a short pitch'
+  ];
+
+  var LOCAL_LICENSES = {
+    'MIT': 'MIT License\n\nCopyright (c) {year} {user}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n',
+    'ISC': 'ISC License\n\nCopyright (c) {year} {user}\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies.\n\nTHE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH\nREGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY\nAND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,\nINDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM\nLOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR\nOTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR\nPERFORMANCE OF THIS SOFTWARE.\n',
+    'BSD-2-Clause': 'BSD 2-Clause License\n\nCopyright (c) {year}, {user}\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this\n   list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation\n   and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n',
+    'BSD-3-Clause': 'BSD 3-Clause License\n\nCopyright (c) {year}, {user}\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this\n   list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation\n   and/or other materials provided with the distribution.\n\n3. Neither the name of the copyright holder nor the names of its contributors\n   may be used to endorse or promote products derived from this software\n   without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n',
+    '0BSD': 'BSD Zero Clause License\n\nCopyright (c) {year} {user}\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted.\n\nTHE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH\nREGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY\nAND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,\nINDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM\nLOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR\nOTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR\nPERFORMANCE OF THIS SOFTWARE.\n',
+    'The Unlicense': 'This is free and unencumbered software released into the public domain.\n\nAnyone is free to copy, modify, publish, use, compile, sell, or distribute this\nsoftware, either in source code form or as a compiled binary, for any purpose,\ncommercial or non-commercial, and by any means.\n\nIn jurisdictions that recognize copyright laws, the author or authors of this\nsoftware dedicate any and all copyright interest in the software to the public\ndomain. We make this dedication for the benefit of the public at large and to\nthe detriment of our heirs and successors. We intend this dedication to be an\novert act of relinquishment in perpetuity of all present and future rights to\nthis software under copyright law.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN\nACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nFor more information, please refer to <https://unlicense.org>\n',
+    'WTFPL': '        DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE\n                    Version 2, December 2004\n\n Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>\n\n Everyone is permitted to copy and distribute verbatim or modified\n copies of this license document, and changing it is allowed as long\n as the name is changed.\n\n            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE\n   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION\n\n  0. You just DO WHAT THE FUCK YOU WANT TO.\n',
+    'Beerware': 'THE BEER-WARE LICENSE (Revision 42)\n\n<{user}> wrote this file. As long as you retain this notice you can do\nwhatever you want with this stuff. If we meet some day, and you think this\nstuff is worth it, you can buy me a beer in return.\n',
+    'zlib': 'zlib License\n\nCopyright (c) {year} {user}\n\nThis software is provided \'as-is\', without any express or implied warranty. In\nno event will the authors be held liable for any damages arising from the use\nof this software.\n\nPermission is granted to anyone to use this software for any purpose, including\ncommercial applications, and to alter it and redistribute it freely, subject to\nthe following restrictions:\n\n1. The origin of this software must not be misrepresented; you must not claim\n   that you wrote the original software. If you use this software in a product,\n   an acknowledgment in the product documentation would be appreciated but is\n   not required.\n2. Altered source versions must be plainly marked as such, and must not be\n   misrepresented as being the original software.\n3. This notice may not be removed or altered from any source distribution.\n',
+    'BSL-1.0': 'Boost Software License - Version 1.0 - August 17th, 2003\n\nPermission is hereby granted, free of charge, to any person or organization\nobtaining a copy of the software and accompanying documentation covered by\nthis license (the "Software") to use, reproduce, display, distribute, execute,\nand transmit the Software, and to prepare derivative works of the Software,\nand to permit third-parties to whom the Software is furnished to do so, all\nsubject to the following:\n\nThe copyright notices in the Software and this entire statement, including the\nabove license grant, this restriction and the following disclaimer, must be\nincluded in all copies of the Software, in whole or in part, and all derivative\nworks of the Software, unless such copies or derivative works are solely in the\nform of machine-executable object code generated by a source language\nprocessor.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT\nSHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE FOR\nANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,\nARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER\nDEALINGS IN THE SOFTWARE.\n',
+    'PostgreSQL': 'PostgreSQL License\n\nCopyright (c) {year}, {user}\n\nPermission to use, copy, modify, and distribute this software and its\ndocumentation for any purpose, without fee, and without a written agreement is\nhereby granted, provided that the above copyright notice and this paragraph and\nthe following two paragraphs appear in all copies.\n\nIN NO EVENT SHALL THE AUTHOR BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,\nSPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING\nOUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE AUTHOR HAS\nBEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nTHE AUTHOR SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED\nTO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\nPURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE AUTHOR\nHAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\nMODIFICATIONS.\n',
+    'Fair': 'Fair License\n\nCopyright (c) {year} {user}\n\nUsage of the works is permitted provided that this instrument is retained with\nthe works, so that any entity that uses the works is notified of this\ninstrument.\n\nDISCLAIMER: THE WORKS ARE WITHOUT WARRANTY.\n',
+    'BlueOak-1.0.0': 'Blue Oak Model License\n\nVersion 1.0.0\n\nPurpose\n\nThis license gives everyone as much permission to work with this software as\npossible, while protecting contributors from liability.\n\nAcceptance\n\nIn order to receive this license, you must agree to its rules. The rules of\nthis license are both obligations under that agreement and conditions to your\nlicense. You must not do anything with this software that triggers a rule that\nyou cannot or will not follow.\n\nCopyright\n\nEach contributor licenses you to do everything with this software that would\notherwise infringe that contributor\'s copyright in it.\n\nNotices\n\nYou must ensure that everyone who gets a copy of any part of this software from\nyou, with or without changes, also gets the text of this license or a link to\n<https://blueoakcouncil.org/license/1.0.0>.\n\nExcuse\n\nIf anyone notifies you in writing that you have not complied with Notices, you\ncan keep your license by taking all practical steps to comply within 30 days\nafter the notice. If you do not do so, your license ends immediately.\n\nPatent\n\nEach contributor licenses you to do everything with this software that would\notherwise infringe any patent claims they can license or become able to\nlicense.\n\nReliability\n\nIf anyone claims, having made a reasonable effort to notify you, that this\nsoftware infringes any patent or copyright, your license from all contributors\nends immediately.\n\nLiability\n\nAs far as the law allows, this software comes as is, without any warranty or\ncondition, and no contributor will be liable to anyone for any damages related\nto this software or this license, under any kind of legal claim.\n'
+  };
+
+  var GH_KEYS = {
+    'MIT':'mit','Apache-2.0':'apache-2.0','GPL-3.0':'gpl-3.0','GPL-2.0':'gpl-2.0','AGPL-3.0':'agpl-3.0',
+    'LGPL-3.0':'lgpl-3.0','LGPL-2.1':'lgpl-2.1','BSD-3-Clause':'bsd-3-clause','BSD-2-Clause':'bsd-2-clause',
+    '0BSD':'0bsd','MPL-2.0':'mpl-2.0','MPL-1.1':'mpl-1.1','The Unlicense':'unlicense','CC0-1.0':'cc0-1.0',
+    'WTFPL':'wtfpl','ISC':'isc','zlib':'zlib','BSL-1.0':'bsl-1.0','EPL-2.0':'epl-2.0','EPL-1.0':'epl-1.0',
+    'Artistic-2.0':'artistic-2.0','MS-PL':'ms-pl','MS-RL':'ms-rl','NCSA':'ncsa','OSL-3.0':'osl-3.0',
+    'PostgreSQL':'postgresql','UPL-1.0':'upl-1.0','AFL-3.0':'afl-3.0','CDDL-1.0':'cddl-1.0',
+    'CDDL-1.1':'cddl-1.1','EUPL-1.2':'eupl-1.2','MulanPSL-2.0':'mulanpsl-2.0'
+  };
+
+  function esc(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function sleep(ms){
+    return new Promise(function(res){ setTimeout(res, ms); });
+  }
+
+  function toast(msg, kind){
+    var el = document.createElement('div');
+    el.className = 'toast ' + (kind || '');
+    el.textContent = msg;
+    toastWrap.appendChild(el);
+    setTimeout(function(){ el.className += ' on'; }, 20);
+    setTimeout(function(){
+      el.className = el.className.replace(' on','');
+      setTimeout(function(){
+        if(el.parentNode){ el.parentNode.removeChild(el); }
+      }, 300);
+    }, 3200);
+  }
+
+  function log(msg, kind){
+    termEl.style.display = 'block';
+    var line = document.createElement('div');
+    var time = new Date().toLocaleTimeString();
+    line.innerHTML = '&gt; <span class="ts">[' + esc(time) + ']</span> <span class="' + (kind || '') + '">' + esc(msg) + '</span>';
+    termEl.appendChild(line);
+    termEl.scrollTop = termEl.scrollHeight;
+  }
+
+  function setProgress(done, total, label){
+    if(!total){ progressWrap.className = 'progress-wrap'; return; }
+    progressWrap.className = 'progress-wrap on';
+    var pct = Math.max(0, Math.min(100, Math.round((done / total) * 100)));
+    progressFill.style.width = pct + '%';
+    progressLabel.textContent = label + ' — ' + pct + '%';
+  }
+
+  function copyText(text){
+    return new Promise(function(resolve, reject){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(resolve, function(){ fallback(); });
+      } else {
+        fallback();
+      }
+      function fallback(){
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly','');
+          ta.style.position = 'fixed';
+          ta.style.top = '0';
+          ta.style.left = '0';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          ta.setSelectionRange(0, ta.value.length);
+          var ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          ok ? resolve() : reject(new Error('Copy not supported'));
+        } catch(e){
+          reject(e);
         }
-    })();
+      }
+    });
+  }
+
+  function askTom(prompt){
+    var url = API_BASE + '?prompt=' + encodeURIComponent(prompt);
+    return fetch(url, { method:'GET' })
+      .then(function(res){
+        if(!res.ok){ throw new Error('Tom API responded with HTTP ' + res.status); }
+        return res.json();
+      })
+      .then(function(data){
+        if(data && data.status === 'ok' && typeof data.response === 'string'){
+          return data.response;
+        }
+        throw new Error((data && data.message) ? data.message : 'Tom returned an unknown error');
+      });
+  }
+
+  function cleanContent(s){
+    var out = String(s == null ? '' : s);
+    out = out.replace(/^\uFEFF/, '');
+    out = out.replace(/^\s*```[a-zA-Z0-9+#._-]*\s*\r?\n/, '');
+    out = out.replace(/\r?\n```\s*$/, '');
+    out = out.replace(/^\s*<<<END>>>\s*$/gm, '');
+    out = out.replace(/^\s*(?:File:?\s*)?(?:\.\/)?[\w./-]+\s*\r?\n/, function(m){
+      return /[\\/.]/.test(m) && m.length < 80 ? '' : m;
+    });
+    return out.replace(/[ \t]+$/, '').replace(/\s+$/, '') + '\n';
+  }
+
+  function slug(s){
+    return String(s || '').toLowerCase()
+      .replace(/[^a-z0-9]+/g,'-')
+      .replace(/^-+|-+$/g,'') || 'unnamed-project';
+  }
+
+  function platformKey(p){
+    var v = String(p || '').toLowerCase();
+    if(v.indexOf('hugging') >= 0 || v === 'hf'){ return 'huggingface'; }
+    if(v.indexOf('gitlab') >= 0){ return 'gitlab'; }
+    if(v.indexOf('codeberg') >= 0){ return 'codeberg'; }
+    if(v.indexOf('bitbucket') >= 0){ return 'bitbucket'; }
+    if(v.indexOf('gitea') >= 0){ return 'gitea'; }
+    if(v.indexOf('sourcehut') >= 0 || v.indexOf('sr.ht') >= 0){ return 'sourcehut'; }
+    return 'github';
+  }
+
+  function repoUrl(platform, user, repo){
+    var k = platformKey(platform);
+    var u = user || 'math12393';
+    var r = repo || 'unnamed-project';
+    if(k === 'gitlab'){ return 'https://gitlab.com/' + u + '/' + r; }
+    if(k === 'codeberg'){ return 'https://codeberg.org/' + u + '/' + r; }
+    if(k === 'huggingface'){ return 'https://huggingface.co/' + u + '/' + r; }
+    if(k === 'bitbucket'){ return 'https://bitbucket.org/' + u + '/' + r; }
+    if(k === 'gitea'){ return 'https://gitea.com/' + u + '/' + r; }
+    if(k === 'sourcehut'){ return 'https://git.sr.ht/~' + u + '/' + r; }
+    return 'https://github.com/' + u + '/' + r;
+  }
+
+  function staticUrl(platform, user, repo){
+    var k = platformKey(platform);
+    var u = user || 'math12393';
+    var r = repo || 'unnamed-project';
+    if(k === 'gitlab'){ return 'https://' + u + '.gitlab.io/' + r + '/'; }
+    if(k === 'codeberg'){ return 'https://' + u + '.codeberg.page/' + r + '/'; }
+    if(k === 'huggingface'){ return 'https://huggingface.co/spaces/' + u + '/' + r; }
+    if(k === 'bitbucket'){ return 'https://' + u + '.bitbucket.io/' + r + '/'; }
+    if(k === 'gitea'){ return 'https://' + u + '.gitea.io/' + r + '/'; }
+    if(k === 'sourcehut'){ return 'https://' + r + '.srht.site/'; }
+    return 'https://' + u + '.github.io/' + r + '/';
+  }
+
+  function buildContext(){
+    return {
+      user: ($('user').value || 'math12393').trim(),
+      repo: ($('repo').value || 'unnamed-project').trim(),
+      platform: ($('platform').value || 'GitHub').trim(),
+      license: $('license').value,
+      files: ($('files').value || 'no existing files').trim(),
+      desc: ($('prompt').value || 'A clean, well documented open source project.').trim(),
+      badges: $('optBadges').checked,
+      emoji: $('optEmoji').checked
+    };
+  }
+
+  function contextBlock(ctx){
+    return 'PROJECT CONTEXT\n' +
+      '- Owner: ' + ctx.user + '\n' +
+      '- Repository: ' + ctx.repo + '\n' +
+      '- Platform: ' + ctx.platform + '\n' +
+      '- License: ' + ctx.license + '\n' +
+      '- Existing files: ' + ctx.files + '\n' +
+      '- Repository URL: ' + repoUrl(ctx.platform, ctx.user, ctx.repo) + '\n' +
+      '- Static site URL: ' + staticUrl(ctx.platform, ctx.user, ctx.repo) + '\n' +
+      '- Current year: ' + YEAR + '\n' +
+      '- Description: ' + ctx.desc;
+  }
+
+  function readmeRules(ctx){
+    var k = platformKey(ctx.platform);
+    var rules = [];
+    if(k === 'huggingface'){
+      rules.push('Begin with a YAML metadata block delimited by three dashes on its own lines.');
+      rules.push('The YAML must include license, language, tags, library_name, pipeline_tag and datasets or base_model keys where relevant.');
+      rules.push('Follow with a Model Card or Dataset Card structure: Model Details, Intended Use, Training Data, Evaluation, Limitations, Citation.');
+    } else {
+      rules.push('Use a standard software README structure: title, tagline, badges, table of contents, overview, features, tech stack, installation, usage, configuration, project structure, roadmap, contributing, license.');
+    }
+    rules.push('Always include the repository URL ' + repoUrl(ctx.platform, ctx.user, ctx.repo) + ' in the usage section.');
+    rules.push('If index.html exists or the project is a website, include the live static site URL ' + staticUrl(ctx.platform, ctx.user, ctx.repo) + '.');
+    if(ctx.badges){
+      rules.push('Include markdown badges near the top for license, build status, version and platform.');
+    }
+    if(ctx.emoji){
+      rules.push('Use tasteful emoji at the start of each section heading.');
+    } else {
+      rules.push('Do not use emoji.');
+    }
+    rules.push('Use fenced code blocks with the correct language for every command and snippet.');
+    rules.push('Write in depth. Long, complete, professional documentation. No placeholders other than obvious ones like YOUR_USERNAME.');
+    return rules.join('\n');
+  }
+
+  function instructionFor(id, ctx){
+    var map = {
+      gitignore: 'Write a comprehensive .gitignore. Detect the stack from the existing files and description. Include sections for dependencies, build output, logs, environment files, editor folders, operating system files, coverage reports, caches and compiled binaries.',
+      contributing: 'Write CONTRIBUTING.md with: welcome, code of conduct reference, ways to contribute, bug reporting, feature requests, development setup with exact commands, branching strategy, commit message convention using Conventional Commits, pull request process, code style and testing requirements.',
+      conduct: 'Write CODE_OF_CONDUCT.md based on Contributor Covenant 2.1. Include the pledge, standards, enforcement responsibilities, scope, enforcement guidelines with the four level ladder, attribution and a contact placeholder.',
+      changelog: 'Write CHANGELOG.md in Keep a Changelog 1.1.0 format with an Unreleased section and a 0.1.0 release dated ' + YEAR + '-01-01. Use Added, Changed, Deprecated, Removed, Fixed and Security subsections. End with comparison link definitions.',
+      security: 'Write SECURITY.md with supported versions table, reporting a vulnerability privately, what to include in a report, response timeline expectations, coordinated disclosure and a hall of fame section.',
+      citation: 'Write a valid CITATION.cff using Citation File Format 1.2.0. Include cff-version, message, title, abstract, authors with family-names and given-names, license, version, date-released and repository-code.',
+      authors: 'Write AUTHORS.md listing the owner as lead maintainer with a maintainers table, a contributors section with an all-contributors style table, and an acknowledgements section.',
+      gitattributes: 'Write a .gitattributes with a header comment, default text auto normalisation, explicit text and binary markers per extension, linguist vendored and generated exclusions, and export-ignore rules.',
+      editorconfig: 'Write .editorconfig with root true, global defaults and per file type sections for JavaScript, TypeScript, Python, Markdown, YAML, JSON, HTML, CSS, shell scripts and Makefiles.',
+      ghci: 'Write .github/workflows/ci.yml. Include name, on push and pull_request triggers, a concurrency group, a matrix strategy across two runtimes and two operating systems, steps for checkout, setup, dependency caching, install, lint, test with coverage and build. Use the correct setup action for the detected stack.',
+      ghrelease: 'Write .github/workflows/release.yml triggered on tags matching v*. Include permissions for contents write, steps for checkout with full history, setup, install, build, generate release notes and create a GitHub release.',
+      ghpages: 'Write .github/workflows/pages.yml that builds and deploys a static site to GitHub Pages. Include permissions for contents read, pages write and id-token write, the concurrency block and the upload and deploy pages actions.',
+      ghbug: 'Write .github/ISSUE_TEMPLATE/bug_report.md with YAML front matter containing name, about, title prefix, labels and assignees, then sections for description, reproduction steps, expected behaviour, screenshots, environment and additional context.',
+      ghfeature: 'Write .github/ISSUE_TEMPLATE/feature_request.md with YAML front matter, then sections for problem statement, proposed solution, alternatives considered and additional context.',
+      ghpr: 'Write .github/PULL_REQUEST_TEMPLATE.md with a summary section, type of change checklist, testing evidence, a review checklist and related issues section.',
+      ghfunding: 'Write .github/FUNDING.yml with all supported platforms commented out as placeholders and one example active entry plus a header comment explaining each platform.',
+      ghdependabot: 'Write .github/dependabot.yml version 2 with a weekly schedule for the detected package ecosystem, open pull request limits, commit message prefixes and grouped dependency updates.',
+      gitlabci: 'Write .gitlab-ci.yml with stages for lint, test, build and deploy, cache configuration, artifacts, and rules that only run deploy on the default branch.',
+      woodpecker: 'Write .woodpecker.yml for Codeberg with pipeline steps for lint, test and build, using appropriate images and when conditions.',
+      dockerfile: 'Write a production ready multi-stage Dockerfile. Use a builder stage and a slim runtime stage, set a non root user, define WORKDIR, copy only what is needed, add a HEALTHCHECK and set the correct entrypoint for the detected stack.',
+      compose: 'Write docker-compose.yml with a versionless modern compose file containing the app service, build context, ports, environment variables referencing .env, volumes, restart policy and healthcheck.',
+      makefile: 'Write a Makefile using .PHONY declarations and a self documenting help target that parses comments. Include install, dev, test, lint, format, build, docker, clean and release targets.',
+      packagejson: 'Write a complete package.json with name set to the repository name in kebab case, version 0.1.0, description, license, author, repository with type git and url, bugs, homepage, keywords, engines, main, type module, scripts and devDependencies with realistic versions.',
+      requirements: 'Write requirements.txt with commented sections for core, development and optional dependencies, pinned with double equals and with brief inline comments.',
+      pyproject: 'Write pyproject.toml with a build-system section, a project table containing name, version, description, readme, license, authors, keywords, classifiers, dependencies and optional dependencies, plus tool sections for ruff, black and pytest.',
+      env: 'Write .env.example with grouped and commented environment variables for application settings, server port, database URL, secret keys, log level and third party API keys. Use obvious placeholder values.',
+      indexhtml: 'Write a single file index.html landing page. Include doctype, language attribute, charset, viewport meta, description, theme colour, an inline style block with a modern dark responsive design, a hero section, a features grid, a usage section and a footer. Keep it dependency free and valid HTML5.',
+      tsconfig: 'Write a strict tsconfig.json with target ES2022, module ESNext, moduleResolution bundler, lib, outDir, rootDir, strict true, and useful flags such as noUncheckedIndexedAccess, forceConsistentCasingInFileNames, skipLibCheck, esModuleInterop, resolveJsonModule and path aliases.',
+      devcontainer: 'Write .devcontainer/devcontainer.json with name, image or build context, features, forwardPorts, customizations for VS Code extensions and settings, postCreateCommand and remoteUser.'
+    };
+    return map[id] || 'Write a complete, production quality version of this file.';
+  }
+
+  function buildFilePrompt(ctx, items){
+    var lines = [];
+    lines.push('You are Nexus Architect, an elite senior developer and repository strategist.');
+    lines.push('You output ONLY raw file contents. No explanations, no commentary, no markdown fences around whole files.');
+    lines.push('');
+    lines.push('OUTPUT FORMAT — follow it exactly, repeating this block once per requested file:');
+    lines.push('<<<FILE:path/to/file>>>');
+    lines.push('raw file content');
+    lines.push('<<<END>>>');
+    lines.push('');
+    lines.push('HARD RULES');
+    lines.push('- Every file must be complete and ready to commit with zero edits.');
+    lines.push('- Never wrap file contents in triple backticks.');
+    lines.push('- Never add any text before the first marker or after the last marker.');
+    lines.push('- Use ' + YEAR + ' for every year and copyright notice.');
+    lines.push('- Be thorough. Prefer longer, richer, more complete content over short content.');
+    lines.push('- Adapt everything to the architectural conventions of ' + ctx.platform + '.');
+    lines.push('');
+    lines.push(contextBlock(ctx));
+    lines.push('');
+    lines.push('FILES TO GENERATE (' + items.length + ')');
+    for(var i = 0; i < items.length; i++){
+      lines.push((i + 1) + '. ' + items[i].path + ' — ' + instructionFor(items[i].id, ctx));
+    }
+    lines.push('');
+    lines.push('Return exactly ' + items.length + ' file block' + (items.length === 1 ? '' : 's') + ' now.');
+    return lines.join('\n');
+  }
+
+  function parseBlocks(text){
+    var found = [];
+    var re = /<<<FILE:([^>\r\n]+?)>>>([\s\S]*?)<<<END>>>/g;
+    var m;
+    while((m = re.exec(text)) !== null){
+      found.push({ path: m[1].trim(), content: cleanContent(m[2]) });
+    }
+    if(!found.length){
+      var re2 = /<file\s+path=["']([^"']+)["']\s*>([\s\S]*?)<\/file>/gi;
+      while((m = re2.exec(text)) !== null){
+        found.push({ path: m[1].trim(), content: cleanContent(m[2]) });
+      }
+    }
+    return found;
+  }
+
+  function runSequential(tasks){
+    var i = 0;
+    function next(){
+      if(i >= tasks.length){ return Promise.resolve(); }
+      var task = tasks[i++];
+      return Promise.resolve().then(task).then(next);
+    }
+    return next();
+  }
+
+  function localLicense(name, user){
+    var tpl = LOCAL_LICENSES[name];
+    if(!tpl){ return null; }
+    return tpl.split('{year}').join(String(YEAR)).split('{user}').join(user);
+  }
+
+  function fetchGitHubLicense(name, user){
+    var key = GH_KEYS[name];
+    if(!key){ return Promise.reject(new Error('no key')); }
+    return fetch('https://api.github.com/licenses/' + key, {
+      headers: { 'Accept': 'application/vnd.github+json' }
+    }).then(function(res){
+      if(!res.ok){ throw new Error('GitHub license lookup failed'); }
+      return res.json();
+    }).then(function(data){
+      var body = String(data.body || '');
+      if(!body){ throw new Error('empty license body'); }
+      body = body.split('[year]').join(String(YEAR)).split('[fullname]').join(user);
+      body = body.split('[yyyy]').join(String(YEAR)).split('[name of copyright owner]').join(user);
+      return body;
+    });
+  }
+
+  function generateLicense(ctx){
+    var local = localLicense(ctx.license, ctx.user);
+    if(local){
+      log('LICENSE resolved from built-in ' + ctx.license + ' template.', 'ok');
+      return Promise.resolve(local);
+    }
+    log('Fetching official ' + ctx.license + ' text...', 'info');
+    return fetchGitHubLicense(ctx.license, ctx.user)
+      .then(function(body){
+        log('LICENSE fetched from the SPDX registry.', 'ok');
+        return body;
+      })
+      .catch(function(){
+        log('Registry lookup failed, asking Tom for the license text.', 'warn');
+        var p = 'Write the complete, verbatim legal text of the ' + ctx.license + ' license.\n' +
+          'Output ONLY the license text with no commentary and no code fences.\n' +
+          'Set the copyright year to ' + YEAR + ' and the copyright holder to ' + ctx.user + '.\n' +
+          'If the license has no copyright line, still output the full canonical text.';
+        return askTom(p).then(function(t){ return cleanContent(t); });
+      });
+  }
+
+  function generateReadmeSingle(ctx){
+    var p = [];
+    p.push('Write the complete README.md for this project.');
+    p.push('');
+    p.push('README RULES');
+    p.push(readmeRules(ctx));
+    p.push('');
+    p.push(contextBlock(ctx));
+    p.push('');
+    p.push('Output ONLY the README.md content. No commentary, no surrounding code fences, no file markers.');
+    return askTom(p.join('\n')).then(function(t){ return cleanContent(t); });
+  }
+
+  function generateReadmeDeep(ctx){
+    var k = platformKey(ctx.platform);
+    var sections = [];
+
+    if(k === 'huggingface'){
+      sections.push({
+        name: 'metadata front matter',
+        prompt: 'Write ONLY the YAML metadata block for a Hugging Face ' + (ctx.desc.toLowerCase().indexOf('dataset') >= 0 ? 'dataset' : 'model') + ' card.\n' +
+          'Start with a line containing exactly three dashes, then the YAML keys, then a closing line of exactly three dashes.\n' +
+          'Include license: ' + ctx.license.toLowerCase() + ', language, tags, library_name, pipeline_tag, datasets, metrics and model-index where relevant.\n' +
+          'Output nothing except the YAML block.\n\n' + contextBlock(ctx)
+      });
+    }
+
+    sections.push({
+      name: 'title and overview',
+      prompt: 'Write ONLY the opening of a README.md: the H1 title, a one line tagline, ' +
+        (ctx.badges ? 'a row of markdown badges (license, build, version, platform), ' : '') +
+        'a horizontal rule, and a rich Overview section of at least three paragraphs explaining what the project is, who it is for and why it exists.\n' +
+        (ctx.emoji ? 'Use emoji in headings.\n' : 'Do not use emoji.\n') +
+        'Output markdown only, no commentary.\n\n' + contextBlock(ctx)
+    });
+
+    sections.push({
+      name: 'features and stack',
+      prompt: 'Write ONLY two markdown sections for a README.md: "Features" as a bullet list of at least ten concrete features, and "Tech Stack" as a markdown table of technology, purpose and version.\n' +
+        (ctx.emoji ? 'Use emoji in headings.\n' : 'Do not use emoji.\n') +
+        'Output markdown only, no commentary.\n\n' + contextBlock(ctx)
+    });
+
+    sections.push({
+      name: 'installation and usage',
+      prompt: 'Write ONLY the "Installation", "Quick Start" and "Usage" markdown sections for a README.md. ' +
+        'Include prerequisites, exact shell commands in fenced code blocks, a minimal working example and expected output. ' +
+        'Always include the repository URL ' + repoUrl(ctx.platform, ctx.user, ctx.repo) + ' and the live site URL ' + staticUrl(ctx.platform, ctx.user, ctx.repo) + '.\n' +
+        (ctx.emoji ? 'Use emoji in headings.\n' : 'Do not use emoji.\n') +
+        'Output markdown only, no commentary.\n\n' + contextBlock(ctx)
+    });
+
+    sections.push({
+      name: 'configuration and structure',
+      prompt: 'Write ONLY two markdown sections for a README.md: "Configuration" as a table of environment variables and options with defaults and descriptions, and "Project Structure" as an annotated directory tree inside a fenced code block.\n' +
+        (ctx.emoji ? 'Use emoji in headings.\n' : 'Do not use emoji.\n') +
+        'Output markdown only, no commentary.\n\n' + contextBlock(ctx)
+    });
+
+    sections.push({
+      name: 'roadmap and license',
+      prompt: 'Write ONLY the closing markdown sections for a README.md: "Roadmap" as a checklist, "Contributing" with a short guide and a link to CONTRIBUTING.md, "License" stating the project is released under the ' + ctx.license + ' license with a link to the LICENSE file, and "Acknowledgements".\n' +
+        (ctx.emoji ? 'Use emoji in headings.\n' : 'Do not use emoji.\n') +
+        'Output markdown only, no commentary.\n\n' + contextBlock(ctx)
+    });
+
+    var parts = [];
+    return runSequential(sections.map(function(sec, idx){
+      return function(){
+        log('README pass ' + (idx + 1) + '/' + sections.length + ': ' + sec.name, 'info');
+        return askTom(sec.prompt).then(function(text){
+          parts.push(cleanContent(text));
+        }).catch(function(err){
+          log('README pass "' + sec.name + '" failed: ' + err.message, 'warn');
+        });
+      };
+    })).then(function(){
+      return parts.join('\n\n');
+    });
+  }
+
+  function readForm(){
+    return {
+      platform: ($('platform').value || 'GitHub').trim(),
+      license: $('license').value,
+      user: ($('user').value || 'math12393').trim(),
+      repo: ($('repo').value || 'unnamed-project').trim(),
+      files: ($('files').value || '').trim(),
+      prompt: ($('prompt').value || '').trim()
+    };
+  }
+
+  function selectedArtifacts(){
+    var out = [];
+    for(var i = 0; i < FILES.length; i++){
+      var box = document.querySelector('input[data-artifact="' + FILES[i].id + '"]');
+      if(FILES[i].locked || (box && box.checked)){ out.push(FILES[i]); }
+    }
+    return out;
+  }
+
+  function updateUrlPreview(){
+    var f = readForm();
+    var r = repoUrl(f.platform, f.user, f.repo);
+    var s = staticUrl(f.platform, f.user, f.repo);
+    urlPreview.innerHTML =
+      '<b>Repository:</b> <code>' + esc(r) + '</code><br>' +
+      '<b>Static site:</b> <code>' + esc(s) + '</code>';
+  }
+
+  function renderArtifacts(){
+    var groups = {};
+    var order = [];
+    for(var i = 0; i < FILES.length; i++){
+      var g = FILES[i].group;
+      if(!groups[g]){ groups[g] = []; order.push(g); }
+      groups[g].push(FILES[i]);
+    }
+    artifactGroups.innerHTML = '';
+    for(var gi = 0; gi < order.length; gi++){
+      var name = order[gi];
+      var title = document.createElement('div');
+      title.className = 'section-title';
+      title.textContent = name;
+      artifactGroups.appendChild(title);
+      var grid = document.createElement('div');
+      grid.className = 'artifact-grid';
+      var list = groups[name];
+      for(var fi = 0; fi < list.length; fi++){
+        var item = list[fi];
+        var wrap = document.createElement('div');
+        wrap.className = 'artifact';
+        var lab = document.createElement('label');
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.setAttribute('data-artifact', item.id);
+        cb.checked = !!item.locked;
+        cb.disabled = !!item.locked;
+        var span = document.createElement('span');
+        span.className = 'fname';
+        span.innerHTML = esc(item.path) + (item.locked ? '<span class="flock">always included</span>' : '');
+        lab.appendChild(cb);
+        lab.appendChild(span);
+        wrap.appendChild(lab);
+        grid.appendChild(wrap);
+      }
+      artifactGroups.appendChild(grid);
+    }
+  }
+
+  function renderChips(){
+    var pc = $('platformChips');
+    pc.innerHTML = '';
+    for(var i = 0; i < PLATFORMS.length; i++){
+      (function(p){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip';
+        b.textContent = p;
+        b.onclick = function(){
+          $('platform').value = p;
+          updateUrlPreview();
+        };
+        pc.appendChild(b);
+      })(PLATFORMS[i]);
+    }
+    var prc = $('presetChips');
+    prc.innerHTML = '';
+    for(var j = 0; j < PRESETS.length; j++){
+      (function(preset){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip';
+        b.textContent = preset.name;
+        b.onclick = function(){
+          $('prompt').value = preset.prompt;
+          $('files').value = preset.files;
+          updateCounter();
+          updateUrlPreview();
+          toast('Preset applied: ' + preset.name, 'ok');
+        };
+        prc.appendChild(b);
+      })(PRESETS[j]);
+    }
+  }
+
+  function updateCounter(){
+    var n = $('prompt').value.length;
+    $('promptCounter').textContent = n + ' character' + (n === 1 ? '' : 's');
+  }
+
+  function renderResults(items){
+    resultsEl.innerHTML = '';
+    if(!items.length){ resultsEl.className = 'results-area'; return; }
+    state.files = items;
+
+    var head = document.createElement('div');
+    head.className = 'results-head';
+    var total = 0;
+    for(var i = 0; i < items.length; i++){ total += items[i].content.length; }
+    head.innerHTML = '<strong>' + items.length + ' file' + (items.length === 1 ? '' : 's') + ' generated</strong>' +
+      '<span class="meta">' + total.toLocaleString() + ' characters total</span>';
+    resultsEl.appendChild(head);
+
+    for(var k = 0; k < items.length; k++){
+      (function(item){
+        var box = document.createElement('div');
+        box.className = 'file-box';
+
+        var fh = document.createElement('div');
+        fh.className = 'file-head';
+
+        var left = document.createElement('span');
+        left.className = 'file-name';
+        left.textContent = item.path;
+
+        var right = document.createElement('span');
+        right.className = 'file-actions';
+
+        var meta = document.createElement('span');
+        meta.className = 'file-meta';
+        meta.style.marginRight = '10px';
+        meta.textContent = item.content.length + ' chars';
+
+        var copyBtn = document.createElement('button');
+        copyBtn.className = 'mini-btn';
+        copyBtn.type = 'button';
+        copyBtn.textContent = 'Copy';
+        copyBtn.onclick = function(){
+          copyText(item.content).then(function(){
+            copyBtn.textContent = 'Copied';
+            copyBtn.className = 'mini-btn done';
+            setTimeout(function(){ copyBtn.textContent = 'Copy'; copyBtn.className = 'mini-btn'; }, 1800);
+          }).catch(function(){ toast('Copy failed on this browser', 'err'); });
+        };
+
+        var dlBtn = document.createElement('button');
+        dlBtn.className = 'mini-btn';
+        dlBtn.type = 'button';
+        dlBtn.textContent = 'Save';
+        dlBtn.onclick = function(){ downloadSingle(item.path, item.content); };
+
+        right.appendChild(meta);
+        right.appendChild(copyBtn);
+        right.appendChild(dlBtn);
+
+        fh.appendChild(left);
+        fh.appendChild(right);
+
+        var pre = document.createElement('pre');
+        pre.textContent = item.content;
+
+        box.appendChild(fh);
+        box.appendChild(pre);
+        resultsEl.appendChild(box);
+      })(items[k]);
+    }
+    resultsEl.className = 'results-area on';
+  }
+
+  function utf8Bytes(str){
+    var out = [];
+    for(var i = 0; i < str.length; i++){
+      var c = str.charCodeAt(i);
+      if(c < 0x80){ out.push(c); }
+      else if(c < 0x800){ out.push(0xC0 | (c >> 6), 0x80 | (c & 63)); }
+      else if(c >= 0xD800 && c <= 0xDBFF && i + 1 < str.length){
+        var c2 = str.charCodeAt(i + 1);
+        var cp = 0x10000 + ((c - 0xD800) << 10) + (c2 - 0xDC00);
+        out.push(0xF0 | (cp >> 18), 0x80 | ((cp >> 12) & 63), 0x80 | ((cp >> 6) & 63), 0x80 | (cp & 63));
+        i++;
+      } else {
+        out.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63));
+      }
+    }
+    return new Uint8Array(out);
+  }
+
+  var CRC_TABLE = (function(){
+    var t = new Uint32Array(256);
+    for(var n = 0; n < 256; n++){
+      var c = n;
+      for(var k = 0; k < 8; k++){
+        c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      }
+      t[n] = c >>> 0;
+    }
+    return t;
+  })();
+
+  function crc32(bytes){
+    var c = 0xFFFFFFFF;
+    for(var i = 0; i < bytes.length; i++){
+      c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+    }
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  function u16(v){ return new Uint8Array([v & 0xFF, (v >>> 8) & 0xFF]); }
+  function u32(v){ return new Uint8Array([v & 0xFF, (v >>> 8) & 0xFF, (v >>> 16) & 0xFF, (v >>> 24) & 0xFF]); }
+
+  function concatBytes(list){
+    var total = 0;
+    for(var i = 0; i < list.length; i++){ total += list[i].length; }
+    var out = new Uint8Array(total);
+    var off = 0;
+    for(var j = 0; j < list.length; j++){
+      out.set(list[j], off);
+      off += list[j].length;
+    }
+    return out;
+  }
+
+  function makeZip(files){
+    var now = new Date();
+    var dosTime = ((now.getHours() << 11) | (now.getMinutes() << 5) | Math.floor(now.getSeconds() / 2)) & 0xFFFF;
+    var dosDate = (((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate()) & 0xFFFF;
+
+    var localParts = [];
+    var centralParts = [];
+    var offset = 0;
+
+    for(var i = 0; i < files.length; i++){
+      var nameBytes = utf8Bytes(files[i].path);
+      var dataBytes = utf8Bytes(files[i].content);
+      var crc = crc32(dataBytes);
+
+      var local = concatBytes([
+        u32(0x04034b50), u16(20), u16(0x0800), u16(0), u16(dosTime), u16(dosDate),
+        u32(crc), u32(dataBytes.length), u32(dataBytes.length),
+        u16(nameBytes.length), u16(0), nameBytes, dataBytes
+      ]);
+      localParts.push(local);
+
+      var central = concatBytes([
+        u32(0x02014b50), u16(20), u16(20), u16(0x0800), u16(0), u16(dosTime), u16(dosDate),
+        u32(crc), u32(dataBytes.length), u32(dataBytes.length),
+        u16(nameBytes.length), u16(0), u16(0), u16(0), u16(0), u32(0), u32(offset), nameBytes
+      ]);
+      centralParts.push(central);
+
+      offset += local.length;
+    }
+
+    var centralBytes = concatBytes(centralParts);
+    var end = concatBytes([
+      u32(0x06054b50), u16(0), u16(0), u16(files.length), u16(files.length),
+      u32(centralBytes.length), u32(offset), u16(0)
+    ]);
+
+    var all = concatBytes(localParts.concat([centralBytes, end]));
+    return new Blob([all], { type: 'application/zip' });
+  }
+
+  function saveBlob(blob, filename){
+    try {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.rel = 'noopener';
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function(){
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 1500);
+      return true;
+    } catch(e){
+      return false;
+    }
+  }
+
+  function downloadSingle(path, content){
+    var safe = path.split('/').join('_');
+    var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    if(!saveBlob(blob, safe)){ toast('Download blocked by this browser', 'err'); }
+  }
+
+  function downloadZip(){
+    if(!state.files.length){ toast('Nothing to download yet', 'err'); return; }
+    var blob = makeZip(state.files);
+    var name = slug(readForm().repo) + '-nexus-' + YEAR + '.zip';
+    if(saveBlob(blob, name)){ toast('ZIP downloaded: ' + name, 'ok'); }
+    else { toast('ZIP download blocked by this browser', 'err'); }
+  }
+
+  function copyAll(){
+    if(!state.files.length){ toast('Nothing to copy yet', 'err'); return; }
+    var parts = [];
+    for(var i = 0; i < state.files.length; i++){
+      parts.push('===== ' + state.files[i].path + ' =====\n' + state.files[i].content);
+    }
+    copyText(parts.join('\n\n')).then(function(){
+      toast('All ' + state.files.length + ' files copied', 'ok');
+    }).catch(function(){ toast('Copy failed on this browser', 'err'); });
+  }
+
+  function gitCommands(){
+    var f = readForm();
+    var k = platformKey(f.platform);
+    var remote = repoUrl(f.platform, f.user, f.repo) + '.git';
+    var lines = [];
+    lines.push('# Nexus Architect 2026 — git quick start for ' + f.platform);
+    lines.push('');
+    lines.push('# 1. Initialise the local repository');
+    lines.push('git init');
+    lines.push('git branch -M main');
+    lines.push('');
+    lines.push('# 2. Stage and commit everything');
+    lines.push('git add .');
+    lines.push('git commit -m "chore: initial commit for ' + f.repo + '"');
+    lines.push('');
+    lines.push('# 3. Connect the remote and push');
+    lines.push('git remote add origin ' + remote);
+    lines.push('git push -u origin main');
+    lines.push('');
+    lines.push('# 4. Day to day workflow');
+    lines.push('git checkout -b feat/my-change');
+    lines.push('git add .');
+    lines.push('git commit -m "feat: describe the change"');
+    lines.push('git push -u origin feat/my-change');
+    lines.push('git checkout main && git pull --rebase');
+    lines.push('');
+    lines.push('# 5. Tags and releases');
+    lines.push('git tag -a v0.1.0 -m "Release v0.1.0"');
+    lines.push('git push origin v0.1.0');
+    lines.push('');
+    lines.push('# 6. Housekeeping');
+    lines.push('git log --oneline --graph --decorate --all');
+    lines.push('git remote -v');
+    lines.push('git status --short');
+    lines.push('git fetch --prune');
+    lines.push('git gc --aggressive --prune=now');
+
+    if(k === 'huggingface'){
+      lines.push('');
+      lines.push('# Hugging Face Hub remote');
+      lines.push('git remote add hf https://huggingface.co/' + f.user + '/' + f.repo);
+      lines.push('git push hf main');
+      lines.push('');
+      lines.push('# Git LFS for large weights');
+      lines.push('git lfs install');
+      lines.push('git lfs track "*.safetensors" "*.bin" "*.ckpt" "*.pt"');
+      lines.push('git add .gitattributes');
+      lines.push('git commit -m "chore: track large model files with git lfs"');
+    } else if(k === 'codeberg'){
+      lines.push('');
+      lines.push('# Codeberg Pages');
+      lines.push('git push origin main');
+    } else if(k === 'gitlab'){
+      lines.push('');
+      lines.push('# GitLab Pages is handled by .gitlab-ci.yml');
+      lines.push('git push -o ci.skip origin main');
+    }
+
+    if((f.files || '').toLowerCase().indexOf('safetensors') >= 0 && k !== 'huggingface'){
+      lines.push('');
+      lines.push('# Large weights detected — enable Git LFS');
+      lines.push('git lfs install');
+      lines.push('git lfs track "*.safetensors"');
+      lines.push('git add .gitattributes');
+    }
+
+    lines.push('');
+    lines.push('# Useful aliases');
+    lines.push('git config --global alias.st "status --short --branch"');
+    lines.push('git config --global alias.lg "log --oneline --graph --decorate --all"');
+    lines.push('git config --global alias.last "log -1 HEAD --stat"');
+    lines.push('git config --global alias.unstage "reset HEAD --"');
+    return lines.join('\n');
+  }
+
+  function showGitPanel(){
+    var item = { path: 'git-commands.sh', content: gitCommands() };
+    var existing = document.getElementById('gitBox');
+    if(existing){ existing.parentNode.removeChild(existing); }
+
+    var box = document.createElement('div');
+    box.className = 'file-box';
+    box.id = 'gitBox';
+
+    var fh = document.createElement('div');
+    fh.className = 'file-head';
+    var nm = document.createElement('span');
+    nm.className = 'file-name';
+    nm.textContent = 'git-commands.sh';
+    var actions = document.createElement('span');
+    actions.className = 'file-actions';
+    var cp = document.createElement('button');
+    cp.className = 'mini-btn';
+    cp.type = 'button';
+    cp.textContent = 'Copy';
+    cp.onclick = function(){
+      copyText(item.content).then(function(){
+        cp.textContent = 'Copied';
+        cp.className = 'mini-btn done';
+        setTimeout(function(){ cp.textContent = 'Copy'; cp.className = 'mini-btn'; }, 1800);
+      }).catch(function(){ toast('Copy failed on this browser', 'err'); });
+    };
+    var sv = document.createElement('button');
+    sv.className = 'mini-btn';
+    sv.type = 'button';
+    sv.textContent = 'Save';
+    sv.onclick = function(){ downloadSingle(item.path, item.content); };
+    actions.appendChild(cp);
+    actions.appendChild(sv);
+    fh.appendChild(nm);
+    fh.appendChild(actions);
+
+    var pre = document.createElement('pre');
+    pre.textContent = item.content;
+    box.appendChild(fh);
+    box.appendChild(pre);
+
+    var anchor = resultsEl;
+    anchor.className = 'results-area on';
+    anchor.insertBefore(box, anchor.firstChild);
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    toast('Git command sheet generated', 'ok');
+  }
+
+  function buildPromptFor(id, ctx, all){
+    var f = null;
+    for(var i = 0; i < all.length; i++){ if(all[i].id === id){ f = all[i]; break; } }
+    if(!f){ return ''; }
+    return buildFilePrompt(ctx, [f]);
+  }
+
+  function runBuild(){
+    if(state.running){ return; }
+    var ctx = buildContext();
+
+    if(!ctx.repo || ctx.repo === 'unnamed-project'){
+      toast('Add a repository name for better results', 'err');
+    }
+
+    state.running = true;
+    state.files = [];
+    execBtn.disabled = true;
+    execBtn.textContent = 'Building...';
+    termEl.innerHTML = '';
+    resultsEl.innerHTML = '';
+    resultsEl.className = 'results-area';
+    progressWrap.className = 'progress-wrap on';
+    setProgress(0, 1, 'Booting');
+
+    var artifacts = selectedArtifacts();
+    var queue = [];
+    var results = [];
+    var totalUnits = artifacts.length + 6;
+
+    log('Nexus Architect ' + YEAR + ' online.', 'ok');
+    log('Platform: ' + ctx.platform + ' | License: ' + ctx.license + ' | Owner: ' + ctx.user, 'info');
+    log('Artifacts queued: ' + artifacts.length, 'info');
+
+    queue.push(function(){
+      setProgress(1, totalUnits, 'Resolving LICENSE');
+      log('Resolving LICENSE for ' + ctx.license + '...', 'info');
+      return generateLicense(ctx).then(function(text){
+        results.push({ path:'LICENSE', content: text });
+        log('LICENSE ready (' + text.length + ' characters).', 'ok');
+      });
+    });
+
+    queue.push(function(){
+      var useDeep = $('optDeepReadme').checked;
+      log(useDeep ? 'Generating README with deep multi-pass mode...' : 'Generating README...', 'info');
+      setProgress(2, totalUnits, 'Writing README');
+      var p = useDeep ? generateReadmeDeep(ctx) : generateReadmeSingle(ctx);
+      return p.then(function(text){
+        results.push({ path:'README.md', content: text });
+        log('README.md ready (' + text.length + ' characters).', 'ok');
+      }).catch(function(err){
+        log('README generation failed: ' + err.message, 'err');
+      });
+    });
+
+    var remaining = [];
+    for(var i = 0; i < artifacts.length; i++){
+      if(artifacts[i].id !== 'readme' && artifacts[i].id !== 'license'){
+        remaining.push(artifacts[i]);
+      }
+    }
+
+    var batches = [];
+    for(var b = 0; b < remaining.length; b += 2){
+      batches.push(remaining.slice(b, b + 2));
+    }
+
+    log('Grouped ' + remaining.length + ' files into ' + batches.length + ' AI request' + (batches.length === 1 ? '' : 's') + '.', 'info');
+
+    for(var bi = 0; bi < batches.length; bi++){
+      (function(batch, index){
+        queue.push(function(){
+          var label = batch.map(function(x){ return x.path; }).join(' + ');
+          setProgress(2 + index, totalUnits, 'Writing ' + label);
+          log('Request ' + (index + 1) + '/' + batches.length + ': ' + label, 'info');
+          return askTom(buildFilePrompt(ctx, batch)).then(function(text){
+            var parsed = parseBlocks(text);
+            if(!parsed.length){
+              log('No markers found in response, retrying files individually.', 'warn');
+              return runSequential(batch.map(function(item){
+                return function(){
+                  return askTom(buildPromptFor(item.id, ctx, artifacts)).then(function(single){
+                    var c = cleanContent(single);
+                    results.push({ path: item.path, content: c });
+                    log(item.path + ' recovered (' + c.length + ' characters).', 'ok');
+                  }).catch(function(e){
+                    log(item.path + ' failed: ' + e.message, 'err');
+                  });
+                };
+              }));
+            }
+            for(var pi = 0; pi < parsed.length; pi++){
+              results.push({ path: parsed[pi].path, content: parsed[pi].content });
+              log(parsed[pi].path + ' ready (' + parsed[pi].content.length + ' characters).', 'ok');
+            }
+            var missing = [];
+            for(var mi = 0; mi < batch.length; mi++){
+              var hit = false;
+              for(var pj = 0; pj < parsed.length; pj++){
+                if(parsed[pj].path.replace(/^\.\//,'') === batch[mi].path){ hit = true; break; }
+              }
+              if(!hit){ missing.push(batch[mi]); }
+            }
+            if(missing.length){
+              log('Filling ' + missing.length + ' missing file(s) individually.', 'warn');
+              return runSequential(missing.map(function(item){
+                return function(){
+                  return askTom(buildPromptFor(item.id, ctx, artifacts)).then(function(single){
+                    var c = cleanContent(single);
+                    results.push({ path: item.path, content: c });
+                    log(item.path + ' recovered (' + c.length + ' characters).', 'ok');
+                  }).catch(function(e){
+                    log(item.path + ' failed: ' + e.message, 'err');
+                  });
+                };
+              }));
+            }
+          }).catch(function(err){
+            log('Batch failed: ' + err.message, 'err');
+          });
+        });
+      })(batches[bi], bi);
+    }
+
+    queue.push(function(){
+      setProgress(totalUnits, totalUnits, 'Rendering');
+      var order = [];
+      for(var oi = 0; oi < artifacts.length; oi++){
+        for(var ri = 0; ri < results.length; ri++){
+          if(results[ri].path === artifacts[oi].path){ order.push(results[ri]); break; }
+        }
+      }
+      for(var rj = 0; rj < results.length; rj++){
+        var exists = false;
+        for(var ok = 0; ok < order.length; ok++){
+          if(order[ok].path === results[rj].path){ exists = true; break; }
+        }
+        if(!exists){ order.push(results[rj]); }
+      }
+      renderResults(order);
+      log('Build complete — ' + order.length + ' files rendered.', 'ok');
+      toast('Build complete: ' + order.length + ' files', 'ok');
+      if($('optAutoZip').checked && order.length){ downloadZip(); }
+      return Promise.resolve();
+    });
+
+    runSequential(queue).catch(function(err){
+      log('Fatal build error: ' + err.message, 'err');
+    }).then(function(){
+      state.running = false;
+      execBtn.disabled = false;
+      execBtn.textContent = 'Initiate Master Build';
+      progressLabel.textContent = 'Finished — ' + state.files.length + ' files';
+      setTimeout(function(){
+        progressWrap.className = 'progress-wrap';
+      }, 2500);
+    });
+  }
+
+  function pushChat(role, text){
+    var logEl = $('chatLog');
+    var row = document.createElement('div');
+    row.className = 'msg ' + role;
+    var bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = text;
+    row.appendChild(bubble);
+    logEl.appendChild(row);
+    logEl.scrollTop = logEl.scrollHeight;
+    return row;
+  }
+
+  function pushTyping(){
+    var logEl = $('chatLog');
+    var row = document.createElement('div');
+    row.className = 'msg bot';
+    row.id = 'typingRow';
+    row.innerHTML = '<div class="bubble typing"><span></span><span></span><span></span></div>';
+    logEl.appendChild(row);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function removeTyping(){
+    var t = document.getElementById('typingRow');
+    if(t && t.parentNode){ t.parentNode.removeChild(t); }
+  }
+
+  function sendChat(text){
+    var msg = String(text || '').trim();
+    if(!msg){ return; }
+    pushChat('me', msg);
+    $('chatInput').value = '';
+    $('chatSend').disabled = true;
+    pushTyping();
+    askTom(msg).then(function(reply){
+      removeTyping();
+      pushChat('bot', reply);
+    }).catch(function(err){
+      removeTyping();
+      pushChat('bot', 'Error: ' + err.message);
+    }).then(function(){
+      $('chatSend').disabled = false;
+    });
+  }
+
+  function initChat(){
+    var panel = $('chatPanel');
+    var logEl = $('chatLog');
+
+    var quick = $('chatQuick');
+    for(var i = 0; i < CHAT_QUICK.length; i++){
+      (function(q){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip';
+        b.textContent = q;
+        b.onclick = function(){ sendChat(q); };
+        quick.appendChild(b);
+      })(CHAT_QUICK[i]);
+    }
+
+    pushChat('sys', 'Tom AI Lite — no key, no sign-up. Ask anything about your repository, code, licenses or naming.');
+
+    function openChat(){
+      panel.className = 'chat-panel on';
+      setTimeout(function(){ $('chatInput').focus(); }, 120);
+    }
+    function closeChat(){
+      panel.className = 'chat-panel';
+    }
+    function toggleChat(){
+      if(panel.className.indexOf('on') >= 0){ closeChat(); } else { openChat(); }
+    }
+
+    $('chatFab').onclick = toggleChat;
+    $('topChatBtn').onclick = openChat;
+    $('chatClose').onclick = closeChat;
+    $('chatClear').onclick = function(){
+      logEl.innerHTML = '';
+      pushChat('sys', 'Chat cleared. Ask Tom anything.');
+    };
+
+    $('chatForm').onsubmit = function(e){
+      e.preventDefault();
+      sendChat($('chatInput').value);
+    };
+
+    $('chatInput').onkeydown = function(e){
+      if(e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.metaKey){
+        e.preventDefault();
+        sendChat($('chatInput').value);
+      }
+    };
+
+    $('chatInput').oninput = function(){
+      this.style.height = 'auto';
+      this.style.height = Math.min(110, this.scrollHeight) + 'px';
+    };
+
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && panel.className.indexOf('on') >= 0){ closeChat(); }
+    });
+  }
+
+  function saveSettings(){
+    if(!$('optRemember').checked){
+      try { localStorage.removeItem(STORE_KEY); } catch(e){}
+      return;
+    }
+    var data = {
+      platform: $('platform').value,
+      license: $('license').value,
+      user: $('user').value,
+      repo: $('repo').value,
+      files: $('files').value,
+      prompt: $('prompt').value,
+      badges: $('optBadges').checked,
+      emoji: $('optEmoji').checked,
+      deep: $('optDeepReadme').checked,
+      autoZip: $('optAutoZip').checked,
+      theme: document.body.className
+    };
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch(e){}
+  }
+
+  function loadSettings(){
+    var raw = null;
+    try { raw = localStorage.getItem(STORE_KEY); } catch(e){ return; }
+    if(!raw){ return; }
+    var data;
+    try { data = JSON.parse(raw); } catch(e){ return; }
+    if(!data){ return; }
+    if(data.platform){ $('platform').value = data.platform; }
+    if(data.license){ $('license').value = data.license; }
+    if(data.user){ $('user').value = data.user; }
+    if(data.repo){ $('repo').value = data.repo; }
+    if(data.files){ $('files').value = data.files; }
+    if(data.prompt){ $('prompt').value = data.prompt; }
+    if(typeof data.badges === 'boolean'){ $('optBadges').checked = data.badges; }
+    if(typeof data.emoji === 'boolean'){ $('optEmoji').checked = data.emoji; }
+    if(typeof data.deep === 'boolean'){ $('optDeepReadme').checked = data.deep; }
+    if(typeof data.autoZip === 'boolean'){ $('optAutoZip').checked = data.autoZip; }
+    if(data.theme === 'light'){ document.body.className = 'light'; $('themeBtn').textContent = 'Dark Mode'; }
+  }
+
+  function initTheme(){
+    var btn = $('themeBtn');
+    var prefersLight = false;
+    try {
+      prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    } catch(e){}
+    if(prefersLight){
+      document.body.className = 'light';
+      btn.textContent = 'Dark Mode';
+    }
+    btn.onclick = function(){
+      if(document.body.className === 'light'){
+        document.body.className = '';
+        btn.textContent = 'Light Mode';
+      } else {
+        document.body.className = 'light';
+        btn.textContent = 'Dark Mode';
+      }
+      saveSettings();
+    };
+  }
+
+  function bindForm(){
+    var ids = ['platform','license','user','repo','files','prompt'];
+    for(var i = 0; i < ids.length; i++){
+      (function(id){
+        var el = $(id);
+        el.addEventListener('input', function(){
+          updateCounter();
+          updateUrlPreview();
+          saveSettings();
+        });
+        el.addEventListener('change', function(){
+          updateCounter();
+          updateUrlPreview();
+          saveSettings();
+        });
+      })(ids[i]);
+    }
+    var opts = ['optBadges','optEmoji','optDeepReadme','optAutoZip','optRemember'];
+    for(var j = 0; j < opts.length; j++){
+      $(opts[j]).addEventListener('change', saveSettings);
+    }
+  }
+
+  function init(){
+    renderArtifacts();
+    renderChips();
+    initChat();
+    initTheme();
+    loadSettings();
+    bindForm();
+    updateCounter();
+    updateUrlPreview();
+
+    execBtn.onclick = runBuild;
+    $('zipBtn').onclick = downloadZip;
+    $('copyAllBtn').onclick = copyAll;
+    $('gitBtn').onclick = showGitPanel;
+    $('clearBtn').onclick = function(){
+      try { localStorage.removeItem(STORE_KEY); } catch(e){}
+      $('platform').value = 'GitHub';
+      $('license').value = 'MIT';
+      $('user').value = 'math12393';
+      $('repo').value = '';
+      $('files').value = '';
+      $('prompt').value = '';
+      $('optBadges').checked = true;
+      $('optEmoji').checked = false;
+      $('optDeepReadme').checked = true;
+      $('optAutoZip').checked = false;
+      $('optRemember').checked = true;
+      termEl.innerHTML = '';
+      termEl.style.display = 'none';
+      resultsEl.innerHTML = '';
+      resultsEl.className = 'results-area';
+      progressWrap.className = 'progress-wrap';
+      state.files = [];
+      updateCounter();
+      updateUrlPreview();
+      toast('Workspace reset', 'ok');
+    };
+
+    $('selAll').onclick = function(){
+      var boxes = document.querySelectorAll('input[data-artifact]');
+      for(var i = 0; i < boxes.length; i++){ if(!boxes[i].disabled){ boxes[i].checked = true; } }
+      toast('All files selected', 'ok');
+    };
+    $('selNone').onclick = function(){
+      var boxes = document.querySelectorAll('input[data-artifact]');
+      for(var i = 0; i < boxes.length; i++){ if(!boxes[i].disabled){ boxes[i].checked = false; } }
+      toast('Optional files cleared', 'ok');
+    };
+
+    log('Nexus Architect ready. Tom AI Lite endpoint connected.', 'ok');
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
 </body>
 </html>
